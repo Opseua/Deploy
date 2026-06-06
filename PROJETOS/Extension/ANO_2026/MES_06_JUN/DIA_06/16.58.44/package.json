@@ -1,0 +1,15 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@googleapis/sheets": "^13.0.1",
+    "@koush/wrtc": "^0.5.3",
+    "acorn": "^8.16.0",
+    "cheerio": "^1.2.0",
+    "clipboardy": "^5.3.1",
+    "fastify": "^5.8.5",
+    "nats": "^2.29.3",
+    "simple-peer": "^9.11.1",
+    "wrtc": "^0.4.7",
+    "ws": "^8.21.0"
+  }
+}
