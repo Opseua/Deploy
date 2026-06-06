@@ -1,0 +1,17 @@
+{
+  "master": {
+    "OPSEUA": {
+      "PROJETOS": {
+        "Connection": {
+          "version": "ANO_2026/MES_06_JUN/DIA_06/15.37.46"
+        },
+        "ExtensionV3": {
+          "version": "ANO_2026/MES_06_JUN/DIA_06/15.43.44"
+        },
+        "Extension": {
+          "version": "ANO_2026/MES_06_JUN/DIA_06/16.28.50"
+        }
+      }
+    }
+  }
+}
