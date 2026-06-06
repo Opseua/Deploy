@@ -14,12 +14,13 @@
           ]
         },
         "ExtensionV3": {
-          "version": "ANO_2026/MES_06_JUN/DIA_06/19.07.11",
+          "version": "ANO_2026/MES_06_JUN/DIA_06/19.24.26",
           "versions": [
             "ANO_2026/MES_06_JUN/DIA_06/18.00.27",
             "ANO_2026/MES_06_JUN/DIA_06/19.04.05",
             "ANO_2026/MES_06_JUN/DIA_06/19.04.13",
-            "ANO_2026/MES_06_JUN/DIA_06/19.07.11"
+            "ANO_2026/MES_06_JUN/DIA_06/19.07.11",
+            "ANO_2026/MES_06_JUN/DIA_06/19.24.26"
           ]
         }
       }
