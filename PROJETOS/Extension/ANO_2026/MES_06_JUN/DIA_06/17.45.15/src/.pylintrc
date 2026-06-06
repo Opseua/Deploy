@@ -1,0 +1,34 @@
+[MESSAGES CONTROL]
+    disable=		
+	    C0103,
+        C0301,
+        C0103,
+        C0301,
+        W0621,
+        W0718,
+        R1732,
+        R1702,
+        R0914,
+        R0915,
+        R0912,
+        W0602,
+        W0603,
+        C0115,
+        R1710,
+        W0622,
+        C0410,
+        C0114,
+        C0116,
+        C0411,
+        E0401, # ERRO DE IMPORT EM OUTRA PASTA
+        E0611, # ERRO DE IMPORT NAO IDENTIFICADO
+        C0413, # ERRO DE IMPORT ANTES DE USAR A VARIÁVEL
+        E1101, # ERRO DE IMPORT 'datetime'
+        W1514, # ERRO IGNORAR ERROS DO CTRL + C
+        W0613, # ERRO 'sig' e 'frame'
+        W0601, # VARIÁVEIS GLOBAIS
+
+
+
+
+

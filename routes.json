@@ -2,14 +2,24 @@
   "master": {
     "OPSEUA": {
       "PROJETOS": {
-        "Connection": {
-          "version": "ANO_2026/MES_06_JUN/DIA_06/15.37.46"
+        "Extension": {
+          "version": "ANO_2026/MES_06_JUN/DIA_06/17.46.52",
+          "versions": [
+            "ANO_2026/MES_06_JUN/DIA_06/17.44.00",
+            "ANO_2026/MES_06_JUN/DIA_06/17.44.11",
+            "ANO_2026/MES_06_JUN/DIA_06/17.45.15",
+            "ANO_2026/MES_06_JUN/DIA_06/17.45.34",
+            "ANO_2026/MES_06_JUN/DIA_06/17.46.42",
+            "ANO_2026/MES_06_JUN/DIA_06/17.46.52"
+          ]
         },
         "ExtensionV3": {
-          "version": "ANO_2026/MES_06_JUN/DIA_06/15.43.44"
-        },
-        "Extension": {
-          "version": "ANO_2026/MES_06_JUN/DIA_06/16.28.50"
+          "version": "ANO_2026/MES_06_JUN/DIA_06/19.04.13",
+          "versions": [
+            "ANO_2026/MES_06_JUN/DIA_06/18.00.27",
+            "ANO_2026/MES_06_JUN/DIA_06/19.04.05",
+            "ANO_2026/MES_06_JUN/DIA_06/19.04.13"
+          ]
         }
       }
     }
