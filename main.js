@@ -46,3 +46,7 @@ startBin({
 // ########################### SCRIPTS
 startScript({ 'label': 'version', 'path': './version/servidorVersaoArquivos.js' });
 startScript({ 'label': 'communication', 'path': './communication/servidorComunicacao.js' });
+
+console.log('TUDO OK')
+
+

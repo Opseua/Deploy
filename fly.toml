@@ -35,7 +35,6 @@ internal_port = 9877
 protocol = "tcp"
 [[services.ports]]
 port = 9877
-handlers = ["http"]
 
 # versionamento
 [[services]]
