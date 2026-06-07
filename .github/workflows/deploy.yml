@@ -15,6 +15,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Notificar início
+        run: curl -s "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}/publish?title=GitHub+Action&message=Deploy+em+andamento"
+
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
