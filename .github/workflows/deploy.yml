@@ -4,10 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'communication/**'
-      - 'frps/**'
-      - 'version/**'
-      - 'main.js'
+      - 'gitHubActions/**'
       - 'Dockerfile'
       - 'fly.toml'
 
@@ -16,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notificar início
-        run: curl -s "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}/publish?title=GitHub+Action&message=Deploy+em+andamento"
+        run: curl -s "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}/publish?title=Deploy&message=Em+andamento+(GitHub+Action)"
 
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
