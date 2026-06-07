@@ -87,11 +87,12 @@ internal_port = 998
 port = 998
 
 # DASHBOARD
-[http_service]
+[[services]]
 internal_port = 999
-force_https = true
-[http_service.concurrency]
-type = "requests"
+protocol = "tcp"
+[[services.ports]]
+port = 999
+handlers = ["http"]
 
 # DASHBOARD (OUTROS CLIENTES)
 # [[services]]
