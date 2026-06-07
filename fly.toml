@@ -108,10 +108,10 @@ handlers = ["http"]
 # port = 2999
 
 # [[services]]
-# protocol = "tcp"
-# internal_port = 3999
-# [[services.ports]]
-# port = 3999
+protocol = "tcp"
+internal_port = 3999
+[[services.ports]]
+port = 3999
 
 [[services]]
 protocol = "tcp"
@@ -139,10 +139,10 @@ port = 4999
 # port = 2889
 
 # [[services]]
-# protocol = "tcp"
-# internal_port = 3889
-# [[services.ports]]
-# port = 3889
+protocol = "tcp"
+internal_port = 3889
+[[services.ports]]
+port = 3889
 
 [[services]]
 protocol = "tcp"
@@ -170,10 +170,10 @@ port = 4889
 # port = 2384
 
 # [[services]]
-# protocol = "tcp"
-# internal_port = 3384
-# [[services.ports]]
-# port = 3384
+protocol = "tcp"
+internal_port = 3384
+[[services.ports]]
+port = 3384
 
 [[services]]
 protocol = "tcp"
