@@ -46,7 +46,7 @@ async function waitAndNotify({ executables = [], ports = [], scripts = [] }) {
             'scripts': Object.fromEntries(scripts.map((s, i) => [s, scriptChecks[i]])),
         });
         if (execChecks.every(Boolean) && portChecks.every(Boolean) && scriptChecks.every(Boolean)) {
-            fetch(`https://ntfy.sh/${process.env.NTFY_CHANNEL || 'OPSEUA'}/publish?title=Fly.io&message=Deploy+conclu%C3%ADdo`).catch(() => { }); console.log('[notify] ✅ todos os serviços prontos'); break;
+            fetch(`https://ntfy.sh/${process.env.NTFY_CHANNEL}/publish?title=Fly.io&message=Deploy+conclu%C3%ADdo`).catch(() => { }); console.log('[notify] ✅ todos os serviços prontos'); break;
         }
     }
 }
