@@ -60,9 +60,9 @@ waitAndNotify({
     'executables': [
         'nats-server', 'frps'
     ],
-    'ports': [
-        7500
-    ],
+    // 'ports': [
+    //     999
+    // ],
     'scripts': [
         'version', 'communication'
     ],
