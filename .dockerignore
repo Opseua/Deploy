@@ -1,4 +1,19 @@
+# ── PASTAS ────────────────────────────
+PASTA_A/
+PASTA_*/
+*ASTA_*/
+**/*ASTA_*/
+
+# ── ARQUIVOS (caminho exato) ──────────────────────────
+PASTA_A/arquivo.txt
+PASTA_A/arquivo.tx*
+PASTA_A/*rquivo.tx*
+**/*ASTA_*/*rquivo.tx*
+
+# PASTAS
 files/
-frps/frps.exe
 .github/
-*.md
+node_modules/
+
+# EXECUTÁVEIS WINDOWS (em qualquer lugar)
+**/*.exe

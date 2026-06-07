@@ -1,5 +1,8 @@
 {
-  "name": "Deploy",
   "type": "module",
-  "version": "1.0.0"
+  "dependencies": {
+    "fastify": "^5.8.5",
+    "nats": "^2.29.3",
+    "ws": "^8.21.0"
+  }
 }
