@@ -109,9 +109,9 @@ handlers = ["http"]
 
 # [[services]]
 protocol = "tcp"
-internal_port = 3999
+internal_port = 3578
 [[services.ports]]
-port = 3999
+port = 3578
 
 [[services]]
 protocol = "tcp"
