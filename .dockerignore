@@ -38,6 +38,6 @@ PASTA_A/*rquivo.tx*
 **/__init__.py
 
 # IGNORAR [NAO] (MANTER NO FINAL)
-!/src/gitHubActions/package.json
+!src/gitHubActions/package.json
 
 
