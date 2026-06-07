@@ -1,11 +1,7 @@
-import os from 'os';
-const engName = os?.platform()?.startsWith("win") ? 'WINDOWS' : 'LINUX';
-
+import os from 'os'; const engName = os?.platform()?.startsWith("win") ? 'WINDOWS' : 'LINUX';
 import Fastify from 'fastify'; import { WebSocketServer } from 'ws'; import { connect, StringCodec } from 'nats';
 
-const { connectWithRetry } = await import('./shared/connection.js');
-
-let portBridge = 9877; let ip = '127.0.0.1'; let port = '4222'; let sc = StringCodec(); let nc; let tag = `SERVER [node]`; let psw = 'SENHA_AQUI'
+const { connectWithRetry } = await import('./shared/connection.js'); let portBridge = 9877; let ip = '127.0.0.1'; let port = '4222'; let sc = StringCodec(); let nc; let tag = `SERVER [node]`; let psw = 'SENHA_AQUI'
 await connectWithRetry({ connect, 'servers': `nats://${ip}:${port}`, 'label': 'SER', 'onConnect': (c) => { nc = c; }, 'identification': 'BRIDGE', });
 
 // ── DISPATCH ──────────────────────────────────────────────────────────────────
@@ -44,8 +40,7 @@ function sendResult({ result, reply, }) {
 }
 
 // ── FASTIFY (HTTP GET + POST) ─────────────────────────────────────────────────
-function resHttp(res, msg) { res.send({ 'ret': false, 'msg': `${tag}: ERRO | ${msg}`, }); }
-let app = Fastify();
+function resHttp(res, msg) { res.send({ 'ret': false, 'msg': `${tag}: ERRO | ${msg}`, }); } let app = Fastify();
 app.get('/', async (req, reply) => {
     try {
         if (psw !== req.query.psw) { return resHttp(reply, `INFORMAR 'psw'`) }
@@ -68,8 +63,7 @@ app.post('/', async (req, reply) => {
 });
 
 // ── WS SERVER ─────────────────────────────────────────────────────────────────
-function resWs(res, msg, close) { res.send(JSON.stringify({ 'ret': false, 'msg': `${tag}: ERRO | ${msg}` })); if (close) { res.close(4000); } }
-let wss = new WebSocketServer({ 'noServer': true, });
+function resWs(res, msg, close) { res.send(JSON.stringify({ 'ret': false, 'msg': `${tag}: ERRO | ${msg}` })); if (close) { res.close(4000); } } let wss = new WebSocketServer({ 'noServer': true, });
 wss.on('connection', (socket, req) => {
     let url = new URL(req.url, `http://${ip}`);
     let identification = url.searchParams.get('identification');
@@ -87,8 +81,7 @@ wss.on('connection', (socket, req) => {
     });
 });
 
-await app.listen({ 'port': portBridge, 'host': '0.0.0.0', });
-app.server.on('upgrade', (req, socket, head) => wss.handleUpgrade(req, socket, head, (ws) => wss.emit('connection', ws, req)));
+await app.listen({ 'port': portBridge, 'host': '0.0.0.0', }); app.server.on('upgrade', (req, socket, head) => wss.handleUpgrade(req, socket, head, (ws) => wss.emit('connection', ws, req)));
 console.log(`🌐 [SER] http://${ip}:${portBridge} | ws://${ip}:${portBridge}`);
 
 
