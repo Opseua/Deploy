@@ -1,5 +1,24 @@
-bindPort = 7000
+### SERVER ###
+# frps.toml
+
+# DASHBOARD WEB (NAO ALTERAR NADA!!!)
+webServer.user = "Administrator"
+webServer.password = "{{ .Envs.SECURITY_PASS }}"
 webServer.addr = "0.0.0.0"
-webServer.port = 7500
-webServer.user = "admin"
-webServer.password = "admin"
+webServer.port = 999
+
+# INFORMAÇÕES DO SERVIDOR
+auth.method = "token"
+auth.token = "{{ .Envs.SECURITY_PASS }}"
+bindAddr = "0.0.0.0"
+bindPort = 998
+
+kcpBindPort = 998
+quicBindPort = 997
+proxyBindAddr = "0.0.0.0"
+
+# TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
+transport.tcpKeepalive = 10
+
+# MÁXIMO DE CONEXÕES ABERTAS (POR CLIENTE)
+transport.maxPoolCount = 50

@@ -8,48 +8,180 @@ cpus = 1
 
 [build]
 
-###################################################### frps
-# CONEXÃO ENTRE CLIENTES
-[[services]]
-internal_port = 7000
-protocol = "tcp"
-[[services.ports]]
-port = 7000
+# ###################################################### frps
+# # CONEXÃO ENTRE CLIENTES (QUIC)
+# [[services]]
+# internal_port = 997
+# protocol = "udp"
+# [[services.ports]]
+# port = 997
 
-# DASHBOARD
-[[services]]
-internal_port = 7500
-protocol = "tcp"
-[[services.ports]]
-port = 7500
-handlers = ["http"]
+# # CONEXÃO ENTRE CLIENTES
+# [[services]]
+# internal_port = 998
+# protocol = "tcp"
+# [[services.ports]]
+# port = 998
+
+# # DASHBOARD
+# [[services]]
+# internal_port = 999
+# protocol = "tcp"
+# [[services.ports]]
+# port = 999
+# handlers = ["http"]
 
 ###################################################### nats
 # CLIENTES AVANÇADOS (Node)
 [[services]]
-internal_port = 4222
+internal_port = 8888
 protocol = "tcp"
 [[services.ports]]
-port = 4222
+port = 8888
 
 # CLIENTES AVANÇADOS (Chrome)
 [[services]]
-internal_port = 8080
+internal_port = 8887
 protocol = "tcp"
 [[services.ports]]
-port = 8080
+port = 8887
 
 # CLIENTES LEGACY (HTTP / Websocket) [bridge]
 [[services]]
-internal_port = 9877
+internal_port = 8886
 protocol = "tcp"
 [[services.ports]]
-port = 9877
+port = 8886
 
-###################################################### versionamento
+# ###################################################### versionamento
+# [[services]]
+# internal_port = 3000
+# protocol = "tcp"
+# [[services.ports]]
+# port = 3000
+# handlers = ["http"]
+
+
+# ---------------
+
+
+###################################################### frps
+# CONEXÃO ENTRE CLIENTES (QUIC)
 [[services]]
-internal_port = 3000
-protocol = "tcp"
+protocol = "udp"
+internal_port = 997
 [[services.ports]]
-port = 3000
-handlers = ["http"]
+port = 997
+
+# CONEXÃO ENTRE CLIENTES
+[[services]]
+protocol = "tcp"
+internal_port = 998
+[[services.ports]]
+port = 998
+
+[[services]]
+protocol = "udp"
+internal_port = 998
+[[services.ports]]
+port = 998
+
+# DASHBOARD
+[http_service]
+internal_port = 999
+force_https = true
+[http_service.concurrency]
+type = "requests"
+
+# DASHBOARD (OUTROS CLIENTES)
+# [[services]]
+# protocol = "tcp"
+# internal_port = 1999
+# [[services.ports]]
+# port = 1999
+
+# [[services]]
+# protocol = "tcp"
+# internal_port = 2999
+# [[services.ports]]
+# port = 2999
+
+# [[services]]
+# protocol = "tcp"
+# internal_port = 3999
+# [[services.ports]]
+# port = 3999
+
+[[services]]
+protocol = "tcp"
+internal_port = 4999
+[[services.ports]]
+port = 4999
+
+# [[services]]
+# protocol = "tcp"
+# internal_port = 5999
+# [[services.ports]]
+# port = 5999
+
+###################################################### WebSocket (OUTROS CLIENTES) {ANTIGO}
+# [[services]]
+# protocol = "tcp"
+# internal_port = 1889
+# [[services.ports]]
+# port = 1889
+
+# [[services]]
+# protocol = "tcp"
+# internal_port = 2889
+# [[services.ports]]
+# port = 2889
+
+# [[services]]
+# protocol = "tcp"
+# internal_port = 3889
+# [[services.ports]]
+# port = 3889
+
+[[services]]
+protocol = "tcp"
+internal_port = 4889
+[[services.ports]]
+port = 4889
+
+# [[services]]
+# protocol = "tcp"
+# internal_port = 5889
+# [[services.ports]]
+# port = 5889
+
+###################################################### Synchthing (OUTROS CLIENTES)
+# [[services]]
+# protocol = "tcp"
+# internal_port = 1384
+# [[services.ports]]
+# port = 1384
+
+# [[services]]
+# protocol = "tcp"
+# internal_port = 2384
+# [[services.ports]]
+# port = 2384
+
+# [[services]]
+# protocol = "tcp"
+# internal_port = 3384
+# [[services.ports]]
+# port = 3384
+
+[[services]]
+protocol = "tcp"
+internal_port = 4384
+[[services.ports]]
+port = 4384
+
+# [[services]]
+# protocol = "tcp"
+# internal_port = 5384
+# [[services.ports]]
+# port = 5384

@@ -1,7 +1,7 @@
 import os from 'os'; const engName = os?.platform()?.startsWith("win") ? 'WINDOWS' : 'LINUX';
 import Fastify from 'fastify'; import { WebSocketServer } from 'ws'; import { connect, StringCodec } from 'nats';
 
-const { connectWithRetry } = await import('./shared/connection.js'); let debug, portBridge = 9877, ip = '127.0.0.1', port = '4222', sc = StringCodec(), nc, tag = `SERVER [node]`, psw = 'SENHA_AQUI'
+const { connectWithRetry } = await import('./shared/connection.js'); let debug, portBridge = 8886, ip = '127.0.0.1', port = '8888', sc = StringCodec(), nc, tag = `SERVER [node]`, psw = 'SENHA_AQUI'
 await connectWithRetry({ connect, 'servers': `nats://${ip}:${port}`, 'label': 'SER', 'onConnect': (c) => { nc = c; }, 'identification': 'BRIDGE', }); debug = 2
 
 // ── CLIENTES LEGACY (WebSocket) ───────────────────────────────────────────────
