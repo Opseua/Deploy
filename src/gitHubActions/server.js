@@ -48,7 +48,7 @@ async function waitAndNotify({ executables = [], ports = [], scripts = [] }) {
 }
 
 // ########################### EXECUTÁVEIS
-startBin({ 'label': 'frps', 'win': './src/gitHubActions/frps/frps.exe', 'linux': './src/gitHubActions/frps/frps', 'args': ['-c', './src/gitHubActions/frps/frps.toml'] });
+startBin({ 'label': 'frps', 'win': './src/gitHubActions/frp/frps.exe', 'linux': './src/gitHubActions/frp/frps', 'args': ['-c', './src/gitHubActions/frp/frps.toml'] });
 startBin({ 'label': 'nats', 'win': './src/gitHubActions/communication/nats-server.exe', 'linux': './src/gitHubActions/communication/nats-server', 'args': ['-c', './src/gitHubActions/communication/nats-server.conf'] });
 
 // ########################### SCRIPTS
