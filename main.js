@@ -21,8 +21,13 @@ async function startScript({ label, path }) {
 // ── Checa se processo está rodando ───────────────────
 function isProcessRunning(name) {
     return new Promise((resolve) => {
-        const [cmd, args] = engName === 'WINDOWS' ? ['cmd', ['/c', 'tasklist']] : ['sh', ['-c', `pgrep -f ${name}`]]; const proc = spawn(cmd, args, { stdio: ['ignore', 'pipe', 'ignore'] }); let out = '';
-        proc.stdout.on('data', (d) => out += d.toString()); proc.on('exit', () => resolve(engName === 'WINDOWS' ? out.toLowerCase().includes(name.toLowerCase()) : out.trim().length > 0));
+        const [cmd, args] = engName === 'WINDOWS' ? ['cmd', ['/c', 'tasklist']] : ['sh', ['-c', 'ps aux']];
+        const proc = spawn(cmd, args, { stdio: ['ignore', 'pipe', 'ignore'] }); let out = '';
+        proc.stdout.on('data', (d) => out += d.toString());
+        proc.on('exit', () => {
+            if (engName === 'LINUX') console.log('[ps aux]', out); // ← log temporário
+            resolve(out.toLowerCase().includes(name.toLowerCase()));
+        });
     });
 }
 
