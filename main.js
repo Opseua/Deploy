@@ -19,18 +19,27 @@ async function startScript({ label, path }) {
 }
 
 // ── Checa se processo está rodando ───────────────────
-function isProcessRunning(name) {
-    return new Promise((resolve) => {
-        const [cmd, args] = engName === 'WINDOWS' ? ['cmd', ['/c', 'tasklist']] : ['sh', ['-c', 'ps aux']];
-        const proc = spawn(cmd, args, { stdio: ['ignore', 'pipe', 'ignore'] }); let out = '';
-        proc.stdout.on('data', (d) => out += d.toString());
-        proc.on('exit', () => {
-            if (engName === 'LINUX') console.log('[ps aux]', out); // ← log temporário
-            resolve(out.toLowerCase().includes(name.toLowerCase()));
+async function isProcessRunning(name) {
+    if (engName === 'WINDOWS') {
+        return new Promise((resolve) => {
+            const proc = spawn('cmd', ['/c', 'tasklist'], { stdio: ['ignore', 'pipe', 'ignore'] }); let out = '';
+            proc.stdout.on('data', (d) => out += d.toString());
+            proc.on('exit', () => resolve(out.toLowerCase().includes(name.toLowerCase())));
         });
-    });
+    }
+    const { readdir, readFile } = await import('fs/promises');
+    try {
+        const pids = await readdir('/proc');
+        for (const pid of pids) {
+            if (!/^\d+$/.test(pid)) continue;
+            try {
+                const cmd = await readFile(`/proc/${pid}/cmdline`, 'utf8');
+                if (cmd.toLowerCase().includes(name.toLowerCase())) return true;
+            } catch { }
+        }
+    } catch { }
+    return false;
 }
-
 // ── Checa se porta está em uso ────────────────────────
 function isPortOpen(port) {
     return new Promise((resolve) => {
