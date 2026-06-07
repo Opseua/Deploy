@@ -48,12 +48,12 @@ async function waitAndNotify({ executables = [], ports = [], scripts = [] }) {
 }
 
 // ########################### EXECUTÁVEIS
-startBin({ 'label': 'frps', 'win': './gitHubActions/frps/frps.exe', 'linux': './gitHubActions/frps/frps', 'args': ['-c', './gitHubActions/frps/frps.toml'] });
-startBin({ 'label': 'nats', 'win': './gitHubActions/communication/nats-server.exe', 'linux': './gitHubActions/communication/nats-server', 'args': ['-c', './gitHubActions/communication/nats-server.conf'] });
+startBin({ 'label': 'frps', 'win': './src/gitHubActions/frps/frps.exe', 'linux': './src/gitHubActions/frps/frps', 'args': ['-c', './src/gitHubActions/frps/frps.toml'] });
+startBin({ 'label': 'nats', 'win': './src/gitHubActions/communication/nats-server.exe', 'linux': './src/gitHubActions/communication/nats-server', 'args': ['-c', './src/gitHubActions/communication/nats-server.conf'] });
 
 // ########################### SCRIPTS
-startScript({ 'label': 'version', 'path': './version/servidorVersaoArquivos.js' });
-startScript({ 'label': 'communication', 'path': './communication/servidorComunicacao.js' });
+startScript({ 'label': 'version', 'path': './version/server.js' });
+startScript({ 'label': 'communication', 'path': './communication/server.js' });
 
 // ########################### NOTIFY
 waitAndNotify({

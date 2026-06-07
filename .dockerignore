@@ -1,21 +1,37 @@
-# ── PASTAS ────────────────────────────
+# IGNORAR [SIM] → {TUDO} (MANTER NO INICIO!!!)
+**
+
+# IGNORAR [SIM]
 PASTA_A/
 PASTA_*/
 *ASTA_*/
 **/*ASTA_*/
 
-# ── ARQUIVOS (caminho exato) ──────────────────────────
+# IGNORAR [SIM]
 PASTA_A/arquivo.txt
 PASTA_A/arquivo.tx*
 PASTA_A/*rquivo.tx*
 **/*ASTA_*/*rquivo.tx*
 
-# PASTAS
-files/
-.github/
-node_modules/
+# IGNORAR [NAO]
+!src/
+!src/gitHubActions/
+!src/gitHubActions/**
 
-# EXECUTÁVEIS WINDOWS (em qualquer lugar)
+# IGNORAR [SIM]
 **/*.exe
+**/node_modules/
+**/*teste*
+**/*_temp*
+**/*.json
+**/*.pac
+**/*.zip
+**/.venv/
+**/.libs/
+**/__pycache__/
+**/__init__.py
+
+# IGNORAR [NAO]
+!src/gitHubActions/package.json
 
 

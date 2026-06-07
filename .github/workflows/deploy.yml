@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'gitHubActions/**'
+      - 'src/gitHubActions/**'
       - 'Dockerfile'
       - 'fly.toml'
 
@@ -20,3 +20,5 @@ jobs:
       - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+

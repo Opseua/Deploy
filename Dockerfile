@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install
+RUN cd src/gitHubActions && npm install
 
-CMD ["node", "gitHubActions/serverDeploy.js"]
+CMD ["node", "src/gitHubActions/server.js"]
+
+
