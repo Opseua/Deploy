@@ -21,8 +21,8 @@ async function startScript({ label, path }) {
 // ── Checa se processo está rodando ───────────────────
 function isProcessRunning(name) {
     return new Promise((resolve) => {
-        const [cmd, args] = engName === 'WINDOWS' ? ['cmd', ['/c', 'tasklist']] : ['sh', ['-c', 'ps aux']]; const proc = spawn(cmd, args, { stdio: ['ignore', 'pipe', 'ignore'] }); let out = '';
-        proc.stdout.on('data', (d) => out += d.toString()); proc.on('exit', () => resolve(out.toLowerCase().includes(name.toLowerCase())));
+        const [cmd, args] = engName === 'WINDOWS' ? ['cmd', ['/c', 'tasklist']] : ['sh', ['-c', `pgrep -f ${name}`]]; const proc = spawn(cmd, args, { stdio: ['ignore', 'pipe', 'ignore'] }); let out = '';
+        proc.stdout.on('data', (d) => out += d.toString()); proc.on('exit', () => resolve(engName === 'WINDOWS' ? out.toLowerCase().includes(name.toLowerCase()) : out.trim().length > 0));
     });
 }
 
@@ -46,7 +46,7 @@ async function waitAndNotify({ executables = [], ports = [], scripts = [] }) {
             'scripts': Object.fromEntries(scripts.map((s, i) => [s, scriptChecks[i]])),
         });
         if (execChecks.every(Boolean) && portChecks.every(Boolean) && scriptChecks.every(Boolean)) {
-            fetch(`https://ntfy.sh/${process.env.NTFY_CHANNEL}/publish?title=Fly.io&message=Deploy+conclu%C3%ADdo`).catch(() => { }); console.log('[notify] ✅ todos os serviços prontos'); break;
+            fetch(`https://ntfy.sh/${process.env.NTFY_CHANNEL}/publish?title=Fly&message=Deploy+conclu%C3%ADdo`).catch(() => { }); console.log('[notify] ✅ todos os serviços prontos'); break;
         }
     }
 }
@@ -71,3 +71,5 @@ waitAndNotify({
         'version', 'communication'
     ],
 });
+
+
