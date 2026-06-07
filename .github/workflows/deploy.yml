@@ -1,0 +1,23 @@
+name: Deploy to Fly.io
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/gitHubActions/**'
+      - 'Dockerfile'
+      - 'fly.toml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notificar início
+        run: curl -s "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}/publish?title=Deploy&message=Em+andamento+(GitHub+Action)"
+
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+

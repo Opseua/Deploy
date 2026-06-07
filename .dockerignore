@@ -1,0 +1,43 @@
+# IGNORAR [SIM] → {TUDO} (MANTER NO INICIO!!!)
+**
+
+# IGNORAR [SIM]
+PASTA_A/
+PASTA_*/
+*ASTA_*/
+**/*ASTA_*/
+
+# IGNORAR [SIM]
+PASTA_A/arquivo.txt
+PASTA_A/arquivo.tx*
+PASTA_A/*rquivo.tx*
+**/*ASTA_*/*rquivo.tx*
+
+# IGNORAR [NAO]
+!src/
+!src/gitHubActions/
+!src/gitHubActions/**
+
+# IGNORAR [SIM]
+**/package-lock.json
+**/*teste*
+**/*_temp*
+**/*.json
+**/*.pac
+**/*.zip
+**/*.exe
+**/src/objects/
+**/src/scripts/libs/
+**/src/connections/
+**/src/others/
+
+**/node_modules/
+**/.venv/
+**/.libs/
+**/__pycache__/
+**/__init__.py
+
+# IGNORAR [NAO] (MANTER NO FINAL)
+!/src/gitHubActions/package.json
+
+
