@@ -18,25 +18,6 @@ PASTA_A/*rquivo.tx*
 !src/gitHubActions/
 !src/gitHubActions/**
 
-# IGNORAR [SIM]
-**/package-lock.json
-**/*teste*
-**/*_temp*
-**/*.json
-**/*.pac
-**/*.zip
-**/*.exe
-**/src/objects/
-**/src/scripts/libs/
-**/src/connections/
-**/src/others/
-
-**/node_modules/
-**/.venv/
-**/.libs/
-**/__pycache__/
-**/__init__.py
-
 # IGNORAR [NAO] (MANTER NO FINAL)
 !src/gitHubActions/package.json
 
