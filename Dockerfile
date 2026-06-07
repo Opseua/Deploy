@@ -1,6 +1,8 @@
 FROM node:20-slim
 
 WORKDIR /app
+
+# .dockerignore já exclui files/ e frps.exe
 COPY communication/ ./communication/
 COPY frps/ ./frps/
 COPY version/ ./version/
