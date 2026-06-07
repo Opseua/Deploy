@@ -3,21 +3,22 @@ primary_region = "gru"
 
 [build]
 
-# frps (túnel reverso)
+# frps túnel - TCP puro (correto, não mexer)
 [[services]]
 internal_port = 7000
 protocol = "tcp"
 [[services.ports]]
 port = 7000
 
-# frps web dashboard
+# frps dashboard - precisa de handler http
 [[services]]
 internal_port = 7500
 protocol = "tcp"
 [[services.ports]]
 port = 7500
+handlers = ["http"]
 
-# servidor de comunicação (WebSocket)
+# WebSocket / comunicação
 [[services]]
 internal_port = 8080
 protocol = "tcp"
@@ -28,12 +29,13 @@ handlers = ["http"]
 port = 443
 handlers = ["tls", "http"]
 
-# servidor de versionamento
+# Versionamento
 [[services]]
 internal_port = 3000
 protocol = "tcp"
 [[services.ports]]
 port = 3000
+handlers = ["http"]
 
 [[vm]]
 memory = "256mb"
