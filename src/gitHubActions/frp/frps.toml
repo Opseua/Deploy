@@ -3,7 +3,7 @@
 
 # INFORMAÇÕES DO SERVIDOR
 auth.method = "token"
-auth.token = "@Pass#2024#Pass@"
+auth.token = "{{ .Envs.SECURITY_PASS }}"
 bindAddr = "0.0.0.0"
 bindPort = 998
 
@@ -24,6 +24,6 @@ transport.maxPoolCount = 50
 
 # DASHBOARD WEB (NAO ALTERAR NADA!!!)
 webServer.user = "Administrator"
-webServer.password = "@Pass#2024#Pass@"
+webServer.password = "{{ .Envs.SECURITY_PASS }}"
 webServer.addr = "0.0.0.0"
 webServer.port = 999
