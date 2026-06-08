@@ -66,23 +66,23 @@ port = 999
 handlers = ["http"]
 
 # DASHBOARD (OUTROS CLIENTES)
-# [[services]]
-# protocol = "tcp"
-# internal_port = 1999
-# [[services.ports]]
-# port = 1999
-
-# [[services]]
-# protocol = "tcp"
-# internal_port = 2999
-# [[services.ports]]
-# port = 2999
+[[services]]
+protocol = "tcp"
+internal_port = 1999
+[[services.ports]]
+port = 1999
 
 [[services]]
 protocol = "tcp"
-internal_port = 3578
+internal_port = 2999
 [[services.ports]]
-port = 3578
+port = 2999
+
+[[services]]
+protocol = "tcp"
+internal_port = 3999
+[[services.ports]]
+port = 3999
 
 [[services]]
 protocol = "tcp"
@@ -90,24 +90,24 @@ internal_port = 4999
 [[services.ports]]
 port = 4999
 
-# [[services]]
-# protocol = "tcp"
-# internal_port = 5999
-# [[services.ports]]
-# port = 5999
+[[services]]
+protocol = "tcp"
+internal_port = 5999
+[[services.ports]]
+port = 5999
 
-###################################################### WebSocket (OUTROS CLIENTES) {ANTIGO}
-# [[services]]
-# protocol = "tcp"
-# internal_port = 1889
-# [[services.ports]]
-# port = 1889
+# WebSocket (OUTROS CLIENTES) {ANTIGO}
+[[services]]
+protocol = "tcp"
+internal_port = 1889
+[[services.ports]]
+port = 1889
 
-# [[services]]
-# protocol = "tcp"
-# internal_port = 2889
-# [[services.ports]]
-# port = 2889
+[[services]]
+protocol = "tcp"
+internal_port = 2889
+[[services.ports]]
+port = 2889
 
 [[services]]
 protocol = "tcp"
@@ -121,24 +121,24 @@ internal_port = 4889
 [[services.ports]]
 port = 4889
 
-# [[services]]
-# protocol = "tcp"
-# internal_port = 5889
-# [[services.ports]]
-# port = 5889
+[[services]]
+protocol = "tcp"
+internal_port = 5889
+[[services.ports]]
+port = 5889
 
-###################################################### Synchthing (OUTROS CLIENTES)
-# [[services]]
-# protocol = "tcp"
-# internal_port = 1384
-# [[services.ports]]
-# port = 1384
+# Synchthing (OUTROS CLIENTES)
+[[services]]
+protocol = "tcp"
+internal_port = 1384
+[[services.ports]]
+port = 1384
 
-# [[services]]
-# protocol = "tcp"
-# internal_port = 2384
-# [[services.ports]]
-# port = 2384
+[[services]]
+protocol = "tcp"
+internal_port = 2384
+[[services.ports]]
+port = 2384
 
 [[services]]
 protocol = "tcp"
@@ -152,8 +152,39 @@ internal_port = 4384
 [[services.ports]]
 port = 4384
 
-# [[services]]
-# protocol = "tcp"
-# internal_port = 5384
-# [[services.ports]]
-# port = 5384
+[[services]]
+protocol = "tcp"
+internal_port = 5384
+[[services.ports]]
+port = 5384
+
+# nats (OUTROS CLIENTES)
+[[services]]
+protocol = "tcp"
+internal_port = 1886
+[[services.ports]]
+port = 1886
+
+[[services]]
+protocol = "tcp"
+internal_port = 2886
+[[services.ports]]
+port = 2886
+
+[[services]]
+protocol = "tcp"
+internal_port = 3886
+[[services.ports]]
+port = 3886
+
+[[services]]
+protocol = "tcp"
+internal_port = 4886
+[[services.ports]]
+port = 4886
+
+[[services]]
+protocol = "tcp"
+internal_port = 5886
+[[services.ports]]
+port = 5886

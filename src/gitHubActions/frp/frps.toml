@@ -1,6 +1,12 @@
 ### SERVER ###
 # frps.toml
 
+# DASHBOARD WEB (NAO ALTERAR NADA!!!)
+webServer.user = "Administrator"
+webServer.password = "{{ .Envs.SECURITY_PASS }}"
+webServer.addr = "0.0.0.0"
+webServer.port = 999
+
 # INFORMAÇÕES DO SERVIDOR
 auth.method = "token"
 auth.token = "{{ .Envs.SECURITY_PASS }}"
@@ -16,14 +22,3 @@ transport.tcpKeepalive = 10
 
 # MÁXIMO DE CONEXÕES ABERTAS (POR CLIENTE)
 transport.maxPoolCount = 50
-
-# LOGS
-# log.to = "z_OUTROS/z_logs-frps.txt"
-# log.level = "info"
-# log.maxDays = 3
-
-# DASHBOARD WEB (NAO ALTERAR NADA!!!)
-webServer.user = "Administrator"
-webServer.password = "{{ .Envs.SECURITY_PASS }}"
-webServer.addr = "0.0.0.0"
-webServer.port = 999
