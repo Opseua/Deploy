@@ -105,7 +105,7 @@ handlers = ["http"]
 # [[services.ports]]
 # port = 2999
 
-# [[services]]
+[[services]]
 protocol = "tcp"
 internal_port = 3578
 [[services.ports]]
@@ -136,7 +136,7 @@ port = 4999
 # [[services.ports]]
 # port = 2889
 
-# [[services]]
+[[services]]
 protocol = "tcp"
 internal_port = 3889
 [[services.ports]]
@@ -167,7 +167,7 @@ port = 4889
 # [[services.ports]]
 # port = 2384
 
-# [[services]]
+[[services]]
 protocol = "tcp"
 internal_port = 3384
 [[services.ports]]
