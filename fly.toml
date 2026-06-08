@@ -2,7 +2,6 @@ app = "opseua-deploy"
 
 [http_service]
 internal_port = 999
-force_https = true
 [http_service.concurrency]
 type = "requests"
 
