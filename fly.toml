@@ -3,7 +3,7 @@ app = "opseua-deploy"
 [http_service]
 internal_port = 999
 [http_service.concurrency]
-type = "requests"
+# type = "requests"
 
 [[vm]]
 size = "shared-cpu-1x"
