@@ -1,49 +1,115 @@
+# CONFIGURAÇÕES
 app = "opseua-deploy"
-
-[http_service]
-internal_port = 999
-[http_service.concurrency]
-# type = "requests"
-
+primary_region = "gru"
 [[vm]]
-size = "shared-cpu-1x"
-memory_mb = 256
+memory = "256mb"
+cpu_kind = "shared"
+cpus = 1
 
+# ###################################################### frps
+# # CONEXÃO ENTRE CLIENTES (QUIC)
+# [[services]]
+# internal_port = 997
+# protocol = "udp"
+# [[services.ports]]
+# port = 997
+
+# # CONEXÃO ENTRE CLIENTES
+# [[services]]
+# internal_port = 998
+# protocol = "tcp"
+# [[services.ports]]
+# port = 998
+
+# # DASHBOARD
+# [[services]]
+# internal_port = 999
+# protocol = "tcp"
+# [[services.ports]]
+# port = 999
+# handlers = ["http"]
+
+###################################################### nats
+# CLIENTES AVANÇADOS (Node)
 [[services]]
+internal_port = 8888
 protocol = "tcp"
-internal_port = 998
 [[services.ports]]
-port = 998
+port = 8888
 
+# CLIENTES AVANÇADOS (Chrome)
 [[services]]
-protocol = "udp"
-internal_port = 998
+internal_port = 8887
+protocol = "tcp"
 [[services.ports]]
-port = 998
+port = 8887
 
+# CLIENTES LEGACY (HTTP / Websocket) [bridge]
+[[services]]
+internal_port = 8886
+protocol = "tcp"
+[[services.ports]]
+port = 8886
+
+# ###################################################### versionamento
+# [[services]]
+# internal_port = 3000
+# protocol = "tcp"
+# [[services.ports]]
+# port = 3000
+# handlers = ["http"]
+
+
+# ---------------
+
+
+###################################################### frps
+# CONEXÃO ENTRE CLIENTES (QUIC)
 [[services]]
 protocol = "udp"
 internal_port = 997
 [[services.ports]]
 port = 997
 
+# CONEXÃO ENTRE CLIENTES
 [[services]]
 protocol = "tcp"
-internal_port = 1999
+internal_port = 998
 [[services.ports]]
-port = 1999
+port = 998
 
 [[services]]
-protocol = "tcp"
-internal_port = 2999
+protocol = "udp"
+internal_port = 998
 [[services.ports]]
-port = 2999
+port = 998
 
+# DASHBOARD
 [[services]]
+internal_port = 999
 protocol = "tcp"
-internal_port = 3999
 [[services.ports]]
-port = 3999
+port = 999
+handlers = ["http"]
+
+# DASHBOARD (OUTROS CLIENTES)
+# [[services]]
+# protocol = "tcp"
+# internal_port = 1999
+# [[services.ports]]
+# port = 1999
+
+# [[services]]
+# protocol = "tcp"
+# internal_port = 2999
+# [[services.ports]]
+# port = 2999
+
+# [[services]]
+protocol = "tcp"
+internal_port = 3578
+[[services.ports]]
+port = 3578
 
 [[services]]
 protocol = "tcp"
@@ -51,25 +117,26 @@ internal_port = 4999
 [[services.ports]]
 port = 4999
 
-[[services]]
-protocol = "tcp"
-internal_port = 5999
-[[services.ports]]
-port = 5999
+# [[services]]
+# protocol = "tcp"
+# internal_port = 5999
+# [[services.ports]]
+# port = 5999
 
-[[services]]
-protocol = "tcp"
-internal_port = 1889
-[[services.ports]]
-port = 1889
+###################################################### WebSocket (OUTROS CLIENTES) {ANTIGO}
+# [[services]]
+# protocol = "tcp"
+# internal_port = 1889
+# [[services.ports]]
+# port = 1889
 
-[[services]]
-protocol = "tcp"
-internal_port = 2889
-[[services.ports]]
-port = 2889
+# [[services]]
+# protocol = "tcp"
+# internal_port = 2889
+# [[services.ports]]
+# port = 2889
 
-[[services]]
+# [[services]]
 protocol = "tcp"
 internal_port = 3889
 [[services.ports]]
@@ -81,25 +148,26 @@ internal_port = 4889
 [[services.ports]]
 port = 4889
 
-[[services]]
-protocol = "tcp"
-internal_port = 5889
-[[services.ports]]
-port = 5889
+# [[services]]
+# protocol = "tcp"
+# internal_port = 5889
+# [[services.ports]]
+# port = 5889
 
-[[services]]
-protocol = "tcp"
-internal_port = 1384
-[[services.ports]]
-port = 1384
+###################################################### Synchthing (OUTROS CLIENTES)
+# [[services]]
+# protocol = "tcp"
+# internal_port = 1384
+# [[services.ports]]
+# port = 1384
 
-[[services]]
-protocol = "tcp"
-internal_port = 2384
-[[services.ports]]
-port = 2384
+# [[services]]
+# protocol = "tcp"
+# internal_port = 2384
+# [[services.ports]]
+# port = 2384
 
-[[services]]
+# [[services]]
 protocol = "tcp"
 internal_port = 3384
 [[services.ports]]
@@ -111,8 +179,8 @@ internal_port = 4384
 [[services.ports]]
 port = 4384
 
-[[services]]
-protocol = "tcp"
-internal_port = 5384
-[[services.ports]]
-port = 5384
+# [[services]]
+# protocol = "tcp"
+# internal_port = 5384
+# [[services.ports]]
+# port = 5384
