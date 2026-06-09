@@ -50,6 +50,19 @@ internal_port = 998
 [[services.ports]]
 port = 998
 
+# SERVER STUN
+[[services]]
+protocol = "udp"
+internal_port = 3478
+[[services.ports]]
+port = 3478
+
+[[services]]
+protocol = "udp"
+internal_port = 3479
+[[services.ports]]
+port = 3479
+
 # DASHBOARD
 [[services]]
 internal_port = 9999
