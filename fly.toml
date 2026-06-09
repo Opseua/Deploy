@@ -7,21 +7,21 @@ cpu_kind = "shared"
 cpus = 1
 
 ###################################################### nats
-# CLIENTES AVANÇADOS (Node)
+# AVANÇADOS (Chrome / Node) <Websocket>
 [[services]]
 internal_port = 8888
 protocol = "tcp"
 [[services.ports]]
 port = 8888
 
-# CLIENTES AVANÇADOS (Chrome)
+# LEGACY (HTTP / Websocket) [bridge]
 [[services]]
 internal_port = 8887
 protocol = "tcp"
 [[services.ports]]
 port = 8887
 
-# CLIENTES LEGACY (HTTP / Websocket) [bridge]
+# DASHBOARD HTTP
 [[services]]
 internal_port = 8886
 protocol = "tcp"
@@ -37,14 +37,7 @@ port = 8886
 # handlers = ["http"]
 
 ###################################################### frps
-# CONEXÃO ENTRE CLIENTES (QUIC)
-[[services]]
-protocol = "udp"
-internal_port = 997
-[[services.ports]]
-port = 997
-
-# CONEXÃO ENTRE CLIENTES
+# CONEXÃO
 [[services]]
 protocol = "tcp"
 internal_port = 998
@@ -59,10 +52,10 @@ port = 998
 
 # DASHBOARD
 [[services]]
-internal_port = 999
+internal_port = 9999
 protocol = "tcp"
 [[services.ports]]
-port = 999
+port = 9999
 handlers = ["http"]
 
 # DASHBOARD (OUTROS CLIENTES)
@@ -158,33 +151,33 @@ internal_port = 5384
 [[services.ports]]
 port = 5384
 
-# nats (OUTROS CLIENTES)
+# NATS (OUTROS CLIENTES)
 [[services]]
 protocol = "tcp"
-internal_port = 1886
+internal_port = 1888
 [[services.ports]]
-port = 1886
+port = 1888
 
 [[services]]
 protocol = "tcp"
-internal_port = 2886
+internal_port = 2888
 [[services.ports]]
-port = 2886
+port = 2888
 
 [[services]]
 protocol = "tcp"
-internal_port = 3886
+internal_port = 3888
 [[services.ports]]
-port = 3886
+port = 3888
 
 [[services]]
 protocol = "tcp"
-internal_port = 4886
+internal_port = 4888
 [[services.ports]]
-port = 4886
+port = 4888
 
 [[services]]
 protocol = "tcp"
-internal_port = 5886
+internal_port = 5888
 [[services.ports]]
-port = 5886
+port = 5888
