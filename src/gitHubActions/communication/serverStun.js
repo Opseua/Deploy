@@ -47,7 +47,8 @@ function createSocket(listenPort, otherPort) {
     let txId = msg.slice(8, 20); let res = buildBindingResponse(txId, rinfo.address, rinfo.port, otherPort); sock.send(res, 0, res.length, rinfo.port, rinfo.address);
     // console.log(`[${listenPort}] ${rinfo.address}:${rinfo.port} → other ${PUBLIC_IP}:${otherPort}`);
   });
-  sock.bind(listenPort, '0.0.0.0', () => { });
+  const BIND_ADDR = process.env.FLY_APP_NAME ? 'fly-global-services' : '0.0.0.0';
+  sock.bind(listenPort, BIND_ADDR, () => { });
 }
 
 createSocket(PRIMARY_PORT, ALT_PORT); createSocket(ALT_PORT, PRIMARY_PORT);

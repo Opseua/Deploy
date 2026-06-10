@@ -50,7 +50,7 @@ internal_port = 998
 [[services.ports]]
 port = 998
 
-# SERVER STUN
+# SERVIDOR STUN
 [[services]]
 protocol = "udp"
 internal_port = 3478
