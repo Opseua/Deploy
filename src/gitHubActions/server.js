@@ -10,7 +10,7 @@ function startBin({ label, win, linux, args = [] }) {
 
 // ── Importa um script JS ──────────────────────────────
 async function startScript({ label, path }) {
-    try { await import(path); _loadedScripts.add(label); console.log(`[${label}] iniciado`); } catch (err) { console.error(`[${label}] erro:`, err); process.exit(1); }
+    try { await import(path); _loadedScripts.add(label); console.log(`[${label}] iniciado`); } catch (catchErr) { console.error(`[${label}] erro:`, catchErr.message); process.exit(1); }
 }
 
 // ── Checa se processo está rodando ───────────────────
@@ -59,7 +59,6 @@ startBin({
 
 // ########################### SCRIPTS
 startScript({ 'label': 'communication', 'path': './communication/server.js' });
-// startScript({ 'label': 'version', 'path': './version/server.js' });
 
 // ########################### NOTIFY
 waitAndNotify({

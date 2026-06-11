@@ -56,8 +56,8 @@ async function dispatch({ params, }) {
         let resp = await nc.request(`msg.${destination}`, sc.encode(JSON.stringify({ ...params, 'identification': params.identification, })), { timeout, }); if (maxAwait <= 0) { return { 'ret': true, 'msg': `${tag}: OK`, }; }
         let body = JSON.parse(sc.decode(resp.data)); let res = reorderRes({ 'data': { 'identification': params.identification, ...body, }, 'isReply': true });
         return { 'ret': true, 'msg': `${tag}: OK`, res, 'mode': params.mode, 'fileName': params.fileName, };
-    } catch (err) {
-        if (err.code === 'NATS_NOT_FOUND' || err.message?.includes('503')) { return resDispatch(`NÃO EXISTE '${destination}'`) } if (maxAwait > 0) { return resDispatch(`NÃO RESPONDEU '${destination}'`) }
+    } catch (catchErr) {
+        if (catchErr.code === 'NATS_NOT_FOUND' || catchErr.message?.includes('503')) { return resDispatch(`NÃO EXISTE '${destination}'`) } if (maxAwait > 0) { return resDispatch(`NÃO RESPONDEU '${destination}'`) }
         return { 'ret': true, 'msg': `${tag}: OK`, };
     }
 }
@@ -97,7 +97,7 @@ let app = http.createServer(async (req, res) => {
             return resHttp(res, 'Method Not Allowed',);
         }
         let result = await dispatch({ params }); if (debug > 0) console.log(`{OFF} (${id})`); sendResult({ result, res });
-    } catch (err) { resHttp(res, err.message); }
+    } catch (catchErr) { resHttp(res, catchErr.message); }
 });
 
 // ── SERVER: WS ─────────────────────────────────────────────────────────────────
@@ -111,7 +111,7 @@ wss.on('connection', (socket, req) => {
             let body = JSON.parse(raw.toString()); if (body.idMessage) { return; } let params = { ...body, identification, 'maxAwait': Number(body.maxAwait || 0), };
             if (debug > 1) { console.log(`{ON}  (${identification}) →`, body.destination); } let result = await dispatch({ params, });
             if (debug > 1) { console.log(`{OFF} (${identification}) ←`, result.ret ? 'OK' : result.msg); } socketSend(socket, { 'ret': result.ret, 'msg': result.msg, 'res': result.res, });
-        } catch (err) { resWs(socket, `${err.message}`) }
+        } catch (catchErr) { resWs(socket, `${catchErr.message}`) }
     });
 });
 
