@@ -42,7 +42,7 @@ async function waitAndNotify({ executables = [], ports = [], scripts = [] }) {
             'executables': Object.fromEntries(executables.map((e, i) => [e, execChecks[i]])), 'ports': Object.fromEntries(ports.map((p, i) => [p, portChecks[i]])),
             'scripts': Object.fromEntries(scripts.map((s, i) => [s, scriptChecks[i]])),
         })); if (execChecks.every(Boolean) && portChecks.every(Boolean) && scriptChecks.every(Boolean)) {
-            fetch(`https://ntfy.sh/${process.env.NTFY_CHANNEL}/publish?title=Deploy&message=Conclu%C3%ADdo`).catch(() => { }); console.log('[notify] ✅ todos os serviços prontos'); break;
+            fetch(`https://ntfy.sh/${process.env.NTFY_CHANNEL}/publish?title=Deploy&message=Conclu%C3%ADdo${engName === 'WINDOWS' ? '' : '(Fly)'}`).catch(() => { }); console.log('[notify] ✅ todos os serviços prontos'); break;
         }
     }
 }
