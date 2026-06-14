@@ -1,11 +1,11 @@
-import os from 'os'; const engName = os?.platform()?.startsWith("win") ? 'WINDOWS' : 'LINUX';
+import os from 'os'; let engName = os?.platform()?.startsWith("win") ? 'WINDOWS' : 'LINUX';
 import http from 'http'; import { WebSocketServer } from 'ws'; import { connect, StringCodec } from 'nats.ws';
 
-const { connectWithRetry } = await import('./shared/connection.js'); let debug, portBridge = 8887, ip = '127.0.0.1', port = '8888', sc = StringCodec(), nc, tag = `SERVER [node]`, psw = 'SENHA_AQUI'
+let { connectWithRetry } = await import('./shared/connection.js'); let debug, portBridge = 8887, ip = '127.0.0.1', port = '8888', sc = StringCodec(), nc, tag = `SERVER [node]`, psw = 'SENHA_AQUI'
 await connectWithRetry({ connect, 'servers': `nats://${ip}:${port}`, 'label': 'SER', 'onConnect': (c) => { nc = c; }, 'identification': 'BRIDGE', }); debug = 2
 
 // ── CLIENTES LEGACY (WebSocket) ───────────────────────────────────────────────
-const legacyClients = new Map(); function socketSend(socket, msg) { if (socket.readyState === socket.OPEN) { socket.send(JSON.stringify(msg)); } }
+let legacyClients = new Map(); function socketSend(socket, msg) { if (socket.readyState === socket.OPEN) { socket.send(JSON.stringify(msg)); } }
 
 function reorderRes({ data, idMessage, isReply = false } = {}) {
     if (!data || typeof data !== 'object') { return data; } let { identification, maxAwait, message, ...rest } = data; let res = {};
@@ -14,7 +14,7 @@ function reorderRes({ data, idMessage, isReply = false } = {}) {
 }
 
 // ── REGISTRO DE MENSAGENS LEGACY ──────────────────────────────────────────────
-const pendingMessages = new Map(); function genId() {
+let pendingMessages = new Map(); function genId() {
     let now = new Date(); let pad = (n) => String(n).padStart(2, '0'); let letters = Array.from({ length: 3 }, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]).join('');
     return `${pad(now.getMonth() + 1)}_${pad(now.getDate())}-${pad(now.getHours())}.${pad(now.getMinutes())}.${pad(now.getSeconds())}.${String(now.getMilliseconds()).padStart(3, '0')}-${letters}`;
 }
@@ -22,7 +22,7 @@ setInterval(() => { let now = Date.now(); let ttl = 5 * 60 * 1000; for (let [id,
 
 function registerLegacy({ identification, socket }) {
     if (!nc || nc.isClosed()) { resWs(socket, `SEM CONEXÃO NATS`, true); return; } if (legacyClients.has(identification)) { try { legacyClients.get(identification).sub.unsubscribe(); } catch { } }
-    let sub = nc.subscribe(`msg.${identification}`); const pending = new Map(); legacyClients.set(identification, { socket, sub });
+    let sub = nc.subscribe(`msg.${identification}`); let pending = new Map(); legacyClients.set(identification, { socket, sub });
     socket.on('message', (raw) => {
         try {
             let body = JSON.parse(raw.toString()); let { idMessage, res } = body;
@@ -85,14 +85,14 @@ function parseBody(req) {
 }
 function resHttp(res, msg,) { res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ret: false, msg: `${tag}: ERRO | ${msg}` })); }
 let app = http.createServer(async (req, res) => {
-    const url = new URL(req.url, `http://localhost`); const query = Object.fromEntries(url.searchParams);
+    let url = new URL(req.url, `http://localhost`); let query = Object.fromEntries(url.searchParams);
     try {
         if (psw !== query.psw) return resHttp(res, `INFORMAR 'psw'`);
         let id = query.identification || '?'; if (debug > 0) console.log(`{ON}  (${id})`); let params;
         if (req.method === 'GET') {
             params = { maxAwait: Number(query.maxAwait || 0), ...query };
         } else if (req.method === 'POST') {
-            const body = await parseBody(req); params = { maxAwait: Number(body.maxAwait || 0), ...body, identification: query.identification };
+            let body = await parseBody(req); params = { maxAwait: Number(body.maxAwait || 0), ...body, identification: query.identification };
         } else {
             return resHttp(res, 'Method Not Allowed',);
         }

@@ -28,14 +28,6 @@ protocol = "tcp"
 [[services.ports]]
 port = 8886
 
-# ###################################################### versionamento
-# [[services]]
-# internal_port = 3000
-# protocol = "tcp"
-# [[services.ports]]
-# port = 3000
-# handlers = ["http"]
-
 ###################################################### frps
 # CONEXÃO
 [[services]]
