@@ -4,10 +4,10 @@ WORKDIR /app
 
 COPY . .
 
-# NODE INSTALAR LIBS [communication]
-RUN cd src/gitHubActions/communication && npm install
+# NODE INSTALAR LIBS [Connection]
+RUN cd src/Connection && npm install
 
 # INICIAR SERVIDOR GERAL DO DEPLOY
-CMD ["node", "src/gitHubActions/server.js"]
+CMD ["node", "src/server.js"]
 
 

@@ -15,10 +15,10 @@ PASTA_A/*rquivo.tx*
 
 # IGNORAR [NAO]
 !src/
-!src/gitHubActions/
-!src/gitHubActions/**
+!src/
+!src/**
 
 # IGNORAR [NAO] (MANTER NO FINAL)
-!src/gitHubActions/**/package.json
+!src/**/package.json
 
 
