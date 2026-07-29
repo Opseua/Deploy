@@ -1,9 +1,9 @@
 # CONFIGURAÇÕES
-app = "opseua-deploy"
+app = "opseua"
 primary_region = "gru"
 [[vm]]
-cpu_kind = "shared"
 cpus = 2
+cpu_kind = "shared"
 memory = "325mb"
 
 ###################################################### nats
