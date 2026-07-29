@@ -2,7 +2,7 @@
 app = "opseua"
 primary_region = "gru"
 [[vm]]
-cpus = 2
+cpus = 1
 cpu_kind = "shared"
 memory = "256mb"
 
