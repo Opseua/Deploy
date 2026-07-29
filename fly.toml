@@ -4,7 +4,7 @@ primary_region = "gru"
 [[vm]]
 cpus = 2
 cpu_kind = "shared"
-memory = "325mb"
+memory = "256mb"
 
 ###################################################### nats
 # AVANÇADOS (Chrome / Node) <Websocket>
