@@ -217,3 +217,34 @@ protocol = "tcp"
 internal_port = 5080
 [[services.ports]]
 port = 5080
+
+# ARQUIVOS (OUTROS CLIENTES)
+[[services]]
+protocol = "tcp"
+internal_port = 1885
+[[services.ports]]
+port = 1885
+
+[[services]]
+protocol = "tcp"
+internal_port = 2885
+[[services.ports]]
+port = 2885
+
+[[services]]
+protocol = "tcp"
+internal_port = 3885
+[[services.ports]]
+port = 3885
+
+[[services]]
+protocol = "tcp"
+internal_port = 4885
+[[services.ports]]
+port = 4885
+
+[[services]]
+protocol = "tcp"
+internal_port = 5885
+[[services.ports]]
+port = 5885
