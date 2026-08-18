@@ -186,3 +186,34 @@ protocol = "tcp"
 internal_port = 5888
 [[services.ports]]
 port = 5888
+
+# PROXY REVERSO (OUTROS CLIENTES)
+[[services]]
+protocol = "tcp"
+internal_port = 1080
+[[services.ports]]
+port = 1080
+
+[[services]]
+protocol = "tcp"
+internal_port = 2080
+[[services.ports]]
+port = 2080
+
+[[services]]
+protocol = "tcp"
+internal_port = 3080
+[[services.ports]]
+port = 3080
+
+[[services]]
+protocol = "tcp"
+internal_port = 4080
+[[services.ports]]
+port = 4080
+
+[[services]]
+protocol = "tcp"
+internal_port = 5080
+[[services.ports]]
+port = 5080
