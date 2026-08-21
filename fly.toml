@@ -249,6 +249,37 @@ internal_port = 5885
 [[services.ports]]
 port = 5885
 
+# SMB (OUTROS CLIENTES)
+[[services]]
+protocol = "tcp"
+internal_port = 1445
+[[services.ports]]
+port = 1445
+
+[[services]]
+protocol = "tcp"
+internal_port = 2445
+[[services.ports]]
+port = 2445
+
+[[services]]
+protocol = "tcp"
+internal_port = 3445
+[[services.ports]]
+port = 3445
+
+[[services]]
+protocol = "tcp"
+internal_port = 4445
+[[services.ports]]
+port = 4445
+
+[[services]]
+protocol = "tcp"
+internal_port = 5445
+[[services.ports]]
+port = 5445
+
 # SCREEN (OUTROS CLIENTES)
 [[services]]
 protocol = "tcp"
