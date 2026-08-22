@@ -94,6 +94,15 @@ internal_port = 5999
 [[services.ports]]
 port = 5999
 
+###################################################### Linux
+# LINUX (Google Colab, Kaggle, AWS SageMaker)
+[[services]]
+protocol = "tcp"
+internal_port = 3000
+[[services.ports]]
+port = 3000
+
+###################################################### Outros
 # WebSocket (OUTROS CLIENTES) {ANTIGO}
 [[services]]
 protocol = "tcp"
@@ -311,11 +320,5 @@ internal_port = 5777
 [[services.ports]]
 port = 5777
 
-# LINUX (Google Colab, Kaggle, AWS SageMaker)
-[[services]]
-protocol = "tcp"
-internal_port = 3000
-[[services.ports]]
-port = 3000
 
 
