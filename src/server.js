@@ -52,10 +52,13 @@ async function waitAndNotify({ executables = [], ports = [], scripts = [], }) {
 // ########################### EXECUTÁVEIS
 let syncthingZOutros = `${fileWindows}/PORTABLE-Syncthing/z_OUTROS`, zOutros = './src/z_OUTROS';
 startBin({
-    'label': 'frps', 'win': `${syncthingZOutros}/PORTABLE-frp/frps.exe`, 'linux': `${zOutros}/PORTABLE-frp/frps_linux_amd64`, 'args': ['-c', `${zOutros}/PORTABLE-frp/frps.toml`,],
+    'linux': `${zOutros}/PORTABLE-frp/frps_linux_amd64`, 'args': ['-c', `${zOutros}/PORTABLE-frp/frps.toml`,], 'label': 'frps', 'win': `${syncthingZOutros}/PORTABLE-frp/frps.exe`,
 });
 startBin({
-    'label': 'nats', 'win': `${syncthingZOutros}/PORTABLE-NATS/nats-server.exe`, 'linux': `${zOutros}/PORTABLE-NATS/nats-server`, 'args': ['-c', `${zOutros}/PORTABLE-NATS/nats-server.conf`,],
+    'linux': `${zOutros}/PORTABLE-NATS/nats-server`, 'args': ['-c', `${zOutros}/PORTABLE-NATS/nats-server.conf`,], 'label': 'nats', 'win': `${syncthingZOutros}/PORTABLE-NATS/nats-server.exe`,
+});
+startBin({
+    'linux': `${zOutros}/PORTABLE-frp/frpc_linux_amd64`, 'args': ['-c', `${zOutros}/PORTABLE-frp/frpc.toml`,],
 });
 
 // ########################### SCRIPTS
