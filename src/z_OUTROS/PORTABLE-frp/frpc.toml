@@ -1,0 +1,37 @@
+# {1} → HP
+# {2} → ESTRELAR
+# {3} → OPSEUA
+# {4} → MARCOS
+# {5} → THAYNA
+
+# *** type | "xtcp" → P2P (passa pelo servidor: NÃO) | "tcp" → expor na web (passa pelo servidor: SIM) | "stcp" → relay (passa pelo servidor: SIM) [só funciona localmente e precisa do frpc na origem e destino] 
+
+### CLIENT ###
+# frpc.toml
+
+# CONEXÃO: DESTINO
+serverAddr = "127.0.0.1"
+auth.method = "token"
+auth.token = "{{ .Envs.confSecurityPass }}"
+serverPort = 998
+natHoleStunServer = "127.0.0.1"
+
+# CONEXÃO: CONFIGURAÇÕES
+transport.dialServerKeepalive = 10 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
+transport.poolCount = 50 # MÁXIMO DE CONEXÕES ABERTAS
+
+# DASHBOARD WEB
+webServer.addr = "0.0.0.0"
+webServer.user = "Administrator"
+webServer.password = "{{ .Envs.confSecurityPass }}"
+webServer.port = 999
+
+# LOGS
+# log.to = "z_OUTROS/z_logs.txt"
+log.level = "info"
+log.maxDays = 3
+
+# NOME CLIENTE
+user = "0-FLY_IO"
+
+
