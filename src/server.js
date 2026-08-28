@@ -65,7 +65,7 @@ startScript({ 'label': 'Connection', 'path': './Connection/server.js', });
 waitAndNotify({
     'executables': [
         'nats-server',
-        'frps',
+        'frps_linux_amd64',
     ],
     // 'ports': [
     //     999
