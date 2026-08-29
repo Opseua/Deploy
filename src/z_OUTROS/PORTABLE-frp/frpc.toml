@@ -1,14 +1,12 @@
+### CLIENT ### *** type | "xtcp" → P2P (passa pelo servidor: NÃO) | "tcp" → expor na web (passa pelo servidor: SIM) | "stcp" → relay (passa pelo servidor: SIM) [só funciona localmente e precisa do frpc na origem e destino]
+# frpc.toml
+
 # {0} → FLY_IO (apenas para expor na WEB via P2P)
 # {1} → HP
 # {2} → ESTRELAR
 # {3} → OPSEUA
 # {4} → MARCOS
 # {5} → THAYNA
-
-# *** type | "xtcp" → P2P (passa pelo servidor: NÃO) | "tcp" → expor na web (passa pelo servidor: SIM) | "stcp" → relay (passa pelo servidor: SIM) [só funciona localmente e precisa do frpc na origem e destino] 
-
-### CLIENT ###
-# frpc.toml
 
 # CONEXÃO: DESTINO
 serverAddr = "127.0.0.1"
@@ -34,3 +32,14 @@ log.maxDays = 3
 
 # NOME CLIENTE
 user = "0-FLY_IO"
+
+# ############################################# SERVIÇOS: CONECTAR  (expor na WEB) → http://___IP___:x384
+
+[[visitors]]
+name = "1-VIS-frp"
+type = "xtcp"
+serverUser = "1-HP"
+serverName = "1-LOC-frp"
+secretKey = "{{ .Envs.confSecurityPass }}"
+bindAddr = "0.0.0.0"
+bindPort = 1999
