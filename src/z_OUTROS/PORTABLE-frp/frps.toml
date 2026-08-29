@@ -1,24 +1,20 @@
 ### SERVER ###
 # frps.toml
 
-# CONEXÃO: DESTINO
+# DESTINO E CONEXÃO
 proxyBindAddr = "0.0.0.0"
 bindAddr = "0.0.0.0"
 auth.method = "token"
 auth.token = "{{ .Envs.confSecurityPass }}"
 bindPort = 998
-
-# CONEXÃO: CONFIGURAÇÕES
 transport.tcpKeepalive = 10 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
 transport.maxPoolCount = 50 # MÁXIMO DE CONEXÕES ABERTAS (POR CLIENTE)
 
-# DASHBOARD WEB
+# DASHBOARD E LOGS
 webServer.addr = "0.0.0.0"
 webServer.user = "Administrator"
 webServer.password = "{{ .Envs.confSecurityPass }}"
 webServer.port = 9999
-
-# LOGS
 # log.to = "z_OUTROS/z_logs-frps.txt"
 log.level = "info"
 log.maxDays = 3
