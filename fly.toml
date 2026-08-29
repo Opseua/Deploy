@@ -63,6 +63,13 @@ protocol = "tcp"
 port = 9999
 handlers = ["http"]
 
+# DASHBOARD (CLIENTE FLY.IO)
+[[services]]
+protocol = "tcp"
+internal_port = 999
+[[services.ports]]
+port = 999
+
 # DASHBOARD (OUTROS CLIENTES)
 [[services]]
 protocol = "tcp"
