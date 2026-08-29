@@ -56,7 +56,7 @@ internal_port = 6667
 [[services.ports]]
 port = 6667
 
-[[services]] # DASHBOARD (OUTROS)
+[[services]] # DASHBOARD (CLIENTES)
 protocol = "tcp"
 internal_port = 1999
 [[services.ports]]
@@ -105,7 +105,7 @@ protocol = "tcp"
 [[services.ports]]
 port = 8886
 
-###################################################### WEBSOCKET (OUTROS CLIENTES) {ANTIGO}
+###################################################### WEBSOCKET (CLIENTES) {ANTIGO}
 [[services]]
 protocol = "tcp"
 internal_port = 1889
@@ -136,7 +136,7 @@ internal_port = 5889
 [[services.ports]]
 port = 5889
 
-###################################################### SYNCHTHING (OUTROS CLIENTES)
+###################################################### SYNCHTHING (CLIENTES)
 [[services]]
 protocol = "tcp"
 internal_port = 1384
@@ -167,7 +167,7 @@ internal_port = 5384
 [[services.ports]]
 port = 5384
 
-###################################################### NATS (OUTROS CLIENTES)
+###################################################### NATS (CLIENTES)
 [[services]]
 protocol = "tcp"
 internal_port = 1888
@@ -198,7 +198,7 @@ internal_port = 5888
 [[services.ports]]
 port = 5888
 
-###################################################### FILES (OUTROS CLIENTES)
+###################################################### FILES (CLIENTES)
 [[services]]
 protocol = "tcp"
 internal_port = 1885
@@ -228,3 +228,65 @@ protocol = "tcp"
 internal_port = 5885
 [[services.ports]]
 port = 5885
+
+
+###################################################### PROXY (CLIENTES)
+[[services]]
+protocol = "tcp"
+internal_port = 1666
+[[services.ports]]
+port = 1666
+
+[[services]]
+protocol = "tcp"
+internal_port = 1667
+[[services.ports]]
+port = 1667
+
+[[services]]
+protocol = "tcp"
+internal_port = 2666
+[[services.ports]]
+port = 2666
+
+[[services]]
+protocol = "tcp"
+internal_port = 2667
+[[services.ports]]
+port = 2667
+
+[[services]]
+protocol = "tcp"
+internal_port = 3666
+[[services.ports]]
+port = 3666
+
+[[services]]
+protocol = "tcp"
+internal_port = 3667
+[[services.ports]]
+port = 3667
+
+[[services]]
+protocol = "tcp"
+internal_port = 4666
+[[services.ports]]
+port = 4666
+
+[[services]]
+protocol = "tcp"
+internal_port = 4667
+[[services.ports]]
+port = 4667
+
+[[services]]
+protocol = "tcp"
+internal_port = 5666
+[[services.ports]]
+port = 5666
+
+[[services]]
+protocol = "tcp"
+internal_port = 5667
+[[services.ports]]
+port = 5667
