@@ -6,8 +6,31 @@ cpus = 1
 cpu_kind = "shared"
 memory = "256mb"
 
-###################################################### FRP
-[[services]] # CONEXÃO
+###################################################### nats
+# AVANÇADOS (Chrome / Node) <Websocket>
+[[services]]
+internal_port = 8888
+protocol = "tcp"
+[[services.ports]]
+port = 8888
+
+# LEGACY (HTTP / Websocket) [bridge]
+[[services]]
+internal_port = 8887
+protocol = "tcp"
+[[services.ports]]
+port = 8887
+
+# DASHBOARD HTTP
+[[services]]
+internal_port = 8886
+protocol = "tcp"
+[[services.ports]]
+port = 8886
+
+###################################################### frps
+# CONEXÃO
+[[services]]
 protocol = "tcp"
 internal_port = 998
 [[services.ports]]
@@ -19,7 +42,8 @@ internal_port = 998
 [[services.ports]]
 port = 998
 
-[[services]] # SERVIDOR STUN
+# SERVIDOR STUN
+[[services]]
 protocol = "udp"
 internal_port = 3478
 [[services.ports]]
@@ -31,32 +55,16 @@ internal_port = 3479
 [[services.ports]]
 port = 3479
 
-[[services]] # DASHBOARD
+# DASHBOARD
+[[services]]
 internal_port = 9999
 protocol = "tcp"
 [[services.ports]]
 port = 9999
 handlers = ["http"]
 
-[[services]] # DASHBOARD (FLY.IO)
-protocol = "tcp"
-internal_port = 999
-[[services.ports]]
-port = 999
-
-[[services]] # PROXY (FLY.IO)
-protocol = "tcp"
-internal_port = 6666
-[[services.ports]]
-port = 6666
-
+# DASHBOARD (OUTROS CLIENTES)
 [[services]]
-protocol = "tcp"
-internal_port = 6667
-[[services.ports]]
-port = 6667
-
-[[services]] # DASHBOARD (CLIENTES)
 protocol = "tcp"
 internal_port = 1999
 [[services.ports]]
@@ -86,26 +94,16 @@ internal_port = 5999
 [[services.ports]]
 port = 5999
 
-###################################################### NATS
-[[services]] # AVANÇADOS (Chrome / Node) <Websocket>
-internal_port = 8888
+###################################################### Linux
+# LINUX (Google Colab, Kaggle, AWS SageMaker)
+[[services]]
 protocol = "tcp"
+internal_port = 3000
 [[services.ports]]
-port = 8888
+port = 3000
 
-[[services]] # LEGACY (HTTP / Websocket) [bridge]
-internal_port = 8887
-protocol = "tcp"
-[[services.ports]]
-port = 8887
-
-[[services]] # DASHBOARD HTTP
-internal_port = 8886
-protocol = "tcp"
-[[services.ports]]
-port = 8886
-
-###################################################### WEBSOCKET (CLIENTES) {ANTIGO}
+###################################################### Outros
+# WebSocket (OUTROS CLIENTES) {ANTIGO}
 [[services]]
 protocol = "tcp"
 internal_port = 1889
@@ -136,7 +134,7 @@ internal_port = 5889
 [[services.ports]]
 port = 5889
 
-###################################################### SYNCHTHING (CLIENTES)
+# Synchthing (OUTROS CLIENTES)
 [[services]]
 protocol = "tcp"
 internal_port = 1384
@@ -167,7 +165,7 @@ internal_port = 5384
 [[services.ports]]
 port = 5384
 
-###################################################### NATS (CLIENTES)
+# NATS (OUTROS CLIENTES)
 [[services]]
 protocol = "tcp"
 internal_port = 1888
@@ -198,7 +196,38 @@ internal_port = 5888
 [[services.ports]]
 port = 5888
 
-###################################################### FILES (CLIENTES)
+# PROXY REVERSO (OUTROS CLIENTES)
+[[services]]
+protocol = "tcp"
+internal_port = 1080
+[[services.ports]]
+port = 1080
+
+[[services]]
+protocol = "tcp"
+internal_port = 2080
+[[services.ports]]
+port = 2080
+
+[[services]]
+protocol = "tcp"
+internal_port = 3080
+[[services.ports]]
+port = 3080
+
+[[services]]
+protocol = "tcp"
+internal_port = 4080
+[[services.ports]]
+port = 4080
+
+[[services]]
+protocol = "tcp"
+internal_port = 5080
+[[services.ports]]
+port = 5080
+
+# ARQUIVOS (OUTROS CLIENTES)
 [[services]]
 protocol = "tcp"
 internal_port = 1885
@@ -229,64 +258,66 @@ internal_port = 5885
 [[services.ports]]
 port = 5885
 
-
-###################################################### PROXY (CLIENTES)
+# SMB (OUTROS CLIENTES)
 [[services]]
 protocol = "tcp"
-internal_port = 1666
+internal_port = 1445
 [[services.ports]]
-port = 1666
-
-[[services]]
-protocol = "tcp"
-internal_port = 1667
-[[services.ports]]
-port = 1667
+port = 1445
 
 [[services]]
 protocol = "tcp"
-internal_port = 2666
+internal_port = 2445
 [[services.ports]]
-port = 2666
+port = 2445
 
 [[services]]
 protocol = "tcp"
-internal_port = 2667
+internal_port = 3445
 [[services.ports]]
-port = 2667
+port = 3445
 
 [[services]]
 protocol = "tcp"
-internal_port = 3666
+internal_port = 4445
 [[services.ports]]
-port = 3666
+port = 4445
 
 [[services]]
 protocol = "tcp"
-internal_port = 3667
+internal_port = 5445
 [[services.ports]]
-port = 3667
+port = 5445
+
+# SCREEN (OUTROS CLIENTES)
+[[services]]
+protocol = "tcp"
+internal_port = 1777
+[[services.ports]]
+port = 1777
 
 [[services]]
 protocol = "tcp"
-internal_port = 4666
+internal_port = 2777
 [[services.ports]]
-port = 4666
+port = 2777
 
 [[services]]
 protocol = "tcp"
-internal_port = 4667
+internal_port = 3777
 [[services.ports]]
-port = 4667
+port = 3777
 
 [[services]]
 protocol = "tcp"
-internal_port = 5666
+internal_port = 4777
 [[services.ports]]
-port = 5666
+port = 4777
 
 [[services]]
 protocol = "tcp"
-internal_port = 5667
+internal_port = 5777
 [[services.ports]]
-port = 5667
+port = 5777
+
+
