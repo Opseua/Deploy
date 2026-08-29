@@ -52,9 +52,9 @@ port = 6666
 
 [[services]]
 protocol = "tcp"
-internal_port = 6666
+internal_port = 6667
 [[services.ports]]
-port = 6666
+port = 6667
 
 [[services]] # DASHBOARD (OUTROS)
 protocol = "tcp"
