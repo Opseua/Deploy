@@ -24,7 +24,7 @@ transport.poolCount = 50 # MÁXIMO DE CONEXÕES ABERTAS
 # DASHBOARD WEB
 webServer.addr = "0.0.0.0"
 webServer.user = "Administrator"
-webServer.password = "12345678@12345678@"
+webServer.password = "{{ .Envs.confSecurityPass }}"
 webServer.port = 999
 
 # LOGS
