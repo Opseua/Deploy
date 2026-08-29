@@ -1,3 +1,4 @@
+# {0} → FLY_IO (apenas para expor na WEB via P2P)
 # {1} → HP
 # {2} → ESTRELAR
 # {3} → OPSEUA
@@ -27,11 +28,21 @@ webServer.password = "{{ .Envs.confSecurityPass }}"
 webServer.port = 999
 
 # LOGS
-# log.to = "z_OUTROS/z_logs.txt"
+# log.to = "z_OUTROS/z_logs-frpc.txt"
 log.level = "info"
 log.maxDays = 3
 
 # NOME CLIENTE
 user = "0-FLY_IO"
 
+# ############################################################################################################
 
+# --- SERVIÇOS CONECTAR: {LOC} [http://127.0.0.1:x384] <expor na WEB via P2P>
+[[visitors]]
+name = "1-VIS-frp"
+type = "xtcp"
+serverUser = "1-HP"
+serverName = "1-LOC-frp"
+secretKey = "{{ .Envs.confSecurityPass }}"
+bindAddr = "0.0.0.0"
+bindPort = 1999
