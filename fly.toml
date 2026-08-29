@@ -44,6 +44,18 @@ internal_port = 999
 [[services.ports]]
 port = 999
 
+[[services]] # PROXY (FLY.IO)
+protocol = "tcp"
+internal_port = 6666
+[[services.ports]]
+port = 6666
+
+[[services]]
+protocol = "tcp"
+internal_port = 6666
+[[services.ports]]
+port = 6666
+
 [[services]] # DASHBOARD (OUTROS)
 protocol = "tcp"
 internal_port = 1999
@@ -73,19 +85,6 @@ protocol = "tcp"
 internal_port = 5999
 [[services.ports]]
 port = 5999
-
-###################################################### PROXY
-[[services]]
-protocol = "tcp"
-internal_port = 8080
-[[services.ports]]
-port = 8080
-
-[[services]]
-protocol = "tcp"
-internal_port = 1080
-[[services.ports]]
-port = 1080
 
 ###################################################### NATS
 [[services]] # AVANÇADOS (Chrome / Node) <Websocket>
