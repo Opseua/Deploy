@@ -38,11 +38,11 @@ user = "0-FLY_IO"
 # ############################################################################################################
 
 # --- SERVIÇOS CONECTAR: {LOC} [http://127.0.0.1:x384] <expor na WEB via P2P>
-[[visitors]]
-name = "1-VIS-frp"
-type = "xtcp"
-serverUser = "1-HP"
-serverName = "1-LOC-frp"
-secretKey = "{{ .Envs.confSecurityPass }}"
-bindAddr = "0.0.0.0"
-bindPort = 1999
+# [[visitors]]
+#name = "1-VIS-frp"
+#type = "xtcp"
+#serverUser = "1-HP"
+#serverName = "1-LOC-frp"
+#secretKey = "{{ .Envs.confSecurityPass }}"
+#bindAddr = "0.0.0.0"
+#bindPort = 1999
