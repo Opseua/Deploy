@@ -1,4 +1,4 @@
-### CLIENT ### *** type | "xtcp" → P2P (passa pelo servidor: NÃO) | "tcp" → expor na web (passa pelo servidor: SIM) | "stcp" → relay (passa pelo servidor: SIM) [só funciona localmente e precisa do frpc na origem e destino]
+### CLIENT ### *** type | "xtcp" → P2P (passa pelo servidor: NÃO) | "tcp" → (passa pelo servidor: SIM) expor na web | "stcp" → (passa pelo servidor: SIM) relay [só funciona localmente e precisa do frpc na origem e destino]
 # frpc.toml
 
 # {0} → FLY_IO (apenas para expor na WEB via P2P)
@@ -43,3 +43,34 @@ serverName = "1-LOC-frp"
 secretKey = "{{ .Envs.confSecurityPass }}"
 bindAddr = "0.0.0.0"
 bindPort = 1999
+
+# ---
+
+[[visitors]]
+name = "3-VIS-frp"
+type = "xtcp"
+serverUser = "3-OPSEUA"
+serverName = "3-LOC-frp"
+secretKey = "{{ .Envs.confSecurityPass }}"
+bindAddr = "0.0.0.0"
+bindPort = 3999
+
+# ---
+
+[[visitors]]
+name = "4-VIS-frp"
+type = "xtcp"
+serverUser = "4-MARCOS"
+serverName = "4-LOC-frp"
+secretKey = "{{ .Envs.confSecurityPass }}"
+bindAddr = "0.0.0.0"
+bindPort = 4999
+
+[[visitors]]
+name = "4-VIS-Screen"
+type = "xtcp"
+serverUser = "4-MARCOS"
+serverName = "4-LOC-Screen"
+secretKey = "{{ .Envs.confSecurityPass }}"
+bindAddr = "0.0.0.0"
+bindPort = 4777
