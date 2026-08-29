@@ -1,32 +1,24 @@
-# {1} → HP
-# {2} → ESTRELAR
-# {3} → OPSEUA
-# {4} → MARCOS
-# {5} → THAYNA
-
 ### SERVER ###
 # frps.toml
 
-# INFORMAÇÕES DO SERVIDOR
+# CONEXÃO: DESTINO
 proxyBindAddr = "0.0.0.0"
 bindAddr = "0.0.0.0"
 auth.method = "token"
 auth.token = "{{ .Envs.confSecurityPass }}"
 bindPort = 998
 
-# TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
-transport.tcpKeepalive = 10
+# CONEXÃO: CONFIGURAÇÕES
+transport.tcpKeepalive = 10 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
+transport.maxPoolCount = 50 # MÁXIMO DE CONEXÕES ABERTAS (POR CLIENTE)
 
-# MÁXIMO DE CONEXÕES ABERTAS (POR CLIENTE)
-transport.maxPoolCount = 50
-
-# DASHBOARD WEB (NAO ALTERAR NADA!!!)
+# DASHBOARD WEB
 webServer.addr = "0.0.0.0"
 webServer.user = "Administrator"
 webServer.password = "{{ .Envs.confSecurityPass }}"
 webServer.port = 9999
 
 # LOGS
-# log.to = "z_OUTROS/z_logs-frpc.txt"
+# log.to = "z_OUTROS/z_logs-frps.txt"
 log.level = "info"
 log.maxDays = 3
