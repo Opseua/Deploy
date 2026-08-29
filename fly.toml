@@ -7,6 +7,7 @@ cpu_kind = "shared"
 memory = "256mb"
 
 ###################################################### FRP
+
 [[services]] # CONEXÃO
 protocol = "tcp"
 internal_port = 998
@@ -19,6 +20,13 @@ internal_port = 998
 [[services.ports]]
 port = 998
 
+[[services]] # DASHBOARD
+internal_port = 9999
+protocol = "tcp"
+[[services.ports]]
+port = 9999
+handlers = ["http"]
+
 [[services]] # SERVIDOR STUN
 protocol = "udp"
 internal_port = 3478
@@ -30,31 +38,6 @@ protocol = "udp"
 internal_port = 3479
 [[services.ports]]
 port = 3479
-
-[[services]] # DASHBOARD
-internal_port = 9999
-protocol = "tcp"
-[[services.ports]]
-port = 9999
-handlers = ["http"]
-
-[[services]] # DASHBOARD (FLY.IO)
-protocol = "tcp"
-internal_port = 999
-[[services.ports]]
-port = 999
-
-[[services]] # PROXY (FLY.IO)
-protocol = "tcp"
-internal_port = 6666
-[[services.ports]]
-port = 6666
-
-[[services]]
-protocol = "tcp"
-internal_port = 6667
-[[services.ports]]
-port = 6667
 
 [[services]] # DASHBOARD (CLIENTES)
 protocol = "tcp"
@@ -87,6 +70,7 @@ internal_port = 5999
 port = 5999
 
 ###################################################### NATS
+
 [[services]] # AVANÇADOS (Chrome / Node) <Websocket>
 internal_port = 8888
 protocol = "tcp"
@@ -105,69 +89,8 @@ protocol = "tcp"
 [[services.ports]]
 port = 8886
 
-###################################################### WEBSOCKET (CLIENTES) {ANTIGO}
-[[services]]
-protocol = "tcp"
-internal_port = 1889
-[[services.ports]]
-port = 1889
-
-[[services]]
-protocol = "tcp"
-internal_port = 2889
-[[services.ports]]
-port = 2889
-
-[[services]]
-protocol = "tcp"
-internal_port = 3889
-[[services.ports]]
-port = 3889
-
-[[services]]
-protocol = "tcp"
-internal_port = 4889
-[[services.ports]]
-port = 4889
-
-[[services]]
-protocol = "tcp"
-internal_port = 5889
-[[services.ports]]
-port = 5889
-
-###################################################### SYNCHTHING (CLIENTES)
-[[services]]
-protocol = "tcp"
-internal_port = 1384
-[[services.ports]]
-port = 1384
-
-[[services]]
-protocol = "tcp"
-internal_port = 2384
-[[services.ports]]
-port = 2384
-
-[[services]]
-protocol = "tcp"
-internal_port = 3384
-[[services.ports]]
-port = 3384
-
-[[services]]
-protocol = "tcp"
-internal_port = 4384
-[[services.ports]]
-port = 4384
-
-[[services]]
-protocol = "tcp"
-internal_port = 5384
-[[services.ports]]
-port = 5384
-
 ###################################################### NATS (CLIENTES)
+
 [[services]]
 protocol = "tcp"
 internal_port = 1888
@@ -198,94 +121,65 @@ internal_port = 5888
 [[services.ports]]
 port = 5888
 
+###################################################### SYNCHTHING (CLIENTES)
+
+[[services]]
+protocol = "tcp"
+internal_port = 1384
+[[services.ports]]
+port = 1384
+
+[[services]]
+protocol = "tcp"
+internal_port = 2384
+[[services.ports]]
+port = 2384
+
+[[services]]
+protocol = "tcp"
+internal_port = 3384
+[[services.ports]]
+port = 3384
+
+[[services]]
+protocol = "tcp"
+internal_port = 4384
+[[services.ports]]
+port = 4384
+
+[[services]]
+protocol = "tcp"
+internal_port = 5384
+[[services.ports]]
+port = 5384
+
 ###################################################### FILES (CLIENTES)
 [[services]]
 protocol = "tcp"
-internal_port = 1885
+internal_port = 1445
 [[services.ports]]
-port = 1885
+port = 1445
 
 [[services]]
 protocol = "tcp"
-internal_port = 2885
+internal_port = 2445
 [[services.ports]]
-port = 2885
+port = 2445
 
 [[services]]
 protocol = "tcp"
-internal_port = 3885
+internal_port = 3445
 [[services.ports]]
-port = 3885
+port = 3445
 
 [[services]]
 protocol = "tcp"
-internal_port = 4885
+internal_port = 4445
 [[services.ports]]
-port = 4885
+port = 4445
 
 [[services]]
 protocol = "tcp"
-internal_port = 5885
+internal_port = 5445
 [[services.ports]]
-port = 5885
-
-###################################################### PROXY (CLIENTES)
-[[services]]
-protocol = "tcp"
-internal_port = 1666
-[[services.ports]]
-port = 1666
-
-[[services]]
-protocol = "tcp"
-internal_port = 1667
-[[services.ports]]
-port = 1667
-
-[[services]]
-protocol = "tcp"
-internal_port = 2666
-[[services.ports]]
-port = 2666
-
-[[services]]
-protocol = "tcp"
-internal_port = 2667
-[[services.ports]]
-port = 2667
-
-[[services]]
-protocol = "tcp"
-internal_port = 3666
-[[services.ports]]
-port = 3666
-
-[[services]]
-protocol = "tcp"
-internal_port = 3667
-[[services.ports]]
-port = 3667
-
-[[services]]
-protocol = "tcp"
-internal_port = 4666
-[[services.ports]]
-port = 4666
-
-[[services]]
-protocol = "tcp"
-internal_port = 4667
-[[services.ports]]
-port = 4667
-
-[[services]]
-protocol = "tcp"
-internal_port = 5666
-[[services.ports]]
-port = 5666
-
-[[services]]
-protocol = "tcp"
-internal_port = 5667
-[[services.ports]]
-port = 5667
+port = 5445
