@@ -57,9 +57,6 @@ startBin({
 startBin({
     'linux': `${zOutros}/PORTABLE-NATS/nats-server`, 'args': ['-c', `${zOutros}/PORTABLE-NATS/nats-server.conf`,], 'label': 'nats', 'win': `${syncthingZOutros}/PORTABLE-NATS/nats-server.exe`,
 });
-startBin({
-    'linux': `${zOutros}/PORTABLE-frp/frpc_linux_amd64`, 'args': ['-c', `${zOutros}/PORTABLE-frp/frpc.toml`,],
-});
 
 // ########################### SCRIPTS
 startScript({ 'label': 'Connection', 'path': './Connection/server.js', });
