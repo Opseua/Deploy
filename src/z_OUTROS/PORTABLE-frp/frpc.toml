@@ -11,11 +11,11 @@
 # frpc.toml
 
 # CONEXÃO: DESTINO
-serverAddr = "127.0.0.1"
+serverAddr = "5.161.52.5" # Fly.io ["149.248.223.192" | "opseua.ddns.net"] (pelo domínio as vezes não consegue de primeira) | Estrelar "5.161.52.5"
 auth.method = "token"
 auth.token = "{{ .Envs.confSecurityPass }}"
 serverPort = 998
-natHoleStunServer = "127.0.0.1"
+natHoleStunServer = "stunserver2025.stunprotocol.org:3478" # Fly.io "149.248.223.192:3478" (necessário rodar o serverStun.js) | Estrelar "5.161.52.5:3478" | Google "stunserver2025.stunprotocol.org:3478"
 
 # CONEXÃO: CONFIGURAÇÕES
 transport.dialServerKeepalive = 10 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
@@ -33,16 +33,4 @@ log.level = "info"
 log.maxDays = 3
 
 # NOME CLIENTE
-user = "0-FLY_IO"
-
-# ############################################################################################################
-
-# --- SERVIÇOS CONECTAR: {LOC} [http://127.0.0.1:x384] <expor na WEB via P2P>
-# [[visitors]]
-#name = "1-VIS-frp"
-#type = "xtcp"
-#serverUser = "1-HP"
-#serverName = "1-LOC-frp"
-#secretKey = "{{ .Envs.confSecurityPass }}"
-#bindAddr = "0.0.0.0"
-#bindPort = 1999
+user = "1-FLY_IO"
