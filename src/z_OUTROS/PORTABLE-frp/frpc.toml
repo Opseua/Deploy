@@ -1,31 +1,21 @@
 ### CLIENT ### *** type | "xtcp" → P2P (passa pelo servidor: NÃO) | "tcp" → (passa pelo servidor: SIM) expor na web | "stcp" → (passa pelo servidor: SIM) relay [só funciona localmente e precisa do frpc na origem e destino]
-# frpc.toml
 
-# {0} → FLY_IO (apenas para expor na WEB via P2P)
-# {1} → HP
-# {2} → ESTRELAR
-# {3} → OPSEUA
-# {4} → MARCOS
-# {5} → THAYNA
+# (frpc.toml) {0} → FLY_IO (apenas para expor na WEB via P2P) - {1} → HP - {2} → ESTRELAR - {3} → OPSEUA - {4} → MARCOS - {5} → THAYNA
 
-# CONEXÃO: DESTINO
+# DESTINO E CONEXÃO
 serverAddr = "127.0.0.1"
 auth.method = "token"
 auth.token = "{{ .Envs.confSecurityPass }}"
 serverPort = 998
-# natHoleStunServer = "127.0.0.1:3478"
-
-# CONEXÃO: CONFIGURAÇÕES
+natHoleStunServer = "127.0.0.1:3478"
 transport.dialServerKeepalive = 10 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
 transport.poolCount = 50 # MÁXIMO DE CONEXÕES ABERTAS
 
-# DASHBOARD WEB
+# DASHBOARD E LOGS
 webServer.addr = "0.0.0.0"
 webServer.user = "Administrator"
 webServer.password = "{{ .Envs.confSecurityPass }}"
 webServer.port = 999
-
-# LOGS
 # log.to = "z_OUTROS/z_logs-frpc.txt"
 log.level = "info"
 log.maxDays = 3
@@ -33,7 +23,7 @@ log.maxDays = 3
 # NOME CLIENTE
 user = "0-FLY_IO"
 
-# ############################################# SERVIÇOS: CONECTAR  (expor na WEB) → http://___IP___:x384
+# ############################################# SERVIÇOS: CONECTAR (expor na WEB) → http://___IP___:x384
 
 [[visitors]]
 name = "1-VIS-frp"
