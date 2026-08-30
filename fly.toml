@@ -6,7 +6,7 @@ cpus = 1
 cpu_kind = "shared"
 memory = "256mb"
 
-###################################################### FRP
+###################################################### <FAIXA 900> [FRP]
 
 [[services]] # CONEXÃO
 protocol = "tcp"
@@ -21,25 +21,13 @@ internal_port = 998
 port = 998
 
 [[services]] # DASHBOARD
-internal_port = 9999
+internal_port = 999
 protocol = "tcp"
 [[services.ports]]
-port = 9999
+port = 999
 handlers = ["http"]
 
-[[services]] # SERVIDOR STUN
-protocol = "udp"
-internal_port = 3478
-[[services.ports]]
-port = 3478
-
-[[services]]
-protocol = "udp"
-internal_port = 3479
-[[services.ports]]
-port = 3479
-
-[[services]] # DASHBOARD (CLIENTES)
+[[services]] # (CLIENTES) DASHBOARD
 protocol = "tcp"
 internal_port = 1999
 [[services.ports]]
@@ -69,59 +57,21 @@ internal_port = 5999
 [[services.ports]]
 port = 5999
 
-###################################################### NATS
-
-[[services]] # AVANÇADOS (Chrome / Node) <Websocket>
-internal_port = 8888
-protocol = "tcp"
-[[services.ports]]
-port = 8888
-
-[[services]] # LEGACY (HTTP / Websocket) [bridge]
-internal_port = 8887
-protocol = "tcp"
-[[services.ports]]
-port = 8887
-
-[[services]] # DASHBOARD HTTP
-internal_port = 8886
-protocol = "tcp"
-[[services.ports]]
-port = 8886
-
-###################################################### NATS (CLIENTES)
+###################################################### <FAIXA 8100> [STUN]
 
 [[services]]
-protocol = "tcp"
-internal_port = 1888
+protocol = "udp"
+internal_port = 8178
 [[services.ports]]
-port = 1888
+port = 8178
 
 [[services]]
-protocol = "tcp"
-internal_port = 2888
+protocol = "udp"
+internal_port = 8178
 [[services.ports]]
-port = 2888
+port = 8178
 
-[[services]]
-protocol = "tcp"
-internal_port = 3888
-[[services.ports]]
-port = 3888
-
-[[services]]
-protocol = "tcp"
-internal_port = 4888
-[[services.ports]]
-port = 4888
-
-[[services]]
-protocol = "tcp"
-internal_port = 5888
-[[services.ports]]
-port = 5888
-
-###################################################### SYNCHTHING (CLIENTES)
+###################################################### <FAIXA 8300> [SYNCHTHING]
 
 [[services]]
 protocol = "tcp"
@@ -153,7 +103,8 @@ internal_port = 5384
 [[services.ports]]
 port = 5384
 
-###################################################### FILES (CLIENTES)
+###################################################### <FAIXA 8400> [FILES]
+
 [[services]]
 protocol = "tcp"
 internal_port = 1445
@@ -183,3 +134,115 @@ protocol = "tcp"
 internal_port = 5445
 [[services.ports]]
 port = 5445
+
+###################################################### <FAIXA 8700> [SCREEN]
+
+[[services]]
+protocol = "tcp"
+internal_port = 1777
+[[services.ports]]
+port = 1777
+
+[[services]]
+protocol = "tcp"
+internal_port = 2777
+[[services.ports]]
+port = 2777
+
+[[services]]
+protocol = "tcp"
+internal_port = 3777
+[[services.ports]]
+port = 3777
+
+[[services]]
+protocol = "tcp"
+internal_port = 4777
+[[services.ports]]
+port = 4777
+
+[[services]]
+protocol = "tcp"
+internal_port = 5777
+[[services.ports]]
+port = 5777
+
+###################################################### <FAIXA 8800> [NATS]
+
+[[services]] # DASHBOARD
+internal_port = 8886
+protocol = "tcp"
+[[services.ports]]
+port = 8886
+
+[[services]] # LEGACY (HTTP / Websocket) [bridge]
+internal_port = 8887
+protocol = "tcp"
+[[services.ports]]
+port = 8887
+
+[[services]] # AVANÇADOS (Chrome / Node) <Websocket>
+internal_port = 8888
+protocol = "tcp"
+[[services.ports]]
+port = 8888
+
+[[services]] # (CLIENTES) DASHBOARD
+internal_port = 1886
+protocol = "tcp"
+[[services.ports]]
+port = 1886
+
+[[services]]
+internal_port = 2886
+protocol = "tcp"
+[[services.ports]]
+port = 2886
+
+[[services]]
+internal_port = 3886
+protocol = "tcp"
+[[services.ports]]
+port = 3886
+
+[[services]]
+internal_port = 4886
+protocol = "tcp"
+[[services.ports]]
+port = 4886
+
+[[services]]
+internal_port = 5886
+protocol = "tcp"
+[[services.ports]]
+port = 5886
+
+[[services]] # (CLIENTES) AVANÇADOS (Chrome / Node) <Websocket>
+protocol = "tcp"
+internal_port = 1888
+[[services.ports]]
+port = 1888
+
+[[services]]
+protocol = "tcp"
+internal_port = 2888
+[[services.ports]]
+port = 2888
+
+[[services]]
+protocol = "tcp"
+internal_port = 3888
+[[services.ports]]
+port = 3888
+
+[[services]]
+protocol = "tcp"
+internal_port = 4888
+[[services.ports]]
+port = 4888
+
+[[services]]
+protocol = "tcp"
+internal_port = 5888
+[[services.ports]]
+port = 5888
