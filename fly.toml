@@ -103,7 +103,7 @@ protocol = "tcp"
 internal_port = 1384
 [[services.ports]]
 port = 1384
-handlers = ["tls", "http"]
+handlers = ["http"]
 
 [[services]]
 protocol = "tcp"
