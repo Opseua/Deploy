@@ -5,9 +5,9 @@
 serverAddr = "127.0.0.1"
 auth.method = "token"
 auth.token = "{{ .Envs.confSecurityPass }}"
-serverPort = 997 # 997 (QUIC) | 998 (TCP)
-transport.protocol = "quic" # quic | tcp
-transport.tls.enable = true
+serverPort = 998 # 997 (QUIC) | 998 (TCP)
+transport.protocol = "tcp" # quic | tcp
+# transport.tls.enable = true
 
 # natHoleStunServer = "stunserver2025.stunprotocol.org:3478"
 transport.dialServerKeepalive = 10 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
