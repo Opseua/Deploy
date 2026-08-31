@@ -44,7 +44,6 @@ internal_port = 999
 protocol = "tcp"
 [[services.ports]]
 port = 999
-handlers = ["tls", "http"]
 
 [[services]] # (CLIENTES) DASHBOARD
 protocol = "tcp"
