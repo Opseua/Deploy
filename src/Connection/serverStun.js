@@ -1,7 +1,7 @@
 import { createSocket as _createSocket } from 'dgram';
 
 let PUBLIC_IP = process.env.SERVER_IP || '127.0.0.1';
-let PRIMARY_PORT = 8478; let ALT_PORT = 8479;
+let PORT_PRIMARY = 8478; let PORT_ALT = 8479;
 
 let BINDING_REQUEST = 0x0001; let BINDING_RESPONSE = 0x0101; let ATTR_MAPPED_ADDRESS = 0x0001; let ATTR_XOR_MAPPED_ADDRESS = 0x0020; let ATTR_OTHER_ADDRESS = 0x802c;
 let ATTR_SOFTWARE = 0x8022; let MAGIC_COOKIE = 0x2112A442; let SOFTWARE_STR = Buffer.from('frpc-stun-node');
@@ -50,7 +50,7 @@ function createSocket(listenPort, otherPort) {
   sock.bind(listenPort, process.env.FLY_APP_NAME ? 'fly-global-services' : '0.0.0.0', () => { });
 }
 
-createSocket(PRIMARY_PORT, ALT_PORT); createSocket(ALT_PORT, PRIMARY_PORT);
-console.log(`STUN server | IP: ${PUBLIC_IP} | Ports: ${PRIMARY_PORT} / ${ALT_PORT}`);
+createSocket(PORT_PRIMARY, PORT_ALT); createSocket(PORT_ALT, PORT_PRIMARY);
+console.log(`STUN server | IP: ${PUBLIC_IP} | Ports: ${PORT_PRIMARY} / ${PORT_ALT}`);
 
 
