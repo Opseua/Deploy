@@ -37,6 +37,7 @@ protocol = "udp"
 internal_port = 997
 [[services.ports]]
 port = 997
+handlers = ["tls"]
 
 [[services]] # DASHBOARD
 internal_port = 999
