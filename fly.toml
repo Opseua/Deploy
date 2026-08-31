@@ -100,9 +100,9 @@ handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
-internal_port = 5384
+internal_port = 1384
 [[services.ports]]
-port = 5384
+port = 1384
 handlers = ["tls", "http"]
 
 [[services]]
