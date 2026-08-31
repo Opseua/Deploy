@@ -25,7 +25,7 @@ memory = "256mb"
 
 ###################################################### <FAIXA 900> [FRP]
 
-[[services]] # CONEXÃO TCP
+[[services]] # CONEXÃO TCP (sem tls mesmo)
 protocol = "tcp"
 internal_port = 998
 [[services.ports]]
