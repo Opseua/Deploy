@@ -60,10 +60,10 @@ startBin({
     // 'args': ['-c', `${zOutros}/PORTABLE-NATS/nats-server.conf`,],
     'args': ['-c', `${zOutros}/PORTABLE-NATS/nats-server.conf`, '--auth', process.env.confSecurityPass,],
 });
-startBin({
-    'label': 'frpc', 'linux': `${zOutros}/PORTABLE-frp/frpc_linux_amd64`,
-    'args': ['-c', `${zOutros}/PORTABLE-frp/frpc.toml`,],
-});
+// startBin({
+//    'label': 'frpc', 'linux': `${zOutros}/PORTABLE-frp/frpc_linux_amd64`,
+//    'args': ['-c', `${zOutros}/PORTABLE-frp/frpc.toml`,],
+// });
 
 // ########################### SCRIPTS
 startScript({ 'label': 'Connection', 'path': './Connection/src/server.js', });
