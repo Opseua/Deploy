@@ -47,6 +47,13 @@ handlers = ["tls"]
 
 [[services]] # (CLIENTES) DASHBOARD {OK}
 protocol = "tcp"
+internal_port = 9999
+[[services.ports]]
+port = 9999
+handlers = ["tls"]
+
+[[services]]
+protocol = "tcp"
 internal_port = 1999
 [[services.ports]]
 port = 1999
