@@ -25,27 +25,27 @@ memory = "256mb"
 
 ###################################################### <FAIXA 900> [FRP]
 
-[[services]] # CONEXÃO TCP (sem tls mesmo)
+[[services]] # CONEXÃO TCP (sem tls mesmo) {OK}
 protocol = "tcp"
 internal_port = 998
 [[services.ports]]
 port = 998
 
-[[services]] # CONEXÃO QUIC
+[[services]] # CONEXÃO QUIC {OK}
 protocol = "udp"
 internal_port = 997
 [[services.ports]]
 port = 997
 handlers = ["tls"]
 
-[[services]] # DASHBOARD
+[[services]] # DASHBOARD {OK}
 internal_port = 999
 protocol = "tcp"
 [[services.ports]]
 port = 999
 handlers = ["tls"]
 
-[[services]] # (CLIENTES) DASHBOARD
+[[services]] # (CLIENTES) DASHBOARD {OK}
 protocol = "tcp"
 internal_port = 1999
 [[services.ports]]
@@ -64,6 +64,7 @@ protocol = "tcp"
 internal_port = 3999
 [[services.ports]]
 port = 3999
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
@@ -86,6 +87,7 @@ protocol = "udp"
 internal_port = 8178
 [[services.ports]]
 port = 8178
+handlers = ["tls"]
 
 [[services]]
 protocol = "udp"
