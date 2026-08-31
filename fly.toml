@@ -64,7 +64,6 @@ protocol = "tcp"
 internal_port = 3999
 [[services.ports]]
 port = 3999
-handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
