@@ -6,6 +6,21 @@ cpus = 1
 cpu_kind = "shared"
 memory = "256mb"
 
+###################################################### SERVIÇO PRINCIPAL (SEM INFORMAR PORTA NO URL)
+# [[services]]
+# protocol = "tcp"
+# internal_port = 5384 # PORTA LOCAL DO SERVIÇO
+# [[services.ports]]
+# port = 80
+# handlers = ["http"]
+
+# [[services]]
+# protocol = "tcp"
+# internal_port = 5384 # PORTA LOCAL DO SERVIÇO
+# [[services.ports]]
+# port = 443
+# handlers = ["tls", "http"]
+
 ###################################################### <FAIXA 900> [FRP]
 
 [[services]] # CONEXÃO
@@ -13,12 +28,14 @@ protocol = "tcp"
 internal_port = 998
 [[services.ports]]
 port = 998
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "udp"
 internal_port = 998
 [[services.ports]]
 port = 998
+handlers = ["tls", "http"]
 
 [[services]] # DASHBOARD
 internal_port = 999
@@ -32,30 +49,35 @@ protocol = "tcp"
 internal_port = 1999
 [[services.ports]]
 port = 1999
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 2999
 [[services.ports]]
 port = 2999
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 3999
 [[services.ports]]
 port = 3999
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 4999
 [[services.ports]]
 port = 4999
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 5999
 [[services.ports]]
 port = 5999
+handlers = ["tls", "http"]
 
 ###################################################### <FAIXA 8100> [STUN]
 
@@ -64,12 +86,14 @@ protocol = "udp"
 internal_port = 8178
 [[services.ports]]
 port = 8178
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "udp"
 internal_port = 8178
 [[services.ports]]
 port = 8178
+handlers = ["tls", "http"]
 
 ###################################################### <FAIXA 8300> [SYNCHTHING]
 
@@ -78,37 +102,34 @@ protocol = "tcp"
 internal_port = 1384
 [[services.ports]]
 port = 1384
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 2384
 [[services.ports]]
 port = 2384
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 3384
 [[services.ports]]
 port = 3384
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 4384
 [[services.ports]]
 port = 4384
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 5384
 [[services.ports]]
-port = 80
-handlers = ["http"]
-
-[[services]]
-protocol = "tcp"
-internal_port = 5384
-[[services.ports]]
-port = 443
+port = 5384
 handlers = ["tls", "http"]
 
 ###################################################### <FAIXA 8400> [FILES]
@@ -118,30 +139,35 @@ protocol = "tcp"
 internal_port = 1445
 [[services.ports]]
 port = 1445
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 2445
 [[services.ports]]
 port = 2445
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 3445
 [[services.ports]]
 port = 3445
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 4445
 [[services.ports]]
 port = 4445
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 5445
 [[services.ports]]
 port = 5445
+handlers = ["tls", "http"]
 
 ###################################################### <FAIXA 8700> [SCREEN]
 
@@ -150,30 +176,35 @@ protocol = "tcp"
 internal_port = 1777
 [[services.ports]]
 port = 1777
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 2777
 [[services.ports]]
 port = 2777
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 3777
 [[services.ports]]
 port = 3777
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 4777
 [[services.ports]]
 port = 4777
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 5777
 [[services.ports]]
 port = 5777
+handlers = ["tls", "http"]
 
 ###################################################### <FAIXA 8800> [NATS]
 
@@ -182,75 +213,88 @@ internal_port = 8886
 protocol = "tcp"
 [[services.ports]]
 port = 8886
+handlers = ["tls", "http"]
 
 [[services]] # LEGACY (HTTP / Websocket) [bridge]
 internal_port = 8887
 protocol = "tcp"
 [[services.ports]]
 port = 8887
+handlers = ["tls", "http"]
 
 [[services]] # AVANÇADOS (Chrome / Node) <Websocket>
 internal_port = 8888
 protocol = "tcp"
 [[services.ports]]
 port = 8888
+handlers = ["tls", "http"]
 
 [[services]] # (CLIENTES) DASHBOARD
 internal_port = 1886
 protocol = "tcp"
 [[services.ports]]
 port = 1886
+handlers = ["tls", "http"]
 
 [[services]]
 internal_port = 2886
 protocol = "tcp"
 [[services.ports]]
 port = 2886
+handlers = ["tls", "http"]
 
 [[services]]
 internal_port = 3886
 protocol = "tcp"
 [[services.ports]]
 port = 3886
+handlers = ["tls", "http"]
 
 [[services]]
 internal_port = 4886
 protocol = "tcp"
 [[services.ports]]
 port = 4886
+handlers = ["tls", "http"]
 
 [[services]]
 internal_port = 5886
 protocol = "tcp"
 [[services.ports]]
 port = 5886
+handlers = ["tls", "http"]
 
 [[services]] # (CLIENTES) AVANÇADOS (Chrome / Node) <Websocket>
 protocol = "tcp"
 internal_port = 1888
 [[services.ports]]
 port = 1888
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 2888
 [[services.ports]]
 port = 2888
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 3888
 [[services.ports]]
 port = 3888
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 4888
 [[services.ports]]
 port = 4888
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 5888
 [[services.ports]]
 port = 5888
+handlers = ["tls", "http"]
