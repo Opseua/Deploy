@@ -21,7 +21,7 @@ memory = "256mb"
 # [[services.ports]]
 # port = 443
 # force_https = false
-# handlers = ["tls", "http"]
+# handlers = ["tls"]
 
 ###################################################### <FAIXA 900> [frp]
 
@@ -87,25 +87,9 @@ internal_port = 5999
 port = 5999
 handlers = ["tls"]
 
-###################################################### <FAIXA 8100> [STUN] {OK}
+###################################################### <FAIXA 8300>
 
-[[services]]
-protocol = "udp"
-internal_port = 8478
-[[services.ports]]
-port = 8478
-handlers = ["tls"]
-
-[[services]]
-protocol = "udp"
-internal_port = 8479
-[[services.ports]]
-port = 8479
-handlers = ["tls"]
-
-###################################################### <FAIXA 8300> [Syncthing]
-
-[[services]]
+[[services]] # [Syncthing] {OK}
 protocol = "tcp"
 internal_port = 1384
 [[services.ports]]
@@ -140,47 +124,56 @@ internal_port = 5384
 port = 5384
 handlers = ["tls"]
 
-###################################################### <FAIXA 8400> [FILES]
+[[services]] # [STUN] {OK}
+protocol = "udp"
+internal_port = 8478
+[[services.ports]]
+port = 8478
+handlers = ["tls"]
+
+[[services]]
+protocol = "udp"
+internal_port = 8479
+[[services.ports]]
+port = 8479
+handlers = ["tls"]
+
+###################################################### <FAIXA 8400> [Files]
 
 [[services]]
 protocol = "tcp"
 internal_port = 1445
 [[services.ports]]
 port = 1445
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 2445
 [[services.ports]]
 port = 2445
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 3445
 [[services.ports]]
 port = 3445
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 4445
 [[services.ports]]
 port = 4445
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 5445
 [[services.ports]]
 port = 5445
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 ###################################################### <FAIXA 8700> [SCREEN]
 
@@ -189,40 +182,35 @@ protocol = "tcp"
 internal_port = 1777
 [[services.ports]]
 port = 1777
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 2777
 [[services.ports]]
 port = 2777
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 3777
 [[services.ports]]
 port = 3777
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 4777
 [[services.ports]]
 port = 4777
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 5777
 [[services.ports]]
 port = 5777
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 ###################################################### <FAIXA 8800> [NATS]
 
@@ -231,101 +219,88 @@ internal_port = 8886
 protocol = "tcp"
 [[services.ports]]
 port = 8886
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]] # LEGACY (HTTP / Websocket) [bridge]
 internal_port = 8887
 protocol = "tcp"
 [[services.ports]]
 port = 8887
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]] # AVANÇADOS (Chrome / Node) <Websocket>
 internal_port = 8888
 protocol = "tcp"
 [[services.ports]]
 port = 8888
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]] # (CLIENTES) DASHBOARD
 internal_port = 1886
 protocol = "tcp"
 [[services.ports]]
 port = 1886
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 internal_port = 2886
 protocol = "tcp"
 [[services.ports]]
 port = 2886
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 internal_port = 3886
 protocol = "tcp"
 [[services.ports]]
 port = 3886
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 internal_port = 4886
 protocol = "tcp"
 [[services.ports]]
 port = 4886
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 internal_port = 5886
 protocol = "tcp"
 [[services.ports]]
 port = 5886
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]] # (CLIENTES) AVANÇADOS (Chrome / Node) <Websocket>
 protocol = "tcp"
 internal_port = 1888
 [[services.ports]]
 port = 1888
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 2888
 [[services.ports]]
 port = 2888
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 3888
 [[services.ports]]
 port = 3888
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 4888
 [[services.ports]]
 port = 4888
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 5888
 [[services.ports]]
 port = 5888
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
