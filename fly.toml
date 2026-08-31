@@ -45,7 +45,6 @@ protocol = "tcp"
 [[services.ports]]
 port = 999
 force_https = false
-handlers = ["http"]
 
 [[services]] # (CLIENTES) DASHBOARD
 protocol = "tcp"
