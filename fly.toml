@@ -30,7 +30,6 @@ protocol = "tcp"
 internal_port = 998
 [[services.ports]]
 port = 998
-force_https = false
 handlers = ["tls"]
 
 [[services]]
@@ -51,40 +50,35 @@ protocol = "tcp"
 internal_port = 1999
 [[services.ports]]
 port = 1999
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 2999
 [[services.ports]]
 port = 2999
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 3999
 [[services.ports]]
 port = 3999
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 4999
 [[services.ports]]
 port = 4999
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 5999
 [[services.ports]]
 port = 5999
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 ###################################################### <FAIXA 8100> [STUN]
 
