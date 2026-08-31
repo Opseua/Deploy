@@ -30,7 +30,6 @@ protocol = "tcp"
 internal_port = 998
 [[services.ports]]
 port = 998
-handlers = ["tls"]
 
 [[services]] # CONEXÃO QUIC
 protocol = "udp"
