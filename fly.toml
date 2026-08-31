@@ -110,8 +110,6 @@ protocol = "tcp"
 internal_port = 2384
 [[services.ports]]
 port = 2384
-force_https = false
-handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
