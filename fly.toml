@@ -91,9 +91,10 @@ handlers = ["tls"]
 
 [[services]]
 protocol = "udp"
-internal_port = 8478
+internal_port = 8479
 [[services.ports]]
-port = 8478
+port = 8479
+handlers = ["tls"]
 
 ###################################################### <FAIXA 8300> [SYNCHTHING]
 
