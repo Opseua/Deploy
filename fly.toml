@@ -25,17 +25,18 @@ memory = "256mb"
 
 ###################################################### <FAIXA 900> [FRP]
 
-[[services]] # CONEXÃO
+[[services]] # CONEXÃO TCP
 protocol = "tcp"
 internal_port = 998
 [[services.ports]]
 port = 998
+handlers = ["tls"]
 
-[[services]]
+[[services]] # CONEXÃO QUIC
 protocol = "udp"
-internal_port = 998
+internal_port = 997
 [[services.ports]]
-port = 998
+port = 997
 
 [[services]] # DASHBOARD
 internal_port = 999
