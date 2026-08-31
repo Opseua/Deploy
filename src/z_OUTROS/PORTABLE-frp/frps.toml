@@ -7,6 +7,7 @@ bindAddr = "0.0.0.0"
 auth.method = "token"
 auth.token = "{{ .Envs.confSecurityPass }}"
 bindPort = 998
+quicBindPort = 997
 transport.tcpKeepalive = 10 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
 transport.maxPoolCount = 50 # MÁXIMO DE CONEXÕES ABERTAS (POR CLIENTE)
 
