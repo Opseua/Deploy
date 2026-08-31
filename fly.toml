@@ -80,7 +80,7 @@ internal_port = 5999
 port = 5999
 handlers = ["tls"]
 
-###################################################### <FAIXA 8100> [STUN]
+###################################################### <FAIXA 8100> [STUN] {OK}
 
 [[services]]
 protocol = "udp"
@@ -119,8 +119,7 @@ protocol = "tcp"
 internal_port = 3384
 [[services.ports]]
 port = 3384
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
