@@ -1,7 +1,7 @@
 import { createSocket as _createSocket } from 'dgram';
 
 let PUBLIC_IP = process.env.SERVER_IP || '127.0.0.1';
-let PRIMARY_PORT = 3478; let ALT_PORT = 3479;
+let PRIMARY_PORT = 8478; let ALT_PORT = 8479;
 
 let BINDING_REQUEST = 0x0001; let BINDING_RESPONSE = 0x0101; let ATTR_MAPPED_ADDRESS = 0x0001; let ATTR_XOR_MAPPED_ADDRESS = 0x0020; let ATTR_OTHER_ADDRESS = 0x802c;
 let ATTR_SOFTWARE = 0x8022; let MAGIC_COOKIE = 0x2112A442; let SOFTWARE_STR = Buffer.from('frpc-stun-node');
