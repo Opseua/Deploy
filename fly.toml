@@ -23,7 +23,7 @@ memory = "256mb"
 # force_https = false
 # handlers = ["tls", "http"]
 
-###################################################### <FAIXA 900> [FRP]
+###################################################### <FAIXA 900> [frp]
 
 [[services]] # CONEXÃO TCP (sem tls mesmo) {OK}
 protocol = "tcp"
@@ -96,15 +96,14 @@ internal_port = 8479
 port = 8479
 handlers = ["tls"]
 
-###################################################### <FAIXA 8300> [SYNCHTHING]
+###################################################### <FAIXA 8300> [Syncthing]
 
 [[services]]
 protocol = "tcp"
 internal_port = 1384
 [[services.ports]]
 port = 1384
-force_https = false
-handlers = ["tls", "http"]
+handlers = ["http"]
 
 [[services]]
 protocol = "tcp"
