@@ -103,6 +103,7 @@ protocol = "tcp"
 internal_port = 1384
 [[services.ports]]
 port = 1384
+force_https = false
 
 [[services]]
 protocol = "tcp"
@@ -110,6 +111,7 @@ internal_port = 2384
 [[services.ports]]
 port = 2384
 handlers = ["http"]
+force_https = false
 
 [[services]]
 protocol = "tcp"
@@ -129,6 +131,7 @@ protocol = "tcp"
 internal_port = 5384
 [[services.ports]]
 port = 5384
+handlers = ["tls", "http"]
 
 ###################################################### <FAIXA 8400> [FILES]
 
