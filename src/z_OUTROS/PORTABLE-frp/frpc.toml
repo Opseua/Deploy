@@ -2,14 +2,14 @@
 # frpc.toml {0} → FLY_IO (apenas para expor na WEB via P2P) - {1} → HP - {2} → ESTRELAR - {3} → OPSEUA - {4} → MARCOS - {5} → THAYNA
 
 # DESTINO E CONEXÃO
-serverAddr = "{{ .Envs.SERVER_HOST }}"
+serverAddr = "127.0.0.1"
 auth.method = "token"
 auth.token = "{{ .Envs.confSecurityPass }}"
 serverPort = 997 # 997 (QUIC) | 998 (TCP)
 transport.protocol = "quic" # quic | tcp
 transport.tls.enable = true
 
-natHoleStunServer = "stunserver2025.stunprotocol.org:3478"
+# natHoleStunServer = "stunserver2025.stunprotocol.org:3478"
 transport.dialServerKeepalive = 10 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
 transport.poolCount = 50 # MÁXIMO DE CONEXÕES ABERTAS
 
