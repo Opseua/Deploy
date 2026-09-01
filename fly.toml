@@ -210,7 +210,7 @@ protocol = "tcp"
 internal_port = 5777
 [[services.ports]]
 port = 5777
-handlers = ["tls"]
+handlers = ["http"]
 
 ###################################################### <FAIXA 8800> [NATS]
 
