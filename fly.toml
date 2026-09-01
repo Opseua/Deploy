@@ -203,7 +203,6 @@ protocol = "tcp"
 internal_port = 4777
 [[services.ports]]
 port = 4777
-handlers = ["http"]
 
 [[services]]
 protocol = "tcp"
