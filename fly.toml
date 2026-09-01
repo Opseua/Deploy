@@ -175,13 +175,14 @@ internal_port = 5445
 port = 5445
 handlers = ["tls"]
 
-###################################################### <FAIXA 8700> [SCREEN]
+###################################################### <FAIXA 8700> [Screen]
 
 [[services]]
 protocol = "tcp"
 internal_port = 1777
 [[services.ports]]
 port = 1777
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
@@ -195,41 +196,21 @@ protocol = "tcp"
 internal_port = 3777
 [[services.ports]]
 port = 3777
-handlers = ["http"]
+handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 4777
 [[services.ports]]
 port = 4777
-handlers = ["tls", "http"]
-
-[[services]]
-protocol = "udp"
-internal_port = 5777
-[[services.ports]]
-port = 5777
-
-[[services]]
-protocol = "udp"
-internal_port = 6777
-[[services.ports]]
-port = 6777
 handlers = ["tls"]
 
 [[services]]
-protocol = "udp"
-internal_port = 7777
+protocol = "tcp"
+internal_port = 5777
 [[services.ports]]
-port = 7777
-handlers = ["http"]
-
-[[services]]
-protocol = "udp"
-internal_port = 8777
-[[services.ports]]
-port = 8777
-handlers = ["tls", "http"]
+port = 5777
+handlers = ["tls"]
 
 ###################################################### <FAIXA 8800> [NATS]
 
