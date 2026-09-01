@@ -214,93 +214,93 @@ handlers = ["tls"]
 
 ###################################################### <FAIXA 8800> [NATS]
 
-[[services]] # DASHBOARD
-internal_port = 8886
-protocol = "tcp"
-[[services.ports]]
-port = 8886
-handlers = ["tls"]
+# [[services]] # DASHBOARD
+# internal_port = 8886
+# protocol = "tcp"
+# [[services.ports]]
+# port = 8886
+# handlers = ["tls"]
 
-[[services]] # LEGACY (HTTP / Websocket) [bridge]
-internal_port = 8887
-protocol = "tcp"
-[[services.ports]]
-port = 8887
-handlers = ["tls"]
+# [[services]] # LEGACY (HTTP / Websocket) [bridge]
+# internal_port = 8887
+# protocol = "tcp"
+# [[services.ports]]
+# port = 8887
+# handlers = ["tls"]
 
-[[services]] # AVANÇADOS (Chrome / Node) <Websocket>
-internal_port = 8888
-protocol = "tcp"
-[[services.ports]]
-port = 8888
-handlers = ["tls"]
+# [[services]] # AVANÇADOS (Chrome / Node) <Websocket>
+# internal_port = 8888
+# protocol = "tcp"
+# [[services.ports]]
+# port = 8888
+# handlers = ["tls"]
 
-[[services]] # (CLIENTES) DASHBOARD
-internal_port = 1886
-protocol = "tcp"
-[[services.ports]]
-port = 1886
-handlers = ["tls"]
+# [[services]] # (CLIENTES) DASHBOARD
+# internal_port = 1886
+# protocol = "tcp"
+# [[services.ports]]
+# port = 1886
+# handlers = ["tls"]
 
-[[services]]
-internal_port = 2886
-protocol = "tcp"
-[[services.ports]]
-port = 2886
-handlers = ["tls"]
+# [[services]]
+# internal_port = 2886
+# protocol = "tcp"
+# [[services.ports]]
+# port = 2886
+# handlers = ["tls"]
 
-[[services]]
-internal_port = 3886
-protocol = "tcp"
-[[services.ports]]
-port = 3886
-handlers = ["tls"]
+# [[services]]
+# internal_port = 3886
+# protocol = "tcp"
+# [[services.ports]]
+# port = 3886
+# handlers = ["tls"]
 
-[[services]]
-internal_port = 4886
-protocol = "tcp"
-[[services.ports]]
-port = 4886
-handlers = ["tls"]
+# [[services]]
+# internal_port = 4886
+# protocol = "tcp"
+# [[services.ports]]
+# port = 4886
+# handlers = ["tls"]
 
-[[services]]
-internal_port = 5886
-protocol = "tcp"
-[[services.ports]]
-port = 5886
-handlers = ["tls"]
+# [[services]]
+# internal_port = 5886
+# protocol = "tcp"
+# [[services.ports]]
+# port = 5886
+# handlers = ["tls"]
 
-[[services]] # (CLIENTES) AVANÇADOS (Chrome / Node) <Websocket>
-protocol = "tcp"
-internal_port = 1888
-[[services.ports]]
-port = 1888
-handlers = ["tls"]
+# [[services]] # (CLIENTES) AVANÇADOS (Chrome / Node) <Websocket>
+# protocol = "tcp"
+# internal_port = 1888
+# [[services.ports]]
+# port = 1888
+# handlers = ["tls"]
 
-[[services]]
-protocol = "tcp"
-internal_port = 2888
-[[services.ports]]
-port = 2888
-handlers = ["tls"]
+# [[services]]
+# protocol = "tcp"
+# internal_port = 2888
+# [[services.ports]]
+# port = 2888
+# handlers = ["tls"]
 
-[[services]]
-protocol = "tcp"
-internal_port = 3888
-[[services.ports]]
-port = 3888
-handlers = ["tls"]
+# [[services]]
+# protocol = "tcp"
+# internal_port = 3888
+# [[services.ports]]
+# port = 3888
+# handlers = ["tls"]
 
-[[services]]
-protocol = "tcp"
-internal_port = 4888
-[[services.ports]]
-port = 4888
-handlers = ["tls"]
+# [[services]]
+# protocol = "tcp"
+# internal_port = 4888
+# [[services.ports]]
+# port = 4888
+# handlers = ["tls"]
 
-[[services]]
-protocol = "tcp"
-internal_port = 5888
-[[services.ports]]
-port = 5888
-handlers = ["tls"]
+# [[services]]
+# protocol = "tcp"
+# internal_port = 5888
+# [[services.ports]]
+# port = 5888
+# handlers = ["tls"]
