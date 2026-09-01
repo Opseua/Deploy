@@ -136,7 +136,7 @@ protocol = "udp"
 internal_port = 8479
 [[services.ports]]
 port = 8479
-handlers = ["http"]
+handlers = ["tls"]
 
 ###################################################### <FAIXA 8400> [Files]
 
