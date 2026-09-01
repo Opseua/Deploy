@@ -9,7 +9,7 @@ serverPort = 997 # 997 (QUIC) | 998 (TCP)
 transport.protocol = "quic" # quic | tcp
 transport.tls.enable = true
 
-# natHoleStunServer = "{{ .Envs.SERVER_HOST }}:3478"
+# natHoleStunServer = "127.0.0.1:3478"
 transport.dialServerKeepalive = 10 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
 transport.poolCount = 50 # MÁXIMO DE CONEXÕES ABERTAS
 
@@ -95,6 +95,3 @@ bindAddr = "0.0.0.0"
 bindPort = 4777
 
 # ---
-
-
-
