@@ -25,27 +25,27 @@ memory = "256mb"
 
 ###################################################### <FAIXA 900> [frp]
 
-[[services]] # CONEXÃO TCP (sem tls mesmo) {OK}
+[[services]] # CONEXÃO TCP (sem tls mesmo) {OK} ✅✅✅✅✅✅✅✅✅
 protocol = "tcp"
 internal_port = 998
 [[services.ports]]
 port = 998
 
-[[services]] # CONEXÃO QUIC {OK}
+[[services]] # CONEXÃO QUIC {OK} ✅✅✅✅✅✅✅✅✅
 protocol = "udp"
 internal_port = 997
 [[services.ports]]
 port = 997
 handlers = ["tls"]
 
-[[services]] # DASHBOARD {OK}
+[[services]] # DASHBOARD {OK} ✅✅✅✅✅✅✅✅✅
 internal_port = 999
 protocol = "tcp"
 [[services.ports]]
 port = 999
 handlers = ["tls"]
 
-[[services]] # (CLIENTES) DASHBOARD {OK}
+[[services]] # (CLIENTES) DASHBOARD {OK} ✅✅✅✅✅✅✅✅✅
 protocol = "tcp"
 internal_port = 9999
 [[services.ports]]
@@ -89,7 +89,7 @@ handlers = ["tls"]
 
 ###################################################### <FAIXA 8300>
 
-[[services]] # [Syncthing] {OK}
+[[services]] # [Syncthing] {OK} ✅✅✅✅✅✅✅✅✅
 protocol = "tcp"
 internal_port = 1384
 [[services.ports]]
@@ -124,7 +124,7 @@ internal_port = 5384
 port = 5384
 handlers = ["tls"]
 
-[[services]] # [STUN] {OK}
+[[services]] # [STUN] {OK} ✅✅✅✅✅✅✅✅✅
 protocol = "udp"
 internal_port = 8478
 [[services.ports]]
@@ -182,7 +182,6 @@ protocol = "tcp"
 internal_port = 1777
 [[services.ports]]
 port = 1777
-handlers = ["tls"]
 
 [[services]]
 protocol = "tcp"
@@ -196,20 +195,41 @@ protocol = "tcp"
 internal_port = 3777
 [[services.ports]]
 port = 3777
-handlers = ["tls"]
+handlers = ["http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 4777
 [[services.ports]]
 port = 4777
+handlers = ["tls", "http"]
 
 [[services]]
-protocol = "tcp"
+protocol = "udp"
 internal_port = 5777
 [[services.ports]]
 port = 5777
+
+[[services]]
+protocol = "udp"
+internal_port = 6777
+[[services.ports]]
+port = 6777
+handlers = ["tls"]
+
+[[services]]
+protocol = "udp"
+internal_port = 7777
+[[services.ports]]
+port = 7777
 handlers = ["http"]
+
+[[services]]
+protocol = "udp"
+internal_port = 8777
+[[services.ports]]
+port = 8777
+handlers = ["tls", "http"]
 
 ###################################################### <FAIXA 8800> [NATS]
 
