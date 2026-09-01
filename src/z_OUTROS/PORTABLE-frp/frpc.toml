@@ -25,7 +25,7 @@ log.maxDays = 3
 # NOME CLIENTE
 user = "0-FLY_IO"
 
-# ############################################# SERVIÇOS: CONECTAR → http://127.0.0.1:x384
+# ############################################# SERVIÇOS: CONECTAR → http://127.0.0.1:x384 (SEMPRE bindAddr = "0.0.0.0")
 
 [[visitors]]
 name = "1-VIS-frp"
