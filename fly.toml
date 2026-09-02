@@ -87,6 +87,15 @@ internal_port = 5999
 port = 5999
 handlers = ["tls"]
 
+###################################################### <FAIXA 3000> [Server] (Google Colab)
+
+[[services]]
+protocol = "tcp"
+internal_port = 3000
+[[services.ports]]
+port = 3000
+handlers = ["tls"]
+
 ###################################################### <FAIXA 8300>
 
 [[services]] # [Syncthing] {OK} ✅✅✅✅✅✅✅✅✅
