@@ -19,3 +19,4 @@ webServer.port = 999
 # log.to = "z_OUTROS/z_logs-frps.txt"
 log.level = "info"
 log.maxDays = 3
+
