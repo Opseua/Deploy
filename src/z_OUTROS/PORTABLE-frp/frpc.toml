@@ -104,3 +104,14 @@ bindAddr = "0.0.0.0"
 bindPort = 4777
 
 # ---
+
+[[visitors]]
+name = "5-VIS-Server"
+type = "xtcp"
+serverUser = "5-LINUX"
+serverName = "5-LOC-Server"
+secretKey = "{{ .Envs.confSecurityPass }}"
+bindAddr = "0.0.0.0"
+bindPort = 3000
+
+# ---
