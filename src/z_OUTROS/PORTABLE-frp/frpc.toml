@@ -10,7 +10,7 @@ transport.protocol = "quic" # quic | tcp
 transport.tls.enable = true
 
 # natHoleStunServer = "127.0.0.1:3478"
-transport.dialServerKeepalive = 10 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
+transport.dialServerKeepalive = 5 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
 transport.poolCount = 50 # MÁXIMO DE CONEXÕES ABERTAS
 
 # DASHBOARD E LOGS
@@ -62,7 +62,7 @@ type = "xtcp"
 serverUser = "3-OPSEUA"
 serverName = "3-LOC-Syncthing"
 secretKey = "{{ .Envs.confSecurityPass }}"
-bindAddr = "0.0.0.0"
+bindAddr = "0.0.0.0"
 bindPort = 3384
 
 [[visitors]]
