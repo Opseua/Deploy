@@ -8,7 +8,7 @@ auth.method = "token"
 auth.token = "{{ .Envs.confSecurityPass }}"
 quicBindPort = 997 # (QUIC)
 bindPort = 998 # (TCP)
-transport.tcpKeepalive = 5 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
+transport.tcpKeepalive = 10 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
 transport.maxPoolCount = 50 # MÁXIMO DE CONEXÕES ABERTAS (POR CLIENTE)
 
 # DASHBOARD E LOGS
