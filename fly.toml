@@ -138,21 +138,21 @@ internal_port = 8479
 port = 8479
 handlers = ["tls"]
 
-###################################################### <FAIXA 8400> [Files]
+###################################################### <FAIXA 8400> [Files] {OK} ✅✅✅✅✅✅✅✅✅
 
 [[services]]
 protocol = "tcp"
 internal_port = 1445
 [[services.ports]]
 port = 1445
-handlers = ["tls"]
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 2445
 [[services.ports]]
 port = 2445
-handlers = ["tls"]
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
@@ -166,14 +166,14 @@ protocol = "tcp"
 internal_port = 4445
 [[services.ports]]
 port = 4445
-handlers = ["tls"]
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
 internal_port = 5445
 [[services.ports]]
 port = 5445
-handlers = ["tls"]
+handlers = ["tls", "http"]
 
 ###################################################### <FAIXA 8700> [Screen] {OK} ✅✅✅✅✅✅✅✅✅
 
