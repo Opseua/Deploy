@@ -159,7 +159,7 @@ protocol = "tcp"
 internal_port = 3445
 [[services.ports]]
 port = 3445
-handlers = ["tls"]
+handlers = ["tls", "http"]
 
 [[services]]
 protocol = "tcp"
