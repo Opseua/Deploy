@@ -65,6 +65,15 @@ secretKey = "{{ .Envs.confSecurityPass }}"
 bindAddr = "0.0.0.0"
 bindPort = 3384
 
+[[visitors]]
+name = "3-VIS-Files"
+type = "xtcp"
+serverUser = "3-OPSEUA"
+serverName = "3-LOC-Files"
+secretKey = "{{ .Envs.confSecurityPass }}"
+bindAddr = "0.0.0.0"
+bindPort = 3445
+
 # ---
 
 [[visitors]]
