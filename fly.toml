@@ -39,17 +39,17 @@ port = 997
 handlers = ["tls"]
 
 [[services]] # DASHBOARD {OK} ✅✅✅✅✅✅✅✅✅
-internal_port = 999
+internal_port = 9999
 protocol = "tcp"
 [[services.ports]]
-port = 999
+port = 9999
 handlers = ["tls"]
 
 [[services]] # (CLIENTES) DASHBOARD {OK} ✅✅✅✅✅✅✅✅✅
 protocol = "tcp"
-internal_port = 9999
+internal_port = 999
 [[services.ports]]
-port = 9999
+port = 999
 handlers = ["tls"]
 
 [[services]]
@@ -313,6 +313,3 @@ handlers = ["tls"]
 # [[services.ports]]
 # port = 5888
 # handlers = ["tls"]
-
-
-
