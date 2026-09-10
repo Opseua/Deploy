@@ -5,8 +5,8 @@
 serverAddr = "127.0.0.1"
 auth.method = "token"
 auth.token = "{{ .Envs.confSecurityPass }}"
-serverPort = 998
-# transport.protocol = "quic" # quic | tcp
+serverPort = 998 # 998 (TCP) | 997 (QUIC)
+transport.protocol = "tcp" # tcp | quic
 
 transport.heartbeatInterval = 10 # CHECAGEM DE PING
 # natHoleStunServer = "127.0.0.1:3478"
