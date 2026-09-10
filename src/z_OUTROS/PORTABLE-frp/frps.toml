@@ -6,8 +6,8 @@ proxyBindAddr = "0.0.0.0"
 bindAddr = "0.0.0.0"
 auth.method = "token"
 auth.token = "{{ .Envs.confSecurityPass }}"
-# bindPort = 998
-quicBindPort = 998 # (QUIC)
+bindPort = 998
+# quicBindPort = 998 # (QUIC)
 
 transport.heartbeatTimeout = 15 # CHECAGEM DE PING
 transport.maxPoolCount = 50 # CONEXÕES ABERTAS SIMULTANEAMENTE (POR CLIENTE)
