@@ -9,6 +9,7 @@ auth.token = "{{ .Envs.confSecurityPass }}"
 bindPort = 998
 
 transport.heartbeatTimeout = 15 # CHECAGEM DE PING
+transport.maxPoolCount = 50 # CONEXÕES ABERTAS SIMULTANEAMENTE (POR CLIENTE)
 
 # DASHBOARD E LOGS
 webServer.addr = "0.0.0.0"
