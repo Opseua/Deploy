@@ -6,16 +6,15 @@ proxyBindAddr = "0.0.0.0"
 bindAddr = "0.0.0.0"
 auth.method = "token"
 auth.token = "{{ .Envs.confSecurityPass }}"
-quicBindPort = 997 # (QUIC)
-bindPort = 998 # (TCP)
-transport.tcpKeepalive = 5 # TEMPO EM SEGUNDOS PARA CHECAR A CONEXÃO
-transport.maxPoolCount = 50 # MÁXIMO DE CONEXÕES ABERTAS (POR CLIENTE)
+bindPort = 998
+
+transport.heartbeatTimeout = 15 # CHECAGEM DE PING
 
 # DASHBOARD E LOGS
 webServer.addr = "0.0.0.0"
 webServer.user = "Administrator"
 webServer.password = "{{ .Envs.confSecurityPass }}"
-webServer.port = 999
+webServer.port = 9999
 # log.to = "z_OUTROS/z_logs-frps.txt"
-log.level = "info"
+log.level = "warn" # trace, debug, info, warn, error
 log.maxDays = 3
