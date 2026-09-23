@@ -19,3 +19,5 @@ webServer.port = 9999
 # log.to = "z_OUTROS/z_logs-frps.txt"
 log.level = "warn" # trace, debug, info, warn, error
 log.maxDays = 3
+
+
