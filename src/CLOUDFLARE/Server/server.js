@@ -16,7 +16,7 @@ export default {
         function retRes() { return [JSON.stringify(ret), { 'headers': { 'Content-Type': 'application/json', }, 'status': ret.ret ? 200 : 400, },]; }
 
         if (request.method !== 'POST') {
-            ret = setRet(`MÉTODOS ACEITOS: POSTaaa`);
+            ret = setRet(`MÉTODOS ACEITOS: POST`);
             return new Response(...retRes());
         }
 

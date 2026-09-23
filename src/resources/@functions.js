@@ -1,9 +1,9 @@
 // @functions.js
 
-// DETECÇÃO DE AMBIENTE [1: CHROME | 2: NODE | 3: GOOGLE | 4: HTML | 5: WORKERS]
+// DETECÇÃO DE AMBIENTE [1: CHROME | 2: NODE | 3: GOOGLE | 4: HTML | 5: CLOUDFLARE]
 function getEngType() {
     let x = 'undefined'; x = typeof chrome !== x && chrome.runtime ? 1 : typeof global !== x && typeof WebSocketPair === x ? 2 : typeof ScriptApp !== x ? 3 : typeof window !== x && typeof window.document
-        !== x ? 4 : typeof navigator !== x && navigator.userAgent === 'Cloudflare-Workers' ? 5 : 0; return { 'engType': x, 'engName': ['UNKNOWN', 'EXTENSION', 'NODE', 'GOOGLE', 'HTML', 'WORKERS',][x], };
+        !== x ? 4 : typeof navigator !== x && navigator.userAgent === 'Cloudflare-Workers' ? 5 : 0; return { 'engType': x, 'engName': ['UNKNOWN', 'EXTENSION', 'NODE', 'GOOGLE', 'HTML', 'CLOUDFLARE',][x], };
 }
 
 function getTypeof(v) { // 'number' / 'nan' / 'string' / 'boolean' / 'null' / 'undefined' / 'array' / 'object' / 'buffer' / 'function' / 'date' / 'set' / 'map' / 'regexp' / 'error' → getTypeof(false)
@@ -20,7 +20,7 @@ function setRetRunV2({ p1, p2, nameFun, }) {
 
 let { engType, engName, } = getEngType();
 
-if (['EXTENSION', 'NODE', 'HTML', 'WORKERS',].includes(engName)) {
+if (['EXTENSION', 'NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) {
     globalThis['getEngType'] = getEngType; globalThis['getTypeof'] = getTypeof; globalThis['setRetRunV2'] = setRetRunV2; globalThis['engType'] = engType; globalThis['engName'] = engName;
 }
 

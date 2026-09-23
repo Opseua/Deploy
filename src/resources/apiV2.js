@@ -1,3 +1,5 @@
+let dispatcher;
+
 async function apiV2(inf = {}) {
     let ret = { 'ret': false, }, nameFun = `APIv2`; function setRet(p1, p2, p3) { ret = setRetRunV2({ p1, p2, p3, nameFun, }); return ret; } let retHelper;
     try {
@@ -125,10 +127,10 @@ async function api_helper(inf = {}) {
         if (['GOOGLE',].includes(engName)) {
             reqOpt = { ...reqOpt, 'followRedirects': modeRedirect !== 'block', 'validateHttpsCertificates': false, 'muteHttpExceptions': true, ...(body && { 'payload': body, }), };
         }
-        if (['EXTENSION', 'NODE', 'HTML', 'WORKERS',].includes(engName)) {
+        if (['EXTENSION', 'NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) {
             let controller = new AbortController();
             reqOpt = {
-                ...reqOpt, ...(!(['EXTENSION',].includes(engName) && bodyReqRaw) && !['WORKERS',].includes(engName) && { 'keepalive': true, }),
+                ...reqOpt, ...(!(['EXTENSION',].includes(engName) && bodyReqRaw) && !['CLOUDFLARE',].includes(engName) && { 'keepalive': true, }),
                 'redirect': modeRedirect === 'block' ? 'manual' : 'follow', 'signal': controller.signal, ...(['NODE',].includes(engName) && { dispatcher, }), ...(body && { body, }),
             };
             return { 'ret': true, 'res': { reqOpt, controller, }, };
@@ -159,8 +161,8 @@ async function api_helper(inf = {}) {
             });
             return res;
         }
-        // NODE / HTML / WORKERS: timeout de conexão + resposta via setTimeout/AbortController
-        if (['NODE', 'HTML', 'WORKERS',].includes(engName)) {
+        // NODE / HTML / CLOUDFLARE: timeout de conexão + resposta via setTimeout/AbortController
+        if (['NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) {
             let cnt = false;
             let res = await new Promise((resolve) => {
                 let timC = setTimeout(() => { if (!cnt) { controller.abort(); resolve({ 'ret': false, 'msg': `TEMPO MÁXIMO DE CONEXÃO ATINGIDO`, }); } }, (maxConnect * 1000));
@@ -180,7 +182,7 @@ async function api_helper(inf = {}) {
     return inf.ret; // fallback (não deveria ser atingido — todo step retorna explicitamente acima)
 }
 
-if (['EXTENSION', 'NODE', 'HTML', 'WORKERS',].includes(engName)) { globalThis['apiV2'] = apiV2; }
+if (['EXTENSION', 'NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) { globalThis['apiV2'] = apiV2; }
 
 
 
