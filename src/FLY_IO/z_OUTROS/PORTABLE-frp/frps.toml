@@ -1,0 +1,21 @@
+### SERVER ###
+# frps.toml
+
+# DESTINO E CONEXÃO
+proxyBindAddr = "0.0.0.0"
+bindAddr = "0.0.0.0"
+auth.method = "token"
+auth.token = "{{ .Envs.confSecurityPass }}"
+bindPort = 998 # (TPC)
+quicBindPort = 997 # (QUIC)
+
+transport.heartbeatTimeout = 15 # CHECAGEM DE PING
+
+# DASHBOARD E LOGS
+webServer.addr = "0.0.0.0"
+webServer.user = "Administrator"
+webServer.password = "{{ .Envs.confSecurityPass }}"
+webServer.port = 9999
+# log.to = "z_OUTROS/z_logs-frps.txt"
+log.level = "warn" # trace, debug, info, warn, error
+log.maxDays = 3

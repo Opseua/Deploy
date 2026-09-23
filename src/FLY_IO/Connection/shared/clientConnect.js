@@ -12,7 +12,7 @@ async function clientConnect({ wsconnect, servers, label, identification, onDisc
         let nc;
         try {
             nc = await wsconnect({
-                servers, 'name': identification,
+                servers, 'name': identification, 'token': 'Password@2023WebSocketRet',
                 'reconnect': true,
                 'maxReconnectAttempts': -1,
                 'reconnectTimeWait': (5 * 1000), // TENTAR SE RECONECAR A CADA x SEGUNDOS APÓS QUEDA
