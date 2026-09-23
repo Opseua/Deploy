@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 // src/CLOUDFLARE/Server/server.js
 
 // COMPARTILHADO
@@ -8,7 +10,7 @@ await import('../../resources/apiV2.js');
 
 export default {
 
-    async fetch(request, env, ctx) {
+    async fetch(request) {
         let ret = { 'ret': false, }, nameFun = `SERVER`; function setRet(p1, p2, p3) { ret = globalThis.setRetRunV2({ p1, p2, p3, nameFun, }); return ret; }
 
         function retRes() { return [JSON.stringify(ret), { 'headers': { 'Content-Type': 'application/json', }, 'status': ret.ret ? 200 : 400, },]; }
@@ -53,4 +55,5 @@ export default {
     },
 
 };
+
 

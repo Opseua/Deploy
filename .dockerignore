@@ -1,14 +1,23 @@
 # IGNORAR TUDO (MANTER NO INICIO!!!)
 **
 
-# PERMITIR: o que o Fly.io precisa
+# IGNORAR [SIM]
+PASTA_A/
+PASTA_*/
+*ASTA_*/
+**/*ASTA_*/
+
+# IGNORAR [NAO]
 !src/FLY_IO/
 !src/FLY_IO/**
 !src/resources/
 !src/resources/**
 
-# NÃO PERMITIR: o que é só do Cloudflare
+# IGNORAR [SIM]
+**/node_modules
 src/CLOUDFLARE/
 
-# NÃO ENVIAR node_modules local
-**/node_modules
+# IGNORAR [NAO] (MANTER NO FINAL)
+!src/**/package.json
+
+

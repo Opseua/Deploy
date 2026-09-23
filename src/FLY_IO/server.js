@@ -50,25 +50,29 @@ async function waitAndNotify({ executables = [], ports = [], scripts = [], }) {
 }
 
 // ########################### EXECUTÁVEIS
-let syncthingZOutros = `${fileWindows}/PORTABLE-Syncthing/z_OUTROS`, zOutros = new URL('./z_OUTROS', import.meta.url).pathname;
+let syncthingZOutros = `${fileWindows}/PORTABLE-Syncthing/z_OUTROS`, zOutros = './src/z_OUTROS';
 startBin({
-    'linux': `${zOutros}/PORTABLE-frp/frps_linux_amd64`, 'args': ['-c', `${zOutros}/PORTABLE-frp/frps.toml`,], 'label': 'frps', 'win': `${syncthingZOutros}/PORTABLE-frp/frps.exe`,
+    'label': 'frps', 'linux': `${zOutros}/PORTABLE-frp/frps_linux_amd64`, 'win': `${syncthingZOutros}/PORTABLE-frp/frps.exe`,
+    'args': ['-c', `${zOutros}/PORTABLE-frp/frps.toml`,],
 });
 startBin({
-    'linux': `${zOutros}/PORTABLE-NATS/nats-server`, 'args': ['-c', `${zOutros}/PORTABLE-NATS/nats-server.conf`,], 'label': 'nats', 'win': `${syncthingZOutros}/PORTABLE-NATS/nats-server.exe`,
+    'label': 'nats', 'linux': `${zOutros}/PORTABLE-NATS/nats-server`, 'win': `${syncthingZOutros}/PORTABLE-NATS/nats-server.exe`,
+    // 'args': ['-c', `${zOutros}/PORTABLE-NATS/nats-server.conf`,],
+    'args': ['-c', `${zOutros}/PORTABLE-NATS/nats-server.conf`, '--auth', process.env.confSecurityPass,],
 });
 startBin({
-    'linux': `${zOutros}/PORTABLE-frp/frpc_linux_amd64`, 'args': ['-c', `${zOutros}/PORTABLE-frp/frpc.toml`,], 'label': 'frpc', 'win': `${syncthingZOutros}/PORTABLE-frp/frpc.exe`,
+    'label': 'frpc', 'linux': `${zOutros}/PORTABLE-frp/frpc_linux_amd64`,
+    'args': ['-c', `${zOutros}/PORTABLE-frp/frpc.toml`,],
 });
 
 // ########################### SCRIPTS
-startScript({ 'label': 'Connection', 'path': './Connection/server.js', });
+startScript({ 'label': 'Connection', 'path': './Connection/src/server.js', });
 
 // ########################### NOTIFY
 waitAndNotify({
     'executables': [
         'nats-server',
-        'frps_linux_amd64',
+        'frps',
     ],
     // 'ports': [
     //     999
@@ -82,9 +86,12 @@ waitAndNotify({
 
 
 
+// serverFly.js — servidor HTTP puro, ZERO dependências externas do seu ecossistema (sem api/regexE/configStorage/file/gW/notification/logConsole)
+// Só usa módulo nativo do Node: http
+// ⚠️ SEM CREDENCIAL NENHUMA NO CÓDIGO (repositório é público) — o 'token' vem PRONTO no body de cada requisição
 
 
-import http from 'http'
+import http from 'http';
 
 
 // ###################### HELPERS (SUBSTITUEM 'regex()' E OUTRAS GLOBALS DO SEU ECOSSISTEMA) ######################
@@ -260,5 +267,4 @@ let server = http.createServer((req, res) => {
     });
 });
 server.listen(PORT, () => { console.log(`SERVER FLY RODANDO NA PORTA ${PORT}`); });
-
 

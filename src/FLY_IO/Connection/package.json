@@ -1,7 +1,0 @@
-{
-  "type": "module",
-  "dependencies": {
-    "@nats-io/nats-core": "^3.4.0",
-    "ws": "^8.21.0"
-  }
-}
