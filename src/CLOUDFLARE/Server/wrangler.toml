@@ -1,7 +1,5 @@
-name = "server"
+name = "server"                       # NOME DO WORKER NA CLOUDFLARE (troque se for outro)
 main = "server.js"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 workers_dev = true
-
-
