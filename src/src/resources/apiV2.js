@@ -4,9 +4,18 @@ let nameFun = `apiV2`, dispatcher;
 async function apiV2(inf = {}) {
     let ret = { 'ret': false, }, hides = inf.hides || []; function setRet(p1, p2) { ret = setRetRunV2({ p1, p2, nameFun, hides, }); return ret; } let retHelper;
     try {
-        function paramsObj(val, type, char = '&') { // CONVERTER OBJETO PARA urlencoded E VICE-VERSA
+        function paramsObj(val, type, char = '&') {
             if (type === 'object') { return Object.entries(val).map(([k, v,]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join(char); }
             return Object.fromEntries(val.split('?').pop().split(char).filter(p => p.includes('=')).map(p => p.split(/=(.*)/s).slice(0, 2).map(decodeURIComponent)));
+        } function urlParse(u) {
+            let m = `${u}`.match(/^([a-z][a-z0-9+.-]*:)\/\/([^/?#]*)([^?#]*)(\?[^#]*)?(#.*)?$/i); if (!m) { return null; }
+            return { 'pro': m[1].toLowerCase(), 'origin': `${m[1].toLowerCase()}//${m[2].toLowerCase()}`, 'host': m[2].toLowerCase(), 'path': m[3] || '/', 'query': m[4] || '', 'hash': m[5] || '', };
+        } function urlResolve(loc, base) {
+            loc = `${loc}`.trim(); if (/^[a-z][a-z0-9+.-]*:/i.test(loc)) { return loc; } let b = urlParse(base); if (!b) { return loc; } if (loc.startsWith('//')) { return `${b.pro}${loc}`; }
+            if (loc.startsWith('#')) { return `${b.origin}${b.path}${b.query}${loc}`; } if (loc.startsWith('?')) { return `${b.origin}${b.path}${loc}`; }
+            let [pathQ, hash = '',] = loc.split(/(?=#)/); let [p, q = '',] = pathQ.split(/(?=\?)/); let dir = p.startsWith('/') ? [] : b.path.replace(/[^/]*$/, '').split('/').filter(Boolean);
+            let out = [...dir,]; for (let s of p.split('/')) { if (s === '..') { out.pop(); } else if (s !== '.' && s !== '') { out.push(s); } }
+            return `${b.origin}/${out.join('/')}${p.endsWith('/') && out.length ? '/' : ''}${q}${hash}`;
         }
 
         let rulesApiV2 = {
@@ -22,14 +31,29 @@ async function apiV2(inf = {}) {
 
         // VÁRIAS REQUISIÇÕES
         if (Array.isArray(inf)) {
-            let list = [...inf,], all = typeof list[0] === 'number' ? list.shift() === 0 : false; if (list.length === 0) { return setRet(`ARRAY 'inf' VAZIA`); } let need = all ?
-                list.length : (typeof inf[0] === 'number' ? inf[0] : list.length); need = Math.min(need, list.length); let group = new AbortController(), res = await new Promise((resolve) => {
-                    let done = [], count = 0, total = list.length, fin = () => { group.abort(); resolve(all ? done : done.filter((x) => x.ret).slice(0, need)); }; list.forEach(async (a, idx) => {
-                        let r; try { r = await apiV2({ ...a, 'signal': group.signal, }); } catch (e) { r = setRetRunV2({ 'p1': `${e}`, nameFun, }); } if (group.signal.aborted) { return; }
-                        done.push({ idx, 'ret': r.ret, 'msg': r.msg, ...(r.hasOwnProperty('res') && { 'res': r.res, }), }); count++; if (count === total) { return fin(); }
-                        if (!all && done.filter((x) => x.ret).length >= need) { return fin(); }
+            let list = [...inf,], all = typeof list[0] === 'number' ? list.shift() === 0 : false; if (list.length === 0) { return setRet(`ARRAY 'inf' VAZIA`); }
+            let need = all ? list.length : (typeof inf[0] === 'number' ? inf[0] : list.length); need = Math.min(need, list.length);
+
+            // ITEM DE RESULTADO PADRÃO (COMUM A TODOS OS AMBIENTES)
+            let item = (idx, r) => ({ idx, 'ret': r.ret, 'msg': r.msg, ...(r.hasOwnProperty('res') && { 'res': r.res, }), });
+            let safe = async (a, extra = {}) => { try { return await apiV2({ ...a, ...extra, }); } catch (e) { return setRetRunV2({ 'p1': `${e}`, nameFun, }); } };
+
+            let done = [];
+            if (['GOOGLE',].includes(engName)) {
+                // <GOOGLE> SEM AbortController: EXECUTA SEQUENCIALMENTE (UrlFetchApp É SÍNCRONO) E PARA CEDO QUANDO 'need' É ATINGIDO
+                for (let idx = 0; idx < list.length; idx++) { done.push(item(idx, await safe(list[idx]))); if (!all && done.filter((x) => x.ret).length >= need) { break; } }
+            } else {
+                // <EXTENSION | NODE | HTML | CLOUDFLARE> COM AbortController: PODE CANCELAR AS DEMAIS AO ATINGIR 'need'
+                let group = new AbortController(); done = await new Promise((resolve) => {
+                    let acc = [], fin = () => { group.abort(); resolve(acc); }; list.forEach(async (a, idx) => {
+                        let r = await safe(a, { 'signal': group.signal, }); if (group.signal.aborted) { return; } acc.push(item(idx, r));
+                        if (acc.length === list.length || (!all && acc.filter((x) => x.ret).length >= need)) { fin(); }
                     });
-                }); let retOk = res.some((x) => x.ret); return { 'ret': retOk, 'msg': `${nameFun} <multi>: ${retOk ? 'OK' : 'ERRO | ***'}`, res, };
+                });
+            }
+
+            // FILTRO E RETORNO FINAL (COMUM A TODOS OS AMBIENTES)
+            let res = all ? done : done.filter((x) => x.ret).slice(0, need), retOk = res.some((x) => x.ret); return { 'ret': retOk, 'msg': `${nameFun} <multi>: ${retOk ? 'OK' : 'ERRO | ***'}`, res, };
         }
 
         // VALIDAÇÃO E PREPARAÇÃO DAS CHAVES DO OBJETO inf
@@ -47,7 +71,7 @@ async function apiV2(inf = {}) {
             let redirects = [], nextUrl = url, nextInf = { ...inf, }, current, max = 10, limit = false; while (true) {
                 current = await apiV2({ ...nextInf, 'modeRedirect': 'block', 'reRunApi': true, 'url': nextUrl, 'hideHeaders': false, 'code': false, }); if (!current?.res) { break; }
                 let resCode = current.res.code, location = current.res.headers?.location; if (resCode < 300 || resCode >= 400 || !location) { break; }
-                if (redirects.length >= max) { limit = true; break; } location = new URL(location, nextUrl).href; redirects.push({ 'code': resCode, 'from': nextUrl, 'to': location, });
+                if (redirects.length >= max) { limit = true; break; } location = urlResolve(location, nextUrl); redirects.push({ 'code': resCode, 'from': nextUrl, 'to': location, });
                 nextUrl = location; if ([301, 302, 303,].includes(resCode) && nextInf.method !== 'GET') { nextInf = { ...nextInf, 'method': 'GET', }; delete nextInf.body; delete nextInf.bodyReqRaw; }
             } if (!current?.res) { return current; } if (limit) { return setRet(`MÁXIMO DE REDIRECIONAMENTOS`); } current.res.redirects = redirects; if (hideHeaders) { delete current.res.headers; }
             if (code !== false && !(code === true ? rulesApiV2.keys.code.default : [].concat(code)).includes(current.res.code)) { return setRet(`CÓDIGO INVÁLIDO '${current.res.code}'`); } return current;
@@ -82,7 +106,7 @@ async function apiV2(inf = {}) {
         if (!retHelper.ret) { return setRet(`${retHelper.msg}`); } let { req, } = retHelper.res;
 
         // RESPOSTA: PROCESSAR
-        let resC = req.cod, resB = req.bod, resH = req.hea, resU = req.url; let resT = resU && new URL(resU).origin, typeB = null;
+        let resC = req.cod, resB = req.bod, resH = req.hea, resU = req.url; let resT = resU && urlParse(resU)?.origin, typeB = null;
         if (!bodyResRaw && resH['content-type']?.includes(hdr)) { typeB = false; if (object) { try { resB = JSON.parse(resB); typeB = true; } catch { } } }
 
         if (code !== false) { let codes = code === true ? rulesApiV2.keys.code.default : [].concat(code); if (!codes.includes(resC)) { return setRet(`CÓDIGO INVÁLIDO '${resC}'`); } }
@@ -135,7 +159,10 @@ async function api_helper(inf = {}) {
     if (step === 'buildReqOpt') {
         let { method, headers, body, modeRedirect, } = inf; let reqOpt = { method, headers, };
         if (['GOOGLE',].includes(engName)) {
-            reqOpt = { ...reqOpt, 'followRedirects': modeRedirect !== 'block', 'validateHttpsCertificates': false, 'muteHttpExceptions': true, ...(body && { 'payload': body, }), };
+            let hdrs = { ...headers, }, contentType; for (let k of Object.keys(hdrs)) { if (k.toLowerCase() === 'content-type') { contentType = hdrs[k]; delete hdrs[k]; } } reqOpt = {
+                'method': method.toLowerCase(), 'headers': hdrs, 'followRedirects': modeRedirect !== 'block', 'validateHttpsCertificates': false, 'muteHttpExceptions': true,
+                ...(contentType && { contentType, }), ...(body && { 'payload': (inf.bodyReqRaw && body instanceof Uint8Array) ? Array.from(body) : body, }),
+            };
         }
         if (['EXTENSION', 'NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) {
             let { signal, } = inf, controller = new AbortController(); reqOpt = {
@@ -148,11 +175,7 @@ async function api_helper(inf = {}) {
 
     if (step === 'doRequest') {
         let { url, reqOpt, maxConnect, maxResponse, controller, bodyResRaw, } = inf;
-        // <GOOGLE> (NÃO DISPONÍVEL: maxConnect, maxResponse)
-        if (['GOOGLE',].includes(engName)) {
-            let hea = {}; let req = await UrlFetchApp.fetch(url, reqOpt); Object.entries(req.getAllHeaders()).forEach(([k, v,]) => hea[typeof k === 'string' ? k.toLowerCase() : k] = v);
-            return { 'ret': true, 'res': { 'req': { 'cod': req.getResponseCode(), 'url': hea['x-final-url'] || url, hea, 'bod': req.getContentText(), }, }, };
-        }
+
         // <EXTENSION>
         if (['EXTENSION',].includes(engName)) {
             let done = false, tim, reqId = `${Date.now()}_${Math.random()}`; let res = await new Promise((resolve) => {
@@ -166,6 +189,7 @@ async function api_helper(inf = {}) {
             });
             return res;
         }
+
         // <NODE | HTML | CLOUDFLARE>
         if (['NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) {
             function www(bod) { bod = ['NODE',].includes(engName) ? Buffer.from(bod) : new Uint8Array(bod); return bod; } let res = await new Promise((resolve) => {
@@ -178,6 +202,20 @@ async function api_helper(inf = {}) {
             });
             return res;
         }
+
+        // <GOOGLE> (INDISPONÍVEL: maxConnect, maxResponse)
+        if (['GOOGLE',].includes(engName)) {
+            let hea = {}, req = await UrlFetchApp.fetch(url, reqOpt); Object.entries(req.getAllHeaders()).forEach(([k, v,]) => { hea[`${k}`.toLowerCase()] = Array.isArray(v) ? v.join(', ') : v; });
+            let bod = bodyResRaw ? new Uint8Array(req.getContent()) : req.getContentText(); return { 'ret': true, 'res': { 'req': { 'cod': req.getResponseCode(), 'url': hea['x-final-url'] || url, hea, bod, }, }, };
+        }
+
+    }
+
+    // <GOOGLE> CONVERTER HTTPResponse EM { cod, url, hea, bod } (USADO PELO doRequest E PELO fetchAll)
+    if (step === 'parseGoogle') {
+        let { resp, url, bodyResRaw, } = inf; let hea = {}; Object.entries(resp.getAllHeaders()).forEach(([k, v,]) => { hea[`${k}`.toLowerCase()] = Array.isArray(v) ? v.join(', ') : v; });
+        let bod = bodyResRaw ? new Uint8Array(resp.getContent()) : resp.getContentText();
+        return { 'ret': true, 'res': { 'req': { 'cod': resp.getResponseCode(), 'url': hea['x-final-url'] || url, hea, bod, }, }, };
     }
 
     return inf.ret;
@@ -193,22 +231,22 @@ if (['EXTENSION', 'NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) { globalThis
 // NODE
 // import fs from 'fs';
 
-// let infApi, retApi;
-// infApi = { 'method': 'GET', 'url': `https://i-p.show/?format=json`, };
-// infApi = { 'method': 'GET', 'url': `https://i.imgur.com/9BwUhA7.jpeg`, 'bodyResRaw': true, };
-// infApi = { 'method': 'POST', 'url': `https://ntfy.sh/AAA`, 'body': `Texto aqui`, };
-// infApi = { 'method': 'POST', 'url': `https://ntfy.sh/AAA`, 'body': { 'keyA': 'valA', 'keyB': 'valB', }, };
-// infApi = { 'method': 'POST', 'url': `https://ntfy.sh/AAA`, 'body': `keyA=valueA&keyB=valueB`, 'headers': { 'Content-Type': 'application/x-www-form-urlencoded', }, };
-// infApi = { 'method': 'POST', 'url': `https://ntfy.sh/AAA`, 'body': { 'keyA': 'valA', 'keyB': 'valB', }, 'headers': { 'Content-Type': 'application/x-www-form-urlencoded', }, };
-// infApi = { 'method': 'POST', 'url': `https://ntfy.sh/AAA`, 'body': fs.readFileSync(`image.png`), 'bodyReqRaw': true, };
-// infApi = [
+// let infApiV2, retApiV2;
+// infApiV2 = { 'method': 'GET', 'url': `https://i-p.show/?format=json`, };
+// infApiV2 = { 'method': 'GET', 'url': `https://i.imgur.com/9BwUhA7.jpeg`, 'bodyResRaw': true, };
+// infApiV2 = { 'method': 'POST', 'url': `https://ntfy.sh/AAA`, 'body': `Texto aqui`, };
+// infApiV2 = { 'method': 'POST', 'url': `https://ntfy.sh/AAA`, 'body': { 'keyA': 'valA', 'keyB': 'valB', }, };
+// infApiV2 = { 'method': 'POST', 'url': `https://ntfy.sh/AAA`, 'body': `keyA=valA&keyB=valB`, 'headers': { 'Content-Type': 'application/x-www-form-urlencoded', }, };
+// infApiV2 = { 'method': 'POST', 'url': `https://ntfy.sh/AAA`, 'body': { 'keyA': 'valA', 'keyB': 'valB', }, 'headers': { 'Content-Type': 'application/x-www-form-urlencoded', }, };
+// infApiV2 = { 'method': 'POST', 'url': `https://ntfy.sh/AAA`, 'body': fs.readFileSync(`image.png`), 'bodyReqRaw': true, };
+// infApiV2 = [
 //     0, // ESPERAR APENAS PELAS x PRIMEIRAS REQUISIÇÕES RETORNADAS (ret true) OU 0 PARA TODAS (ret true E false)
 //     { 'method': 'GET', 'url': `https://postman-echo.com/delay/3`, 'maxConnect': 6, }, // ret: true [2]
 //     { 'method': 'GET', 'url': `https://postman-echo.com/delay/1`, 'maxConnect': 4, }, // ret: true [0]
 //     { 'method': 'GET', 'url': `https://postman-echo.com/delay/5`, 'maxConnect': 3, }, // ret: false [1]
 // ];
 
-// retApi = await apiV2(infApi);
-// if (!infApi.bodyResRaw) { console.log(JSON.stringify(retApi, null, 2)); } else { console.log(retApi.msg); fs.writeFileSync('image.png', retApi.res.body); }
+// retApiV2 = await apiV2(infApiV2);
+// if (!infApiV2.bodyResRaw) { console.log(JSON.stringify(retApiV2, null, 2)); } else { console.log(retApiV2.msg); fs.writeFileSync('image.png', retApiV2.res.body); }
 
 

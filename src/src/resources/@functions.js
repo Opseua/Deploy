@@ -35,7 +35,8 @@ function validatePar({ par, rules = {}, nameFun = 'validatePar', }) {
     } for (let [key, rule,] of Object.entries(keys)) {
         let isNested = key.includes('.') || key.includes('['); let parts = isNested ? parsePath(key) : null; let value = isNested ? getPath(result, parts) : result[key]; if (!(value !== undefined)) {
             if (rule.required) { return setRet(`INFORMAR '${key}'`); } if (rule.hasOwnProperty('default')) {
-                let def = ['object', 'array', 'map', 'set',].includes(getTypeof(rule.default)) ? structuredClone(rule.default) : rule.default;
+                // let def = ['object', 'array', 'map', 'set',].includes(getTypeof(rule.default)) ? structuredClone(rule.default) : rule.default;
+                let def = ['object', 'array', 'map', 'set',].includes(getTypeof(rule.default)) ? cloneDeep(rule.default) : rule.default; // ADICIONADO
                 if (isNested) { setPath(result, parts, def); } else { result[key] = def; }
             } continue;
         } if (rule.types?.length) { let vType = getTypeof(value); if (!rule.types.includes(vType)) { return setRet(`'${key}' TIPOS ACEITOS [${rule.types.join(', ')}]`); } }
@@ -45,9 +46,18 @@ function validatePar({ par, rules = {}, nameFun = 'validatePar', }) {
     } return setRet({ 'ret': true, 'res': result, });
 }
 
+function cloneDeep(v, seen = new WeakMap()) {
+    if (v === null || typeof v !== 'object') { return v; } if (seen.has(v)) { return seen.get(v); } if (v instanceof Date) { return new Date(v.getTime()); }
+    if (v instanceof RegExp) { return new RegExp(v.source, v.flags); } if (typeof Uint8Array !== 'undefined' && v instanceof Uint8Array) { return v.slice(); }
+    if (v instanceof Map) { let m = new Map(); seen.set(v, m); v.forEach((val, key) => m.set(cloneDeep(key, seen), cloneDeep(val, seen))); return m; }
+    if (v instanceof Set) { let s = new Set(); seen.set(v, s); v.forEach((val) => s.add(cloneDeep(val, seen))); return s; }
+    if (Array.isArray(v)) { let a = []; seen.set(v, a); v.forEach((val, i) => { a[i] = cloneDeep(val, seen); }); return a; }
+    let o = {}; seen.set(v, o); for (let k of Object.keys(v)) { o[k] = cloneDeep(v[k], seen); } return o;
+}
+
 if (['EXTENSION', 'NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) {
-    globalThis['getEngType'] = getEngType; globalThis['getTypeof'] = getTypeof; globalThis['setRetRunV2'] = setRetRunV2; globalThis['engType'] = engType;
-    globalThis['engName'] = engName; globalThis['paramsObj'] = paramsObj; globalThis['validatePar'] = validatePar;
+    globalThis['getEngType'] = getEngType; globalThis['getTypeof'] = getTypeof; globalThis['setRetRunV2'] = setRetRunV2; globalThis['engType'] = engType; globalThis['engName'] = engName;
+    globalThis['paramsObj'] = paramsObj; globalThis['validatePar'] = validatePar; globalThis['cloneDeep'] = cloneDeep;
 
 }
 

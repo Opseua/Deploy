@@ -74,7 +74,7 @@ let serverHttp = http.createServer(async (req, res) => {
     let bodyLog = null; // TEXTO DO BODY DA REQUISIÇÃO (APENAS SE NÃO FOR RAW)
     let timers = []; // TIMERS DAS ROTAS delay (CANCELADOS NO ABORT)
 
-    // clearConsole();
+    clearConsole();
 
     // LOG (linha principal + headers em uma linha)
     function log(code) {
