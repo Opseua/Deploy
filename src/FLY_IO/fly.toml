@@ -10,6 +10,22 @@ cpus = 1
 cpu_kind = "shared"
 memory = "256mb"
 
+###################################################### ⚠️⚠️⚠️ TESTES ⚠️⚠️⚠️
+
+[[services]]
+protocol = "tcp"
+internal_port = 5555
+[[services.ports]]
+port = 5555
+handlers = ["tls"]
+
+[[services]]
+protocol = "tcp"
+internal_port = 7777
+[[services.ports]]
+port = 7777
+handlers = ["tls"]
+
 ###################################################### SERVIÇO PRINCIPAL (SEM INFORMAR PORTA NO URL)
 # [[services]]
 # protocol = "tcp"

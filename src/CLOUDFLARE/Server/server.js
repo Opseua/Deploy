@@ -5,7 +5,7 @@
 // COMPARTILHADO
 await import('../../resources/@functions.js');
 
-// LÓGICA DO SERVIDOR (MESMA DO FLY.IO)
+// LÓGICA DO SERVIDOR
 await import('../../scripts/server.js');
 
 // FUNÇÕES

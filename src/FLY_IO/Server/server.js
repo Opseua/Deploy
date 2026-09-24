@@ -5,14 +5,13 @@ import http from 'http';
 // COMPARTILHADO
 await import('../../resources/@functions.js');
 
+// LÓGICA DO SERVIDOR
+await import('../../scripts/server.js');
+
 // FUNÇÕES
 await import('../../resources/apiV2.js');
 
-// LÓGICA DO SERVIDOR (MESMA DO CLOUDFLARE)
-await import('../../scripts/server.js');
-
 let PORT = 5555;
-
 let server = http.createServer(async (req, res) => {
     try {
         let { status, headers, body, } = await globalThis.serverHandle({
@@ -24,7 +23,6 @@ let server = http.createServer(async (req, res) => {
         res.writeHead(500, { 'Content-Type': 'application/json', }); res.end(JSON.stringify({ 'ret': false, 'msg': `SERVER: ERRO | ${e}`, }));
     }
 });
-
 server.listen(PORT, () => { console.log(`SERVER HTTP RODANDO NA PORTA ${PORT}`); });
 
 
