@@ -1,5 +1,7 @@
 /* eslint-disable custom/regraA */
 
+// src/FLY_IO/src/server.js
+
 import os from 'os'; import { spawn } from 'child_process'; import { chmodSync, existsSync } from 'fs'; import { Socket } from 'net';
 
 let engName = os.platform()?.startsWith('win') ? 'WINDOWS' : 'LINUX'; let _loadedScripts = new Set(), fileWindows; if (engName === 'WINDOWS') { fileWindows = process.env.fileWindows.replaceAll('\\', '/'); }

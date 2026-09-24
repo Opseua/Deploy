@@ -1,3 +1,5 @@
+# src/FLY_IO/fly.toml
+
 # CONFIGURAÇÕES
 app = "opseua"
 primary_region = "gru"
