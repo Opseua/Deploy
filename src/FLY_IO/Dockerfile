@@ -13,4 +13,4 @@ RUN cd src/FLY_IO && npm install --omit=dev
 WORKDIR /app/src/FLY_IO
 
 # INICIAR SERVIDOR GERAL DO DEPLOY
-CMD ["node", "server.js"]
+CMD ["node", "src/server.js"]

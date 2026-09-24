@@ -1,15 +1,15 @@
 /* eslint-disable no-undef */
 
-// src/CLOUDFLARE/Server/server.js
+// src/CLOUDFLARE/src/Server/server.js
 
 // COMPARTILHADO
-await import('../../src/resources/@functions.js');
+await import('../../../../src/src/resources/@functions.js');
 
 // LÓGICA DO SERVIDOR
-await import('../../src/scripts/server.js');
+await import('../../../../src/src/scripts/server.js');
 
 // FUNÇÕES
-await import('../../src/resources/apiV2.js');
+await import('../../../../src/src/resources/apiV2.js');
 
 export default {
 

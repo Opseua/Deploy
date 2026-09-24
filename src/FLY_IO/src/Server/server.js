@@ -3,18 +3,18 @@
 import http from 'http';
 
 // COMPARTILHADO
-await import('../../src/resources/@functions.js');
+await import('../../../../src/src/resources/@functions.js');
 
 // LÓGICA DO SERVIDOR
-await import('../../src/scripts/server.js');
+await import('../../../../src/src/scripts/server.js');
 
 // FUNÇÕES
-await import('../../src/resources/apiV2.js');
+await import('../../../../src/src/resources/apiV2.js');
 
 let PORT = 5555;
 let server = http.createServer(async (req, res) => {
     try {
-        let { status, headers, body, } = await globalThis.serverHandle({
+        let { status, headers, body, } = await serverHandle({
             'method': req.method,
             'getBody': async () => { let chunks = []; for await (let c of req) { chunks.push(c); } return JSON.parse(Buffer.concat(chunks).toString('utf-8')); },
         });

@@ -1,4 +1,4 @@
-# src/CLOUDFLARE/Server/wrangler.toml
+# src/CLOUDFLARE/src/Server/wrangler.toml
 
 name = "server"
 main = "server.js"
