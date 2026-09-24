@@ -4,18 +4,18 @@ import os from 'os'; import { spawn } from 'child_process'; import { chmodSync, 
 
 let engName = os.platform()?.startsWith('win') ? 'WINDOWS' : 'LINUX'; let _loadedScripts = new Set(), fileWindows; if (engName === 'WINDOWS') { fileWindows = process.env.fileWindows.replaceAll('\\', '/'); }
 
-// ── Inicia um executável ──────────────────────────────
+// ── Inicia um executável
 function startBin({ label, win, linux, args = [], }) {
     let bin = engName === 'WINDOWS' ? win : linux; if (engName === 'LINUX' && existsSync(linux)) { chmodSync(linux, 0o755); } let proc = spawn(bin, args, { 'stdio': 'inherit', });
     proc.on('exit', (code) => { console.error(`[${label}] saiu com código ${code}`); process.exit(code); }); console.log(`[${label}] iniciado`); return proc;
 }
 
-// ── Importa um script JS ──────────────────────────────
+// ── Importa um script JS
 async function startScript({ label, path, }) {
     try { await import(path); _loadedScripts.add(label); console.log(`[${label}] iniciado`); } catch (catchErr) { console.error(`[${label}] erro:`, catchErr.message); process.exit(1); }
 }
 
-// ── Checa se processo está rodando ───────────────────
+// ── Checa se processo está rodando
 async function isProcessRunning(name) {
     if (engName === 'WINDOWS') {
         return new Promise((resolve) => {
@@ -28,7 +28,7 @@ async function isProcessRunning(name) {
     } catch { } return false;
 }
 
-// ── Checa se porta está em uso ────────────────────────
+// ── Checa se porta está em uso
 function isPortOpen(port) {
     return new Promise((resolve) => {
         let s = new Socket(); s.setTimeout(1000); s.once('connect', () => { s.destroy(); resolve(true); }); s.once('error', () => { s.destroy(); resolve(false); });
@@ -36,7 +36,7 @@ function isPortOpen(port) {
     });
 }
 
-// ── Aguarda tudo e notifica ───────────────────────────
+// ── Aguarda tudo e notifica
 async function waitAndNotify({ executables = [], ports = [], scripts = [], }) {
     console.log('[notify] aguardando serviços...'); while (true) {
         await new Promise(r => setTimeout(r, 3000)); let execChecks = await Promise.all(executables.map(isProcessRunning)); let portChecks = await Promise.all(ports.map(isPortOpen));
@@ -63,6 +63,7 @@ startBin({
 
 // ########################### SCRIPTS
 startScript({ 'label': 'Connection', 'path': './Connection/server.js', });
+startScript({ 'label': 'Server', 'path': './Server/server.js', });
 
 // ########################### NOTIFY
 waitAndNotify({
@@ -75,6 +76,7 @@ waitAndNotify({
     // ],
     'scripts': [
         'Connection',
+        'Server',
     ],
 });
 
