@@ -1,3 +1,5 @@
+# .github/workflows/deployCloudflare.yml
+
 name: Deploy Cloudflare
 
 on:
@@ -5,7 +7,7 @@ on:
     branches: [main]
     paths:
       - 'src/CLOUDFLARE/**'
-      - 'src/resources/**'
+      - 'src/src/**'
       - '.github/workflows/deployCloudflare.yml'
   workflow_dispatch:
 
@@ -22,7 +24,7 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      # wrangler faz o bundle (esbuild) e resolve o import de '../../resources/...'
+      # wrangler faz o bundle (esbuild) e resolve o import de 'src/src/***'
       - uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

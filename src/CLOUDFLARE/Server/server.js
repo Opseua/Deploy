@@ -3,13 +3,13 @@
 // src/CLOUDFLARE/Server/server.js
 
 // COMPARTILHADO
-await import('../../resources/@functions.js');
+await import('../../src/resources/@functions.js');
 
 // LÓGICA DO SERVIDOR
-await import('../../scripts/server.js');
+await import('../../src/scripts/server.js');
 
 // FUNÇÕES
-await import('../../resources/apiV2.js');
+await import('../../src/resources/apiV2.js');
 
 export default {
 

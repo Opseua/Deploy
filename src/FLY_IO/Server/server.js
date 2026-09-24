@@ -3,13 +3,13 @@
 import http from 'http';
 
 // COMPARTILHADO
-await import('../../resources/@functions.js');
+await import('../../src/resources/@functions.js');
 
 // LÓGICA DO SERVIDOR
-await import('../../scripts/server.js');
+await import('../../src/scripts/server.js');
 
 // FUNÇÕES
-await import('../../resources/apiV2.js');
+await import('../../src/resources/apiV2.js');
 
 let PORT = 5555;
 let server = http.createServer(async (req, res) => {

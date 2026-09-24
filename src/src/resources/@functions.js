@@ -1,4 +1,4 @@
-// src/resources/@functions.js
+// src/src/resources/@functions.js
 
 // DETECÇÃO DE AMBIENTE [1: CHROME | 2: NODE | 3: GOOGLE | 4: HTML | 5: CLOUDFLARE]
 function getEngType() {

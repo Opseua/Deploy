@@ -1,3 +1,5 @@
+# .dockerignore
+
 # IGNORAR TUDO (MANTER NO INICIO!!!)
 **
 
@@ -10,8 +12,8 @@ PASTA_*/
 # IGNORAR [NAO]
 !src/FLY_IO/
 !src/FLY_IO/**
-!src/resources/
-!src/resources/**
+!src/src/
+!src/src/**
 
 # IGNORAR [SIM]
 **/node_modules
@@ -19,5 +21,3 @@ src/CLOUDFLARE/
 
 # IGNORAR [NAO] (MANTER NO FINAL)
 !src/**/package.json
-
-
