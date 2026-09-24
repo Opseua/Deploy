@@ -1,23 +1,22 @@
 // src/resources/apiV2.js
 
+function paramsObj(val, type, char = '&') {
+    if (type === 'object') { return Object.entries(val).map(([k, v,]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join(char); }
+    return Object.fromEntries(val.split('?').pop().split(char).filter(p => p.includes('=')).map(p => p.split(/=(.*)/s).slice(0, 2).map(decodeURIComponent)));
+} function urlParse(u) {
+    let m = `${u}`.match(/^([a-z][a-z0-9+.-]*:)\/\/([^/?#]*)([^?#]*)(\?[^#]*)?(#.*)?$/i); if (!m) { return null; }
+    return { 'pro': m[1].toLowerCase(), 'origin': `${m[1].toLowerCase()}//${m[2].toLowerCase()}`, 'host': m[2].toLowerCase(), 'path': m[3] || '/', 'query': m[4] || '', 'hash': m[5] || '', };
+} function urlResolve(loc, base) {
+    loc = `${loc}`.trim(); if (/^[a-z][a-z0-9+.-]*:/i.test(loc)) { return loc; } let b = urlParse(base); if (!b) { return loc; } if (loc.startsWith('//')) { return `${b.pro}${loc}`; }
+    if (loc.startsWith('#')) { return `${b.origin}${b.path}${b.query}${loc}`; } if (loc.startsWith('?')) { return `${b.origin}${b.path}${loc}`; } let [pathQ, hash = '',] =
+        loc.split(/(?=#)/); let [p, q = '',] = pathQ.split(/(?=\?)/); let dir = p.startsWith('/') ? [] : b.path.replace(/[^/]*$/, '').split('/').filter(Boolean); let o = [...dir,];
+    for (let s of p.split('/')) { if (s === '..') { o.pop(); } else if (s !== '.' && s !== '') { o.push(s); } } return `${b.origin}/${o.join('/')}${p.endsWith('/') && o.length ? '/' : ''}${q}${hash}`;
+}
+
 let nameFun = `apiV2`, dispatcher;
 async function apiV2(inf = {}) {
     let ret = { 'ret': false, }, hides = inf.hides || []; function setRet(p1, p2) { ret = setRetRunV2({ p1, p2, nameFun, hides, }); return ret; } let retHelper;
     try {
-        function paramsObj(val, type, char = '&') {
-            if (type === 'object') { return Object.entries(val).map(([k, v,]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join(char); }
-            return Object.fromEntries(val.split('?').pop().split(char).filter(p => p.includes('=')).map(p => p.split(/=(.*)/s).slice(0, 2).map(decodeURIComponent)));
-        } function urlParse(u) {
-            let m = `${u}`.match(/^([a-z][a-z0-9+.-]*:)\/\/([^/?#]*)([^?#]*)(\?[^#]*)?(#.*)?$/i); if (!m) { return null; }
-            return { 'pro': m[1].toLowerCase(), 'origin': `${m[1].toLowerCase()}//${m[2].toLowerCase()}`, 'host': m[2].toLowerCase(), 'path': m[3] || '/', 'query': m[4] || '', 'hash': m[5] || '', };
-        } function urlResolve(loc, base) {
-            loc = `${loc}`.trim(); if (/^[a-z][a-z0-9+.-]*:/i.test(loc)) { return loc; } let b = urlParse(base); if (!b) { return loc; } if (loc.startsWith('//')) { return `${b.pro}${loc}`; }
-            if (loc.startsWith('#')) { return `${b.origin}${b.path}${b.query}${loc}`; } if (loc.startsWith('?')) { return `${b.origin}${b.path}${loc}`; }
-            let [pathQ, hash = '',] = loc.split(/(?=#)/); let [p, q = '',] = pathQ.split(/(?=\?)/); let dir = p.startsWith('/') ? [] : b.path.replace(/[^/]*$/, '').split('/').filter(Boolean);
-            let out = [...dir,]; for (let s of p.split('/')) { if (s === '..') { out.pop(); } else if (s !== '.' && s !== '') { out.push(s); } }
-            return `${b.origin}/${out.join('/')}${p.endsWith('/') && out.length ? '/' : ''}${q}${hash}`;
-        }
-
         let rulesApiV2 = {
             'parTypes': ['object',], 'keys': {
                 'method': { 'required': true, 'types': ['string',], 'values': ['GET', 'POST', 'PUT', 'DELETE', 'PATCH',], }, 'url': { 'required': true, 'types': ['string',], },
@@ -31,29 +30,18 @@ async function apiV2(inf = {}) {
 
         // VÁRIAS REQUISIÇÕES
         if (Array.isArray(inf)) {
-            let list = [...inf,], all = typeof list[0] === 'number' ? list.shift() === 0 : false; if (list.length === 0) { return setRet(`ARRAY 'inf' VAZIA`); }
-            let need = all ? list.length : (typeof inf[0] === 'number' ? inf[0] : list.length); need = Math.min(need, list.length);
-
-            // ITEM DE RESULTADO PADRÃO (COMUM A TODOS OS AMBIENTES)
-            let item = (idx, r) => ({ idx, 'ret': r.ret, 'msg': r.msg, ...(r.hasOwnProperty('res') && { 'res': r.res, }), });
-            let safe = async (a, extra = {}) => { try { return await apiV2({ ...a, ...extra, }); } catch (e) { return setRetRunV2({ 'p1': `${e}`, nameFun, }); } };
-
-            let done = [];
-            if (['GOOGLE',].includes(engName)) {
-                // <GOOGLE> SEM AbortController: EXECUTA SEQUENCIALMENTE (UrlFetchApp É SÍNCRONO) E PARA CEDO QUANDO 'need' É ATINGIDO
+            let list = [...inf,], all = typeof list[0] === 'number' ? list.shift() === 0 : false; if (list.length === 0) { return setRet(`ARRAY 'inf' VAZIA`); } let need = all ? list.length : (typeof inf[0]
+                === 'number' ? inf[0] : list.length); need = Math.min(need, list.length); let item = (idx, r) => ({ idx, 'ret': r.ret, 'msg': r.msg, ...(r.hasOwnProperty('res') && { 'res': r.res, }), });
+            let done = [], safe = async (a, extra = {}) => { try { return await apiV2({ ...a, ...extra, }); } catch (e) { return setRetRunV2({ 'p1': `${e}`, nameFun, }); } }; if (['GOOGLE',].includes(engName)) {
                 for (let idx = 0; idx < list.length; idx++) { done.push(item(idx, await safe(list[idx]))); if (!all && done.filter((x) => x.ret).length >= need) { break; } }
             } else {
-                // <EXTENSION | NODE | HTML | CLOUDFLARE> COM AbortController: PODE CANCELAR AS DEMAIS AO ATINGIR 'need'
                 let group = new AbortController(); done = await new Promise((resolve) => {
                     let acc = [], fin = () => { group.abort(); resolve(acc); }; list.forEach(async (a, idx) => {
                         let r = await safe(a, { 'signal': group.signal, }); if (group.signal.aborted) { return; } acc.push(item(idx, r));
                         if (acc.length === list.length || (!all && acc.filter((x) => x.ret).length >= need)) { fin(); }
                     });
                 });
-            }
-
-            // FILTRO E RETORNO FINAL (COMUM A TODOS OS AMBIENTES)
-            let res = all ? done : done.filter((x) => x.ret).slice(0, need), retOk = res.some((x) => x.ret); return { 'ret': retOk, 'msg': `${nameFun} <multi>: ${retOk ? 'OK' : 'ERRO | ***'}`, res, };
+            } let res = all ? done : done.filter((x) => x.ret).slice(0, need), retOk = res.some((x) => x.ret); return { 'ret': retOk, 'msg': `${nameFun} <multi>: ${retOk ? 'OK' : 'ERRO | ***'}`, res, };
         }
 
         // VALIDAÇÃO E PREPARAÇÃO DAS CHAVES DO OBJETO inf
@@ -89,14 +77,13 @@ async function apiV2(inf = {}) {
         let hdr = 'application/json', xxx = `text/plain;charset=UTF-8`, yyy = `x-www-form-urlencoded`, hasBody = ['POST', 'PUT', 'PATCH',].includes(method); if (!hasBody) { body = false; } else {
             let bodT = getTypeof(body), ct = Object.entries(headers).find(([k,]) => k.toLowerCase() === 'content-type')?.[1]?.toLowerCase() || ''; let isForm = ct.includes(yyy),
                 isJson = ct.includes(hdr), isStruct = ['object', 'array',].includes(bodT); let allowed = bodyReqRaw ? ['buffer',] : isForm ? ['string', 'object',] : ['string', 'object', 'array',];
-            if (!allowed.includes(bodT)) { return setRet(`BODY TIPO '${bodT}' INVÁLIDO NESSA REQUISIÇÃO`); } let empty = bodyReqRaw ? body.length === 0 : body === '' || (isForm &&
-                Object.keys(bodT === 'object' ? body : paramsObj(body, bodT)).length === 0); if (empty) { return setRet(`'body' VAZIO${isForm ? ` [${yyy}]` : ''}`); } if (!bodyReqRaw) {
-                    if (!ct) { headers = { ...headers, 'Content-Type': isStruct ? hdr : xxx, }; isJson = isStruct; } if (isForm && bodT === 'object') { body = paramsObj(body, 'object'); }
-                    else if (isJson && isStruct) { body = JSON.stringify(body); } else if (isJson && bodT === 'string') { try { JSON.parse(body); } catch { return setRet(`'body' NÃO É UM JSON VÁLIDO`); } }
-                    else if (bodT !== 'string') { return setRet(`BODY TIPO '${bodT}' INVÁLIDO PARA O CONTENT-TYPE '${ct}'`); }
-                }
+            if (!allowed.includes(bodT)) { return setRet(`BODY TIPO '${bodT}' INVÁLIDO NESSA REQUISIÇÃO`); } if (isForm && !bodyReqRaw && bodT === 'string') { body = paramsObj(body, bodT); bodT = 'object'; }
+            let empty = bodyReqRaw ? body.length === 0 : body === '' || (isForm && Object.keys(body).length === 0); if (empty) { return setRet(`'body' VAZIO${isForm ? ` [${yyy}]` : ''}`); } if (!bodyReqRaw) {
+                if (!ct) { headers = { ...headers, 'Content-Type': isStruct ? hdr : xxx, }; isJson = isStruct; } if (isForm) { body = paramsObj(body, 'object'); }
+                else if (isJson && isStruct) { body = JSON.stringify(body); } else if (isJson && bodT === 'string') { try { JSON.parse(body); } catch { return setRet(`'body' NÃO É UM JSON VÁLIDO`); } }
+                else if (bodT !== 'string') { return setRet(`BODY TIPO '${bodT}' INVÁLIDO PARA O CONTENT-TYPE '${ct}'`); }
+            }
         }
-
         // PREPARAR: REQUISIÇÃO
         retHelper = await api_helper({ 'step': 'buildReqOpt', method, headers, body, modeRedirect, bodyReqRaw, signal, });
         if (!retHelper.ret) { return setRet(`${retHelper.msg}`); } let { reqOpt, controller, } = retHelper.res;
@@ -110,36 +97,17 @@ async function apiV2(inf = {}) {
         if (!bodyResRaw && resH['content-type']?.includes(hdr)) { typeB = false; if (object) { try { resB = JSON.parse(resB); typeB = true; } catch { } } }
 
         if (code !== false) { let codes = code === true ? rulesApiV2.keys.code.default : [].concat(code); if (!codes.includes(resC)) { return setRet(`CÓDIGO INVÁLIDO '${resC}'`); } }
-        ret = setRet({
-            'ret': true,
-            'res': {
-                'code': resC,
-                'object': typeB,
-                'host': resT,
-                'url': resU,
-                'redirects': [],
-                ...(!hideHeaders && { 'headers': resH, }),
-                'body': resB,
-            },
-        });
+        ret = setRet({ 'ret': true, 'res': { 'code': resC, 'object': typeB, 'host': resT, 'url': resU, 'redirects': [], ...(!hideHeaders && { 'headers': resH, }), 'body': resB, }, });
 
     } catch (catchErr) {
         if (inf.ignoreErr) { ret['msg'] = `${nameFun}: ERRO | CHAMADA PELA 'regexE'`; } else {
-            // let retRegexE = await regexE({ inf, 'e': catchErr, });
-            // ret['msg'] = retRegexE.res;
-
-            console.log(catchErr);
-
-            ret['msg'] = catchErr.stack;
-            ret['ret'] = false;
-            delete ret['res'];
+            console.log(catchErr); // let retRegexE = await regexE({ inf, 'e': catchErr, }); ret['msg'] = retRegexE.res;
+            ret['msg'] = catchErr.stack; ret['ret'] = false; delete ret['res'];
         }
     }
 
     return setRet(ret);
 }
-
-
 
 // HELPER (PARA AMBIENTES DIFERENTES)
 async function api_helper(inf = {}) {
@@ -153,8 +121,6 @@ async function api_helper(inf = {}) {
         }
         return;
     }
-
-    // --------------------------------------------------------------------------------
 
     if (step === 'buildReqOpt') {
         let { method, headers, body, modeRedirect, } = inf; let reqOpt = { method, headers, };
@@ -175,8 +141,6 @@ async function api_helper(inf = {}) {
 
     if (step === 'doRequest') {
         let { url, reqOpt, maxConnect, maxResponse, controller, bodyResRaw, } = inf;
-
-        // <EXTENSION>
         if (['EXTENSION',].includes(engName)) {
             let done = false, tim, reqId = `${Date.now()}_${Math.random()}`; let res = await new Promise((resolve) => {
                 let end = (r) => { if (done) { return; } done = true; clearTimeout(tim); controller.signal.removeEventListener('abort', onAbort); resolve(r); };
@@ -189,8 +153,6 @@ async function api_helper(inf = {}) {
             });
             return res;
         }
-
-        // <NODE | HTML | CLOUDFLARE>
         if (['NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) {
             function www(bod) { bod = ['NODE',].includes(engName) ? Buffer.from(bod) : new Uint8Array(bod); return bod; } let res = await new Promise((resolve) => {
                 let timC, timR; let end = (r) => { clearTimeout(timC); clearTimeout(timR); resolve(r); }; timC = setTimeout(() => { controller.abort(); end({ 'ret': false, 'msg': msg1, }); },
@@ -202,23 +164,19 @@ async function api_helper(inf = {}) {
             });
             return res;
         }
-
-        // <GOOGLE> (INDISPONÍVEL: maxConnect, maxResponse)
         if (['GOOGLE',].includes(engName)) {
-            let hea = {}, req = await UrlFetchApp.fetch(url, reqOpt); Object.entries(req.getAllHeaders()).forEach(([k, v,]) => { hea[`${k}`.toLowerCase()] = Array.isArray(v) ? v.join(', ') : v; });
-            let bod = bodyResRaw ? new Uint8Array(req.getContent()) : req.getContentText(); return { 'ret': true, 'res': { 'req': { 'cod': req.getResponseCode(), 'url': hea['x-final-url'] || url, hea, bod, }, }, };
+            let hea = {}, req = await UrlFetchApp.fetch(url, reqOpt); Object.entries(req.getAllHeaders()).forEach(([k, v,]) => { hea[`${k}`.toLowerCase()] = Array.isArray(v) ? v.join(', ') : v; }); let bod =
+                bodyResRaw ? new Uint8Array(req.getContent()) : req.getContentText(); return { 'ret': true, 'res': { 'req': { 'cod': req.getResponseCode(), 'url': hea['x-final-url'] || url, hea, bod, }, }, };
         }
-
     }
 
-    // <GOOGLE> CONVERTER HTTPResponse EM { cod, url, hea, bod } (USADO PELO doRequest E PELO fetchAll)
     if (step === 'parseGoogle') {
-        let { resp, url, bodyResRaw, } = inf; let hea = {}; Object.entries(resp.getAllHeaders()).forEach(([k, v,]) => { hea[`${k}`.toLowerCase()] = Array.isArray(v) ? v.join(', ') : v; });
-        let bod = bodyResRaw ? new Uint8Array(resp.getContent()) : resp.getContentText();
-        return { 'ret': true, 'res': { 'req': { 'cod': resp.getResponseCode(), 'url': hea['x-final-url'] || url, hea, bod, }, }, };
+        let { resp, url, bodyResRaw, } = inf; let hea = {}; Object.entries(resp.getAllHeaders()).forEach(([k, v,]) => { hea[`${k}`.toLowerCase()] = Array.isArray(v) ? v.join(', ') : v; }); let bod =
+            bodyResRaw ? new Uint8Array(resp.getContent()) : resp.getContentText(); return { 'ret': true, 'res': { 'req': { 'cod': resp.getResponseCode(), 'url': hea['x-final-url'] || url, hea, bod, }, }, };
     }
 
-    return inf.ret;
+    return inf
+
 }
 
 if (['EXTENSION', 'NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) { globalThis['apiV2'] = apiV2; }
