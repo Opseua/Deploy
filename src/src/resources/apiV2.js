@@ -1,18 +1,5 @@
 // src/resources/apiV2.js
 
-function paramsObj(val, type, char = '&') {
-    if (type === 'object') { return Object.entries(val).map(([k, v,]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join(char); }
-    return Object.fromEntries(val.split('?').pop().split(char).filter(p => p.includes('=')).map(p => p.split(/=(.*)/s).slice(0, 2).map(decodeURIComponent)));
-} function urlParse(u) {
-    let m = `${u}`.match(/^([a-z][a-z0-9+.-]*:)\/\/([^/?#]*)([^?#]*)(\?[^#]*)?(#.*)?$/i); if (!m) { return null; }
-    return { 'pro': m[1].toLowerCase(), 'origin': `${m[1].toLowerCase()}//${m[2].toLowerCase()}`, 'host': m[2].toLowerCase(), 'path': m[3] || '/', 'query': m[4] || '', 'hash': m[5] || '', };
-} function urlResolve(loc, base) {
-    loc = `${loc}`.trim(); if (/^[a-z][a-z0-9+.-]*:/i.test(loc)) { return loc; } let b = urlParse(base); if (!b) { return loc; } if (loc.startsWith('//')) { return `${b.pro}${loc}`; }
-    if (loc.startsWith('#')) { return `${b.origin}${b.path}${b.query}${loc}`; } if (loc.startsWith('?')) { return `${b.origin}${b.path}${loc}`; } let [pathQ, hash = '',] =
-        loc.split(/(?=#)/); let [p, q = '',] = pathQ.split(/(?=\?)/); let dir = p.startsWith('/') ? [] : b.path.replace(/[^/]*$/, '').split('/').filter(Boolean); let o = [...dir,];
-    for (let s of p.split('/')) { if (s === '..') { o.pop(); } else if (s !== '.' && s !== '') { o.push(s); } } return `${b.origin}/${o.join('/')}${p.endsWith('/') && o.length ? '/' : ''}${q}${hash}`;
-}
-
 let nameFun = `apiV2`, dispatcher;
 async function apiV2(inf = {}) {
     let ret = { 'ret': false, }, hides = inf.hides || []; function setRet(p1, p2) { ret = setRetRunV2({ p1, p2, nameFun, hides, }); return ret; } let retHelper;
@@ -175,7 +162,7 @@ async function api_helper(inf = {}) {
             bodyResRaw ? new Uint8Array(resp.getContent()) : resp.getContentText(); return { 'ret': true, 'res': { 'req': { 'cod': resp.getResponseCode(), 'url': hea['x-final-url'] || url, hea, bod, }, }, };
     }
 
-    return inf
+    return inf;
 
 }
 
