@@ -41,16 +41,6 @@ async function apiV2(inf = {}) {
         // VALIDAÇÕES INICIAIS (MÉTODO vs BODY)
         if (['POST', 'PUT', 'PATCH',].includes(method) && !body) { return setRet(`INFORMAR 'body'`); }
 
-
-
-        // TESTE ********************
-        if (['POST',].includes(method) && body?.includes('___BUFFER___')) {
-            function bufTeste(txt) { if (engName === 'GOOGLE') { return new Uint8Array(Utilities.newBlob(txt).getBytes()); } let bytes = new TextEncoder().encode(txt); return (engName === 'NODE') ? Buffer.from(bytes) : bytes; }
-            body = bufTeste('ab');
-        }
-
-
-
         // REDIRECIONAMENTO
         if (['EXTENSION', 'HTML',].includes(engName) && rulesApiV2.keys.redirectMode.values.includes(redirectMode)) { redirectMode = '___DEFAULT___'; } if (redirectMode === 'followAndGet' && !inf.reRunApi) {
             let redirects = [], nextUrl = url, nextInf = { ...inf, }, current, max = 10, limit = false; while (true) {
