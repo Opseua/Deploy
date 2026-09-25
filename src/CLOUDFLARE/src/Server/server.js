@@ -14,8 +14,18 @@ await import('../../../../src/src/resources/apiV2.js');
 export default {
 
     async fetch(request) {
-        let { status, headers, body, } = await serverHandle({ 'method': request.method, 'getBody': () => request.json(), });
+
+        let { status, headers, body, } = await serverHandle({
+            'method': request.method,
+            'url': request.url,
+            'headers': Object.fromEntries(request.headers),
+            'getBody': async () => {
+                return await request.text();
+            },
+        });
+
         return new Response(body, { headers, status, });
+
     },
 
 };

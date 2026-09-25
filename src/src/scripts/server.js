@@ -1,16 +1,18 @@
 // src/scripts/server.js
 
 function retRes(ret) { return { 'status': ret.ret ? 200 : 400, 'headers': { 'Content-Type': 'application/json', }, 'body': JSON.stringify(ret), }; }
-async function serverHandle({ method, getBody, } = {}) {
+async function serverHandle({ method, url, /* headers, */ getBody, } = {}) {
     let ret = { 'ret': false, }, nameFun = `SERVER`; function setRet(p1, p2, p3) { ret = setRetRunV2({ p1, p2, p3, nameFun, 'retRes': true, }); return ret; }
 
-    if (method !== 'POST') { ret = setRet(`MÉTODOS ACEITOS: POST`); return retRes(ret); }
+    if (method === 'OPTIONS') { return { 'status': 204, 'headers': { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': '*', }, 'body': '', }; }
+    if (url.includes('favicon.ico')) { return { 'status': 204, 'headers': {}, 'body': '', }; } if (method !== 'POST') { ret = setRet(`MÉTODOS ACEITOS: POST`); return retRes(ret); }
 
-    let body; try { body = await getBody(); } catch (e) { ret = setRet(`BODY NÃO É UM JSON VÁLIDO`); return retRes(ret); }
-
-    // IDENTIFICAR O FORMATO DO BODY
+    // BODY: PROCESSAR R IDENTIFICAR O FORMATO
+    let body = ''; try { body = await getBody(); } catch (e) { } if (!body || body.trim() === '') { ret = setRet(`BODY VAZIO OU INEXISTENTE`); return retRes(ret); }
+    try { body = JSON.parse(body); } catch (e) { ret = setRet(`BODY NÃO É UM JSON VÁLIDO`); return retRes(ret); }
     if (getTypeof(body) !== 'object') { ret = setRet(`BODY DEVE SER {'name','par'} OU {'funs': [{'name','par'}]}`); return retRes(ret); }
 
+    // BODY: CHECAR OBJETO
     let isArr = Array.isArray(body.funs); let list = isArr ? body.funs : [body,]; if (list.length === 0) { ret = setRet(`INFORMAR AO MENOS UMA FUNÇÃO`); return retRes(ret); }
 
     // EXECUTAR
@@ -38,7 +40,7 @@ async function serverHandle({ method, getBody, } = {}) {
                     retFun = await fun(par);
                 } else {
                     // ESPERAR RETORNO: NÃO
-                    Promise.resolve(fun(par)).catch(() => { }); retFun = setRetRunV2({ 'p2': { 'ret': true, }, 'nameFun': name, });
+                    (async () => fun(par))().catch(() => { }); retFun = setRetRunV2({ 'p2': { 'ret': true, }, 'nameFun': name, });
                 }
             } catch (e) { retFun = setRetRunV2({ 'p1': `${e}`, 'nameFun': name, }); }
         }

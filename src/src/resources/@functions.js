@@ -1,6 +1,6 @@
 // src/src/resources/@functions.js
 
-// DETECÇÃO DE AMBIENTE [1: CHROME | 2: NODE | 3: GOOGLE | 4: HTML | 5: CLOUDFLARE]
+// DETECÇÃO DE AMBIENTE [0: UNKNOWN | 1: EXTENSION | 2: NODE | 3: GOOGLE | 4: HTML | 5: CLOUDFLARE]
 function getEngType() {
     let x = 'undefined'; x = typeof chrome !== x && chrome.runtime ? 1 : typeof global !== x && typeof WebSocketPair === x ? 2 : typeof ScriptApp !== x ? 3 : typeof window !== x && typeof window.document
         !== x ? 4 : typeof navigator !== x && navigator.userAgent === 'Cloudflare-Workers' ? 5 : 0; return { 'engType': x, 'engName': ['UNKNOWN', 'EXTENSION', 'NODE', 'GOOGLE', 'HTML', 'CLOUDFLARE',][x], };
@@ -19,7 +19,7 @@ function setRetRunV2({ p1, p2, nameFun, retRes = false, hides = [], }) {
     if ((r.ret || retRes) && obj.hasOwnProperty('res')) { r.res = obj.res; if (hides.length && obj.res?.constructor === Object) { r.res = { ...obj.res, }; hides.forEach((k) => delete r.res[k]); } } return r;
 }
 
-function paramsObj(val, type, char = '&') {
+function paramsObjV2(val, type, char = '&') {
     if (type === 'object') { return Object.entries(val).map(([k, v,]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join(char); }
     return Object.fromEntries(val.split('?').pop().split(char).filter(p => p.includes('=')).map(p => p.split(/=(.*)/s).slice(0, 2).map(decodeURIComponent)));
 }
@@ -70,7 +70,7 @@ function getPath(obj, parts) { let cur = obj; for (let p of parts) { if (cur ===
 
 if (['EXTENSION', 'NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) {
     globalThis['engType'] = engType; globalThis['engName'] = engName;
-    globalThis['getTypeof'] = getTypeof; globalThis['setRetRunV2'] = setRetRunV2; globalThis['paramsObj'] = paramsObj; globalThis['urlParse'] = urlParse; globalThis['urlResolve'] = urlResolve;
+    globalThis['getTypeof'] = getTypeof; globalThis['setRetRunV2'] = setRetRunV2; globalThis['paramsObjV2'] = paramsObjV2; globalThis['urlParse'] = urlParse; globalThis['urlResolve'] = urlResolve;
     globalThis['validatePar'] = validatePar;
 }
 
