@@ -5,7 +5,17 @@ function getEngType() {
     let x = 'undefined'; x = typeof chrome !== x && chrome.runtime ? 1 : typeof global !== x && typeof WebSocketPair === x ? 2 : typeof ScriptApp !== x ? 3 : typeof window !== x && typeof window.document
         !== x ? 4 : typeof navigator !== x && navigator.userAgent === 'Cloudflare-Workers' ? 5 : 0; return { 'engType': x, 'engName': ['UNKNOWN', 'EXTENSION', 'NODE', 'GOOGLE', 'HTML', 'CLOUDFLARE',][x], };
 }
-let { engType, engName, } = getEngType();
+let { engType, engName, } = getEngType(); globalThis['engType'] = engType; globalThis['engName'] = engName;
+
+// ---------------------------------------------------------------------------------------------------------------
+
+// LIBS
+import { Blowfish } from '../../../src/src/scripts/libs/blowfish.js';
+
+// FUNÇÕES
+await import('../../../src/src/resources/apiV2.js');
+
+// ---------------------------------------------------------------------------------------------------------------
 
 function getTypeof(v) { // 'number' / 'nan' / 'string' / 'boolean' / 'null' / 'undefined' / 'array' / 'object' / 'buffer' / 'function' / 'date' / 'set' / 'map' / 'regexp' / 'error' → getTypeof(false)
     let t = typeof v; return (t !== 'object') ? ((t === 'number') ? (Number.isNaN(v) ? 'nan' : 'number') : t) : (v === null) ? 'null' :
@@ -68,10 +78,26 @@ function getPath(obj, parts) { let cur = obj; for (let p of parts) { if (cur ===
     } return setRet({ 'ret': true, 'res': result, });
 }
 
+function encryptDecrypt(pass, string, encrypt) {
+    let a = pass, b = string, c = encrypt; try {
+        let bf = new Blowfish(a, Blowfish.MODE.ECB, Blowfish.PADDING.NULL); if (c) {
+            let t = new TextEncoder().encode(b), blockSize = 8, padLen = blockSize - (t.length % blockSize), padded = new Uint8Array(t.length + padLen); padded.set(t);
+            let encrypted = Array.from(new Uint8Array(bf.encode(padded.buffer))).map(byte => byte.toString(16).padStart(2, '0').toUpperCase()).join(''); return encrypted;
+        } else {
+            let m = b.trim().match(/.{1,2}/g); if (!m) { return null; } let bytes = new Uint8Array(m.map(byte => parseInt(byte, 16))); let decrypted = new TextDecoder('utf-8').decode
+                (bf.decode(bytes, Blowfish.TYPE.UINT8_ARRAY)).replace(/\0+$/, ''); if (/[\x00-\x08\x0B\x0C\x0E-\x1F\uFFFD]/.test(decrypted)) { return false; } return decrypted;
+        }
+    } catch { return null; }
+}
+
 if (['EXTENSION', 'NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) {
-    globalThis['engType'] = engType; globalThis['engName'] = engName;
+    // FUNÇÕES
     globalThis['getTypeof'] = getTypeof; globalThis['setRetRunV2'] = setRetRunV2; globalThis['paramsObjV2'] = paramsObjV2; globalThis['urlParse'] = urlParse; globalThis['urlResolve'] = urlResolve;
-    globalThis['validatePar'] = validatePar;
+    globalThis['validatePar'] = validatePar; globalThis['encryptDecrypt'] = encryptDecrypt;
+
+    // CONFIG/VARIÁVEIS (MANTER POR ÚLTIMO!!!)
+    globalThis['passwordRaw'] = encryptDecrypt(env.confSecurityPass, 'B89D2CEE76D850D7', false); let url = `https://raw.githubusercontent.com/Opseua/Deploy/refs/heads/main/src/src/config.json.enc`;
+    let retApiV2 = await apiV2({ 'method': 'GET', url, }); let config = encryptDecrypt(passwordRaw, retApiV2?.res?.body || '', false); globalThis['config'] = config === null ? {} : config;
 }
 
 

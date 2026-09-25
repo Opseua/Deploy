@@ -20,6 +20,9 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Variável global para todos os passos deste job
+    env:
+      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
     steps:
       - name: Notificar início
         run: curl -s "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}/publish?title=Deploy&message=Em+andamento+(GitHub+Action:+Fly.io)"
@@ -27,7 +30,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
+      # PASSO NOVO: Prepara o segredo no Fly.io antes do deploy
+      - name: Configurar Variáveis Seguras
+        run: flyctl secrets set confSecurityPass="${{ secrets.confSecurityPass }}" --stage --config src/FLY_IO/fly.toml
+
       # CONTEXTO = RAIZ DO REPO ('.'), assim o Docker enxerga 'src/src/***'
       - run: flyctl deploy . --config src/FLY_IO/fly.toml --dockerfile src/FLY_IO/Dockerfile --remote-only
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

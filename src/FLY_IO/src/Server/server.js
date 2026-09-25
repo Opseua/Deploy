@@ -2,14 +2,10 @@
 
 import http from 'http';
 
-// COMPARTILHADO
-await import('../../../../src/src/resources/@functions.js');
+globalThis['env'] = process.env; // MANTES ANTES DO IMPORT!!!
 
 // LÓGICA DO SERVIDOR
 await import('../../../../src/src/scripts/server.js');
-
-// FUNÇÕES
-await import('../../../../src/src/resources/apiV2.js');
 
 let PORT = 5555;
 
@@ -27,6 +23,7 @@ let server = http.createServer(async (req, res) => {
                 return Buffer.concat(chunks).toString('utf-8');
             },
         });
+
         res.writeHead(status, headers); res.end(body);
 
     } catch (e) {

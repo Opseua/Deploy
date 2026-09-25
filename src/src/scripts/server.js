@@ -1,5 +1,8 @@
 // src/scripts/server.js
 
+// COMPARTILHADO
+await import('../../../src/src/resources/@functions.js');
+
 function retRes(ret) { return { 'status': ret.ret ? 200 : 400, 'headers': { 'Content-Type': 'application/json', }, 'body': JSON.stringify(ret), }; }
 async function serverHandle({ method, url, /* headers, */ getBody, } = {}) {
     let ret = { 'ret': false, }, nameFun = `SERVER`; function setRet(p1, p2, p3) { ret = setRetRunV2({ p1, p2, p3, nameFun, 'retRes': true, }); return ret; }

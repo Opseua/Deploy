@@ -2,18 +2,22 @@
 
 // src/CLOUDFLARE/src/Server/server.js
 
-// COMPARTILHADO
-await import('../../../../src/src/resources/@functions.js');
-
 // LÓGICA DO SERVIDOR
-await import('../../../../src/src/scripts/server.js');
+// await import('../../../../src/src/scripts/server.js');
 
-// FUNÇÕES
-await import('../../../../src/src/resources/apiV2.js');
+import '../../../../src/src/scripts/server.js';
+
+let isInitialized = false; // Controle de Cold Start
 
 export default {
 
-    async fetch(request) {
+    async fetch(request, env) {
+
+        globalThis['env'] = env;
+        if (!isInitialized) {
+            if (globalThis.setupFunctions) { await globalThis.setupFunctions(); }
+            isInitialized = true;
+        }
 
         let { status, headers, body, } = await serverHandle({
             'method': request.method,

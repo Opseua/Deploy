@@ -5,7 +5,7 @@ async function apiV2(inf = {}) {
     let ret = { 'ret': false, }, hides = inf.hides || []; function setRet(p1, p2) { ret = setRetRunV2({ p1, p2, nameFun, hides, }); return ret; } let retHelper;
     try { // INDISPONÍVEL NO AMBIENTE: redirectMode [EXTENSION | HTML] | maxConnect, maxResponse [GOOGLE]
         let rulesApiV2 = {
-            'parTypes': ['object',], 'keepOnly': true, 'keepOrder': true, 'keys': {
+            'parTypes': ['object',], 'keepOrder': true, 'keepOnly': true, 'keys': {
                 'method': { 'required': true, 'types': ['string',], 'values': ['GET', 'POST', 'PUT', 'DELETE', 'PATCH',], }, 'url': { 'required': true, 'types': ['string',], },
                 'headers': { 'types': ['object',], 'default': {}, }, 'body': { 'types': ['object', 'string', 'array', 'buffer',], }, 'maxConnect': { 'types': ['number',], 'default': 5, },
                 'maxResponse': { 'types': ['number',], 'default': 20, }, 'object': { 'types': ['boolean',], 'default': true, }, 'hideHeaders': { 'types': ['boolean',], 'default': true, },

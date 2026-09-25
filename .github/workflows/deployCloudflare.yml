@@ -31,6 +31,10 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: src/CLOUDFLARE/src/Server
           command: deploy
+          secrets: |
+            confSecurityPass
+        env:
+          confSecurityPass: ${{ secrets.confSecurityPass }}
 
       - name: Notificar sucesso
         if: success()
