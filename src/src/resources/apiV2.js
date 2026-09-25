@@ -44,7 +44,7 @@ async function apiV2(inf = {}) {
 
 
         // TESTE ********************
-        if (['POST',].includes(method) && body?.par?.body?.includes('___BUFFER___')) {
+        if (['POST',].includes(method) && body?.includes('___BUFFER___')) {
             function bufTeste(txt) { if (engName === 'GOOGLE') { return new Uint8Array(Utilities.newBlob(txt).getBytes()); } let bytes = new TextEncoder().encode(txt); return (engName === 'NODE') ? Buffer.from(bytes) : bytes; }
             body = bufTeste('ab');
         }
