@@ -33,9 +33,12 @@ jobs:
           command: deploy
           secrets: |
             confSecurityPass
+            NTFY_CHANNEL
+            
         env:
           confSecurityPass: ${{ secrets.confSecurityPass }}
-
+          NTFY_CHANNEL: ${{ secrets.NTFY_CHANNEL }}
+          
       - name: Notificar sucesso
         if: success()
         run: curl -s "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}/publish?title=Deploy&message=Concluído+(GitHub+Actions:+Cloudflare)"

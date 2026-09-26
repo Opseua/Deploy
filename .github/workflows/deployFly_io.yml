@@ -32,7 +32,12 @@ jobs:
 
       # PASSO NOVO: Prepara o segredo no Fly.io antes do deploy
       - name: Configurar Variáveis Seguras
-        run: flyctl secrets set confSecurityPass="${{ secrets.confSecurityPass }}" --stage --config src/FLY_IO/fly.toml
+        run: |
+          MY_VARS=(
+            "confSecurityPass=${{ secrets.confSecurityPass }}"
+            "NTFY_CHANNEL=${{ secrets.NTFY_CHANNEL }}"
+          )
+          flyctl secrets set "${MY_VARS[@]}" --stage --config src/FLY_IO/fly.toml
 
       # CONTEXTO = RAIZ DO REPO ('.'), assim o Docker enxerga 'src/src/***'
       - run: flyctl deploy . --config src/FLY_IO/fly.toml --dockerfile src/FLY_IO/Dockerfile --remote-only

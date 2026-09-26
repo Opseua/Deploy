@@ -100,7 +100,7 @@ if (['EXTENSION', 'NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) {
     let retApiV2 = await apiV2({ 'method': 'GET', url, }); let config = encryptDecrypt(passwordRaw, retApiV2?.res?.body || '', false); globalThis['config'] = config === null ? {} : config;
 
     if (['CLOUDFLARE',].includes(engName)) {
-        apiV2({ 'method': 'POST', 'url': `https://ntfy.sh/${env.NTFY_CHANNEL}?title=config.json.enc`, 'body': 'PROCESSANDO', });
+        apiV2({ 'method': 'POST', 'url': `https://ntfy.sh/AAA?title=config.json.enc`, 'body': 'PROCESSANDO', });
     }
 
     // if (['NODE',].includes(engName)) {
