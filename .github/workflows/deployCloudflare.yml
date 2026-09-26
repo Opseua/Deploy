@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Notificar início
         run: |
-          curl -s -H "Title:🕗 Deploy" -d 'Em andamento (GitHub: 🟣 Cloudflare)' "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}"
+          curl -s -H "Title:🕗 Deploy" -d '🟠 GitHub Actions (Cloudflare)' "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}"
 
       - uses: actions/checkout@v4
 
@@ -44,9 +44,9 @@ jobs:
       - name: Notificar sucesso
         if: success()
         run: |
-          curl -s -H "Title:✅ Deploy" -d 'Concluído (GitHub: 🟣 Cloudflare)' "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}"
+          curl -s -H "Title:✅ Deploy" -d '🟠 GitHub Actions (Cloudflare)' "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}"
 
       - name: Notificar falha
         if: failure()
         run: |
-          curl -s -H "Title:❌ Deploy" -d 'Falhou (GitHub: 🟣 Cloudflare)' "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}"
+          curl -s -H "Title:❌ Deploy" -d '🟠 GitHub Actions (Cloudflare)' "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}"
