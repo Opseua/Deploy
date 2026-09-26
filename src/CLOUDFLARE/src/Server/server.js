@@ -2,12 +2,7 @@
 
 // src/CLOUDFLARE/src/Server/server.js
 
-// LÓGICA DO SERVIDOR
-// await import('../../../../src/src/scripts/server.js');
-
-// import '../../../../src/src/scripts/server.js';
-
-let isInitialized = false; // Controle de Cold Start
+let isInitialized = false;
 
 export default {
 
@@ -16,8 +11,8 @@ export default {
         if (!isInitialized) {
             isInitialized = true;
             globalThis['env'] = env;
+            // LÓGICA DO SERVIDOR
             await import('../../../../src/src/scripts/server.js');
-            // if (globalThis.setupFunctions) { await globalThis.setupFunctions(); }
         }
 
         let { status, headers, body, } = await serverHandle({
