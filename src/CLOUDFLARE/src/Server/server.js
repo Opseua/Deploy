@@ -11,15 +11,14 @@ export default {
         if (!isInitialized) {
             isInitialized = true;
             globalThis['env'] = env;
+
             // LÓGICA DO SERVIDOR
             await import('../../../../src/src/scripts/server.js');
         }
 
-        // Cria um túnel de Stream (permite devolver os cabeçalhos IMEDIATAMENTE)
-        let { readable, writable } = new TransformStream();
+        let { readable, writable, } = new TransformStream();
         let writer = writable.getWriter();
 
-        // Roda a função em segundo plano sem travar o "return"
         serverHandle({
             'method': request.method,
             'url': request.url,
@@ -27,19 +26,18 @@ export default {
             'getBody': async () => {
                 return await request.text();
             },
-            'flushHeaders': () => { /* No CF, a resposta já é retornada com Status 200 no final do bloco */ }
+            'flushHeaders': () => { },
         }).then(result => {
             writer.write(new TextEncoder().encode(result.body));
             writer.close();
         }).catch(err => {
-            writer.write(new TextEncoder().encode(JSON.stringify({ 'ret': false, 'msg': `CF ERRO: ${err}` })));
+            writer.write(new TextEncoder().encode(JSON.stringify({ 'ret': false, 'msg': `SERVER ERRO: ${err}`, })));
             writer.close();
         });
 
-        // Retorna imediatamente para evitar timeout de maxConnect
         return new Response(readable, {
             'status': 200,
-            'headers': { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+            'headers': { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', },
         });
 
     },
