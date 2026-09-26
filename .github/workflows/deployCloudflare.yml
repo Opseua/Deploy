@@ -20,7 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notificar início
-        run: curl -s "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}/publish?title=🕗 Deploy&message=Em andamento (GitHub Actions: Cloudflare)"
+        # run: curl -s "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}/publish?title=Deploy&message=Em+andamento+(GitHub+Actions:+Cloudflare)"
+        run: curl -s -H "Title: 🕗 Deploy" -d "Em andamento (GitHub Actions: Cloudflare)" "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}"
 
       - uses: actions/checkout@v4
 
@@ -39,10 +40,11 @@ jobs:
           confSecurityPass: ${{ secrets.confSecurityPass }}
           NTFY_CHANNEL: ${{ secrets.NTFY_CHANNEL }}
           
+
       - name: Notificar sucesso
         if: success()
-        run: curl -s "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}/publish?title=✅ Deploy&message=Concluído (GitHub Actions: Cloudflare)"
+        run: curl -s "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}/publish?title=Deploy&message=Concluído+(GitHub+Actions:+Cloudflare)"
 
       - name: Notificar falha
         if: failure()
-        run: curl -s "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}/publish?title=❌ Deploy&message=Falhou (GitHub Actions: Cloudflare)"
+        run: curl -s "https://ntfy.sh/${{ secrets.NTFY_CHANNEL }}/publish?title=Deploy&message=Falhou+(GitHub+Actions:+Cloudflare)"
