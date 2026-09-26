@@ -13,7 +13,7 @@ let server = http.createServer(async (req, res) => {
 
     try {
 
-        let { status, headers, body, } = await serverHandle({
+        let result = await serverHandle({
             'method': req.method,
             'url': req.url,
             'headers': req.headers,
@@ -22,15 +22,28 @@ let server = http.createServer(async (req, res) => {
                 for await (let c of req) { chunks.push(c); }
                 return Buffer.concat(chunks).toString('utf-8');
             },
+            // FUNÇÃO QUE FORÇA O ENVIO DOS CABEÇALHOS PARA O CLIENTE IMEDIATAMENTE
+            'flushHeaders': ({ status, headers }) => {
+                if (!res.headersSent) {
+                    res.writeHead(status, headers);
+                    res.flushHeaders();
+                }
+            }
         });
 
-        res.writeHead(status, headers); res.end(body);
+        // Se a requisição passou direto (ex: favicon, OPTIONS) ou falhou antes do flushHeaders
+        if (!res.headersSent) {
+            res.writeHead(result.status, result.headers);
+        }
+        res.end(result.body);
 
     } catch (e) {
-        res.writeHead(400, {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-        });
+        if (!res.headersSent) {
+            res.writeHead(400, {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            });
+        }
         res.end(JSON.stringify({ 'ret': false, 'msg': `SERVER: ERRO | ${e}`, }));
     }
 
