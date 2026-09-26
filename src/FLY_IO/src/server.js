@@ -46,7 +46,7 @@ async function waitAndNotify({ executables = [], ports = [], scripts = [], }) {
             'executables': Object.fromEntries(executables.map((e, i) => [e, execChecks[i],])), 'ports': Object.fromEntries(ports.map((p, i) => [p, portChecks[i],])),
             'scripts': Object.fromEntries(scripts.map((s, i) => [s, scriptChecks[i],])),
         })); if (execChecks.every(Boolean) && portChecks.every(Boolean) && scriptChecks.every(Boolean)) {
-            if (engName === 'LINUX') { fetch(`https://ntfy.sh/${process.env.NTFY_CHANNEL}/publish?title=✅ Deploy&message=🔵 ${engName}`).catch(() => { }); } console.log('[notify] ✅ TUDO PRONTO'); break;
+            if (engName === 'LINUX') { fetch(`https://ntfy.sh/${process.env.NTFY_CHANNEL}/publish?title=✅ Deploy&message=${engName} 🔵`).catch(() => { }); } console.log('[notify] ✅ TUDO PRONTO'); break;
         }
     }
 }
