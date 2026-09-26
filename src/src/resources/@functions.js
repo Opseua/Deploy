@@ -93,11 +93,19 @@ function encryptDecrypt(pass, string, encrypt) {
 if (['EXTENSION', 'NODE', 'HTML', 'CLOUDFLARE',].includes(engName)) {
     // FUNÇÕES
     globalThis['getTypeof'] = getTypeof; globalThis['setRetRunV2'] = setRetRunV2; globalThis['paramsObjV2'] = paramsObjV2; globalThis['urlParse'] = urlParse; globalThis['urlResolve'] = urlResolve;
-    globalThis['validatePar'] = validatePar; globalThis['encryptDecrypt'] = encryptDecrypt;
+    globalThis['validatePar'] = validatePar; globalThis['encryptDecrypt'] = encryptDecrypt; globalThis['passwordRaw'] = encryptDecrypt(env.confSecurityPass, 'B89D2CEE76D850D7', false);
 
     // CONFIG/VARIÁVEIS (MANTER POR ÚLTIMO!!!)
-    globalThis['passwordRaw'] = encryptDecrypt(env.confSecurityPass, 'B89D2CEE76D850D7', false); let url = `https://raw.githubusercontent.com/Opseua/Deploy/refs/heads/main/src/src/config.json.enc`;
+    let url = `https://raw.githubusercontent.com/Opseua/Deploy/refs/heads/main/src/src/config.json.enc`;
     let retApiV2 = await apiV2({ 'method': 'GET', url, }); let config = encryptDecrypt(passwordRaw, retApiV2?.res?.body || '', false); globalThis['config'] = config === null ? {} : config;
+
+    if (['CLOUDFLARE',].includes(engName)) {
+        apiV2({ 'method': 'POST', 'url': `https://ntfy.sh/${env.NTFY_CHANNEL}?title=config.json.enc`, 'body': 'PROCESSANDO', });
+    }
+
+    // if (['NODE',].includes(engName)) {
+    //     try { let { readFileSync, } = await import('fs'); config = readFileSync('src/src/config.json.enc', 'utf8'); } catch (e) { config = ``; }
+    // } if (['NODE', 'CLOUDFLARE',].includes(engName)) { config = encryptDecrypt(passwordRaw, config, false); globalThis['config'] = config === null ? {} : JSON.parse(config); }
 }
 
 

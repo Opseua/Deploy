@@ -5,7 +5,7 @@
 // LÓGICA DO SERVIDOR
 // await import('../../../../src/src/scripts/server.js');
 
-import '../../../../src/src/scripts/server.js';
+// import '../../../../src/src/scripts/server.js';
 
 let isInitialized = false; // Controle de Cold Start
 
@@ -13,10 +13,11 @@ export default {
 
     async fetch(request, env) {
 
-        globalThis['env'] = env;
         if (!isInitialized) {
-            if (globalThis.setupFunctions) { await globalThis.setupFunctions(); }
             isInitialized = true;
+            globalThis['env'] = env;
+            await import('../../../../src/src/scripts/server.js');
+            // if (globalThis.setupFunctions) { await globalThis.setupFunctions(); }
         }
 
         let { status, headers, body, } = await serverHandle({
