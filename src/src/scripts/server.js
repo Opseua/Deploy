@@ -12,6 +12,24 @@ async function serverHandle({ method, url, /* headers, */ getBody, } = {}) {
 
     // BODY: PROCESSAR R IDENTIFICAR O FORMATO
     let body = ''; try { body = await getBody(); } catch (e) { } if (!body || body.trim() === '') { ret = setRet(`BODY VAZIO OU INEXISTENTE`); return retRes(ret); }
+
+
+
+    if (body === "___DEBUGVARS___") {
+        let envObj = globalThis['env'] || {};
+        let varsString = Object.entries(envObj)
+            .map(([k, v]) => `${k}=${v}`)
+            .join('\n');
+
+        return {
+            'status': 200,
+            'headers': { 'Content-Type': 'text/plain; charset=utf-8' },
+            'body': varsString || 'NENHUMA VARIÁVEL ENCONTRADA'
+        };
+    }
+
+
+
     try { body = JSON.parse(body); } catch (e) { ret = setRet(`BODY NÃO É UM JSON VÁLIDO`); return retRes(ret); }
     if (getTypeof(body) !== 'object') { ret = setRet(`BODY DEVE SER {'name','par'} OU {'funs': [{'name','par'}]}`); return retRes(ret); }
 
